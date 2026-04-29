@@ -276,7 +276,7 @@ def find_chinese_in_en(block):
 
 ## 五、验证流程设计
 
-### 5.1 双层验证架构
+### 5.1 三层验证架构
 
 ```
 第一层：validate_html.py
@@ -288,7 +288,29 @@ def find_chinese_in_en(block):
   └── 目标：双语内容一致性
   └── 方法：栈深度遍历提取 + 文本分析
   └── 通过标准：0 issues
+
+第三层：scan_image_text_separation.py
+  └── 目标：EN body 图片-文字分布对齐
+  └── 方法：检测 img 与 text 标签的相对位置
+  └── 通过标准：0 files with separation issues
 ```
+
+### 5.1a 图片分布检查（新增）
+
+**问题模式**：`images_at_start` — 所有 `<img>` 连续堆在 EN body 开头，`<p>`/`<h2>` 等文本全部排在末尾，形成 "img-wall + text-wall"，与 ZH body 的交错分布（`img → text → img → text`）严重不符。
+
+**检测逻辑**：
+```python
+last_img_pos = max(img.start() for img in en_imgs)
+first_text_pos = min(text.start() for text in en_text_tags)
+if last_img_pos < first_text_pos:
+    issue = "images_at_start"  # 图片全部在文本之前
+```
+
+**触发场景**：
+- `fix_en_body_images_from_zh.py` 早期版本将图片全部 prepend 到文本前
+- 批量重建 EN body 后未执行分布对齐
+- 手动编辑时不小心将图片集中到某一段落
 
 ### 5.2 validate_html.py 设计要点
 
@@ -339,9 +361,43 @@ python scripts/deep_audit.py
 # 2. 运行重建脚本
 python scripts/rebuild_en_from_source.py
 # 3. 检查日志
-# 4. 运行双重验证
+# 4. 运行三层验证
+python scripts/validate_html.py
+python scripts/deep_audit.py
+python scripts/scan_image_text_separation.py
+```
+
+### 6.1a EN Body 图片分布修复流程（新增）
+
+**前置条件**：`scan_image_text_separation.py` 报告 `images_at_start` 或 `images_at_end`
+
+```bash
+# Step 1: 扫描确认问题文件列表
+python scripts/scan_image_text_separation.py
+
+# Step 2: 将问题文件加入 fix_en_image_distribution.py TARGET_FILES
+# Step 3: 执行修复
+python scripts/fix_en_image_distribution.py
+
+# Step 4: 重新扫描确认归零
+python scripts/scan_image_text_separation.py
+# → Found 0 files with image-text separation issues
+
+# Step 5: 运行完整三层验证
 python scripts/validate_html.py && python scripts/deep_audit.py
 ```
+
+**修复算法**：
+1. 读取 ZH body 中每张图片前的文本节点数（`text_tokens_before_img`）
+2. 移除 EN body 中所有图片，得到纯文本流
+3. 按 ZH 的文本节点比例，在 EN 文本流中定位插入点
+4. 插入 EN 图片（保留全部原始属性：src, alt, loading）
+
+**关键约束**：
+- 图片总数不变
+- 图片属性不变
+- 仅改变插入位置
+- 严格按 ZH 分布模式对齐
 
 ### 6.2 无源文件修复流程
 
@@ -474,9 +530,16 @@ repos:
 | HTML标签闭合 | 任何HTML修改 | 🔴 阻断 | ❌ |
 | EN/ZH block数量匹配 | 任何文章修改 | 🔴 阻断 | ❌ |
 | EN body图片数量 = ZH body | 任何文章修改 | 🔴 阻断 | ✅ 可脚本化 |
+| EN body图片分布对齐 | 任何文章修改 | 🟡 警告 | ✅ 可脚本化 |
 | EN hero长度 < 200 | 任何文章修改 | 🟡 警告 | ✅ 可脚本化 |
 | EN body无中文混入 | 任何文章修改 | 🔴 阻断 | ❌ |
 | EN title无中文 | 任何文章修改 | 🔴 阻断 | ❌ |
+
+**EN body图片分布对齐说明**：
+- 检测 `images_at_start`（所有 img 在文本之前）或 `images_at_end`（所有 img 在文本之后）
+- 脚本：`scan_image_text_separation.py`
+- 修复：`fix_en_image_distribution.py`（按 ZH body 文本节点比例重分布）
+- 通过标准：`Found 0 files with image-text separation issues`
 
 ---
 
@@ -519,6 +582,40 @@ repos:
 **决策**：在 `find_chinese_in_en()` 中过滤 `\([\u4e00-\u9fff\s·]+\)` 模式。
 
 **理由**：括号内中文是标准的地名注释，非混入内容。
+
+### ADR-005：EN Body 图片按 ZH 文本节点比例重分布
+
+**背景**：`fix_en_body_images_from_zh.py` 早期版本将图片全部 prepend 到 EN body 开头，导致 `img-wall + text-wall` 结构，与 ZH body 的交错分布严重不符。
+
+**决策**：
+1. 新增 `scan_image_text_separation.py` 检测分离问题
+2. 新增 `fix_en_image_distribution.py` 按 ZH body 文本节点比例重分布 EN 图片
+
+**算法**：
+```python
+# 读取 ZH 分布：每张图片前的文本节点数
+zh_dist = [(img_tag, text_tokens_before) for each_img_in_zh]
+
+# 提取 EN 纯文本，移除所有图片
+en_text_only = remove_imgs(en_block)
+
+# 按比例映射插入点
+for i, (img, zh_before) in enumerate(zh_dist):
+    ratio = zh_before / zh_total_text
+    en_idx = int(ratio * len(en_tokens))
+    insert_img_at(en_text_only, en_tokens[en_idx], img)
+```
+
+**约束**：
+- 图片总数不变
+- 图片属性不变（src, alt, loading）
+- 仅改变插入位置
+- 严格按 ZH 分布模式对齐
+
+**后果**：
+- ✅ 修复后 9 篇文件全部通过 `scan_image_text_separation.py`（0 issues）
+- ✅ HTML 结构和双语一致性均不受影响
+- ⚠️ 需作为 CI 检查项纳入（ADR-005 后续）
 
 ---
 
@@ -564,7 +661,8 @@ repos:
 - [ ] 确认修改范围（Hero / Body / 两者）
 - [ ] 运行 `validate_html.py`
 - [ ] 运行 `deep_audit.py`
-- [ ] 确认修改后再次运行双重验证
+- [ ] 运行 `scan_image_text_separation.py`
+- [ ] 确认修改后再次运行三层验证
 - [ ] 抽查关键文件（如 `qingming-tibet-travel-guide.html`）
 
 ### 10.3 常见问题排查
@@ -595,13 +693,37 @@ repos:
 
 ## 附录：关键脚本源码索引
 
-| 脚本 | 路径 | 核心函数 |
-|------|------|----------|
-| `rebuild_en_from_source.py` | `scripts/rebuild_en_from_source.py` | `extract_en_html()`, `find_en_div_positions()`, `fix_article()` |
-| `deep_audit.py` | `scripts/deep_audit.py` | `extract_blocks_safe()`, `find_chinese_in_en()` |
-| `validate_html.py` | `scripts/validate_html.py` | `HTMLValidator` 类 |
-| `fix_en_body_images_from_zh.py` | `scripts/fix_en_body_images_from_zh.py` | `insert_imgs_into_en()` |
-| `final_comprehensive_fix.py` | `scripts/final_comprehensive_fix.py` | Hero缩短 + 图片去重 |
+| 脚本 | 路径 | 核心函数 | 用途 |
+|------|------|----------|------|
+| `rebuild_en_from_source.py` | `scripts/rebuild_en_from_source.py` | `extract_en_html()`, `find_en_div_positions()`, `fix_article()` | 从源文件重建 EN 区块 |
+| `deep_audit.py` | `scripts/deep_audit.py` | `extract_blocks_safe()`, `find_chinese_in_en()` | 双语一致性扫描 |
+| `validate_html.py` | `scripts/validate_html.py` | `HTMLValidator` 类 | HTML 结构校验 |
+| `fix_en_body_images_from_zh.py` | `scripts/fix_en_body_images_from_zh.py` | `insert_imgs_into_en()` | ZH → EN 图片数量同步 |
+| `final_comprehensive_fix.py` | `scripts/final_comprehensive_fix.py` | Hero缩短 + 图片去重 | 综合修复 |
+| `scan_image_text_separation.py` | `scripts/scan_image_text_separation.py` | `analyze_distribution()` | 检测 EN body 图片-文字分离 |
+| `fix_en_image_distribution.py` | `scripts/fix_en_image_distribution.py` | `fix_file()` | 按 ZH 模式重分布 EN 图片 |
+
+### 脚本依赖关系
+
+```
+articles/*.html
+    ├── scan_image_text_separation.py   → 检测 img-wall/text-wall 问题
+    ├── fix_en_image_distribution.py    → 按 ZH 比例重分布 EN 图片
+    ├── validate_html.py                → HTML 标签闭合校验
+    └── deep_audit.py                   → 双语内容一致性校验
+```
+
+### 新增文章完整流程（含图片分布校验）
+
+```
+1. 生成 articles/*.html
+2. rebuild_en_from_source.py          → 重建 EN 内容
+3. fix_en_body_images_from_zh.py      → 同步图片数量
+4. scan_image_text_separation.py      → 检测图片分布 → 0 issues
+5. validate_html.py                   → HTML 结构 → All pass
+6. deep_audit.py                      → 双语一致性 → 0 issues
+7. git commit & push
+```
 
 ---
 
