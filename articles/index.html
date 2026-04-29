@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Motorcycle travel articles, stories, gear guides, and route diaries from Tibet.">
+  <title data-lang-zh="文章 - 西藏摩旅" data-lang-en="Articles &mdash; Motorcycle Tibet">Articles &mdash; Motorcycle Tibet</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/lang.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+  <script>
+    (function(){
+      var k='site-lang',l=localStorage.getItem(k);
+      if(l==='en'){document.documentElement.setAttribute('lang','en');}
+      else{document.documentElement.setAttribute('lang','zh-CN');}
+    })();
+  </script>
+  <style>
+    /* ===== Page Hero ===== */
+    .page-hero {
+      position: relative;
+      height: 60vh;
+      min-height: 420px;
+      max-height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: #1c1917;
+      overflow: hidden;
+    }
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.5;
+    }
+    .page-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(0,0,0,0.55) 0%,
+        rgba(0,0,0,0.35) 45%,
+        rgba(0,0,0,0.65) 100%
+      );
+    }
+    .page-hero__content {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      padding: 2rem;
+    }
+    .page-hero__tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #fff;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      padding: 0.35rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 1.25rem;
+    }
+    .page-hero__title {
+      font-size: clamp(2rem, 1.5rem + 3vw, 3.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .page-hero__desc {
+      font-size: clamp(1rem, 0.9rem + 0.3vw, 1.15rem);
+      color: rgba(255,255,255,0.8);
+      line-height: 1.65;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ===== Filter Bar ===== */
+    .filter-bar {
+      position: sticky;
+      top: 3.5rem;
+      z-index: 50;
+      background: rgba(250, 250, 249, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 1.25rem 0;
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--color-earth-light);
+    }
+    .filter-bar__inner {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .filter-bar__inner::-webkit-scrollbar { display: none; }
+    .filter-bar__item {
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      padding: 0.3rem 0;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .filter-bar__item::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--color-primary);
+      border-radius: 2px;
+      transition: width 0.25s ease;
+    }
+    .filter-bar__item:hover { color: var(--color-text); }
+    .filter-bar__item:hover::after { width: 100%; }
+    .filter-bar__item--active { color: var(--color-primary); font-weight: 600; }
+    .filter-bar__item--active::after { width: 100%; }
+    .filter-bar__badge {
+      font-size: 0.7rem;
+      color: var(--color-text-light);
+      margin-left: 0.3rem;
+    }
+
+    /* ===== Featured Article ===== */
+    .feature {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 0;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 4rem;
+      transition: box-shadow var(--transition-base);
+    }
+    .feature:hover { box-shadow: var(--shadow-lg); }
+    .feature__media {
+      position: relative;
+      overflow: hidden;
+      min-height: 360px;
+      background: #1c1917;
+    }
+    .feature__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+      transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .feature:hover .feature__img { transform: scale(1.04); }
+    .feature__body {
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .feature__label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 0.75rem;
+    }
+    .feature__title {
+      font-size: clamp(1.35rem, 1.1rem + 1vw, 1.85rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+    .feature__title a { color: var(--color-text); transition: color var(--transition-fast); }
+    .feature__title a:hover { color: var(--color-primary); }
+    .feature__excerpt {
+      font-family: var(--font-serif);
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+    .feature__meta {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.78rem;
+      color: var(--color-text-light);
+      font-weight: 500;
+    }
+
+    /* ===== Article Grid ===== */
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    @media (max-width: 1024px) {
+      .articles-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .articles-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== Post Card ===== */
+    .post {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all var(--transition-base);
+    }
+    .post:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+    .post__thumb {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+      background: #e7e5e4;
+    }
+    .post__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .post:hover .post__img { transform: scale(1.05); }
+    .post__body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .post__cat {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+    }
+    .post__title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+    .post__title a { color: var(--color-text); transition: color var(--transition-fast); }
+    .post__title a:hover { color: var(--color-primary); }
+    .post__excerpt {
+      font-family: var(--font-serif);
+      font-size: 0.88rem;
+      color: var(--color-text-muted);
+      line-height: 1.65;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+      flex: 1;
+    }
+    .post__meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.78rem;
+      color: var(--color-text-light);
+      font-weight: 500;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--color-earth-light);
+    }
+
+    /* ===== Empty State ===== */
+    .empty {
+      text-align: center;
+      padding: 5rem 2rem;
+      display: none;
+    }
+    .empty__text {
+      color: var(--color-text-muted);
+      font-size: 1.05rem;
+      font-family: var(--font-serif);
+      font-style: italic;
+    }
+
+    /* ===== Newsletter ===== */
+    .nl {
+      margin: 5rem 0 2rem;
+      padding: 4rem 2rem;
+      background: #1c1917;
+      color: #fff;
+      text-align: center;
+      border-radius: var(--radius-lg);
+    }
+    .nl__title {
+      font-size: clamp(1.4rem, 1.2rem + 1vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    .nl__desc {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: rgba(255,255,255,0.55);
+      font-size: 1rem;
+      max-width: 440px;
+      margin: 0 auto 1.75rem;
+      line-height: 1.6;
+    }
+    .nl__form {
+      display: flex;
+      gap: 0.75rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .nl__input {
+      flex: 1;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      padding: 0.75rem 1.1rem;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      background: transparent;
+      color: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .nl__input::placeholder { color: rgba(255,255,255,0.35); }
+    .nl__input:focus { border-bottom-color: rgba(255,255,255,0.65); }
+    .nl__btn {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      padding: 0.75rem 1.6rem;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+      border-radius: 100px;
+      transition: all 0.2s;
+    }
+    .nl__btn:hover { background: #fff; color: #1c1917; border-color: #fff; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 1024px) {
+      .feature { grid-template-columns: 1fr; }
+      .feature__media { min-height: 280px; }
+      .feature__body { padding: 2rem 1.5rem; }
+    }
+    @media (max-width: 768px) {
+      .page-hero { height: 50vh; min-height: 340px; }
+      .filter-bar__inner { gap: 1.25rem; }
+      .nl { padding: 2.5rem 1.25rem; }
+      .nl__form { flex-direction: column; }
+      .nl__btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav nav--scrolled">
+  <div class="nav__inner">
+    <a href="../index.html" class="nav__logo">
+      <span class="nav__logo-icon">&#x1F3CD;</span>
+      <span class="lang-content lang-content--inline" data-lang="zh">西藏摩旅</span>
+      <span class="lang-content lang-content--inline" data-lang="en">Motorcycle Tibet</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="../index.html" class="nav__link" data-lang-zh="首页" data-lang-en="Home">首页</a></li>
+      <li><a href="../articles/index.html" class="nav__link nav__link--active" data-lang-zh="文章" data-lang-en="Articles">文章</a></li>
+      <li><a href="../routes.html" class="nav__link" data-lang-zh="路线" data-lang-en="Routes">路线</a></li>
+      <li><a href="../about.html" class="nav__link" data-lang-zh="关于" data-lang-en="About">关于</a></li>
+    </ul>
+    <button class="nav__toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Page Hero -->
+<header class="page-hero">
+  <img class="page-hero__bg" src="https://images.unsplash.com/photo-1668565068500-a106ccdaa235?w=1920&q=85" alt="" loading="eager" onerror="this.parentElement.style.background='linear-gradient(135deg, #1c1917, #292524)'; this.remove();">
+  <div class="page-hero__overlay"></div>
+  <div class="page-hero__content animate">
+    <span class="page-hero__tag" data-lang-zh="摩旅日记" data-lang-en="The Journal">摩旅日记</span>
+    <div class="lang-content" data-lang="zh"><h1 class="page-hero__title">路上的故事</h1></div>
+    <div class="lang-content" data-lang="en"><h1 class="page-hero__title">Stories from the Road</h1></div>
+    <div class="lang-content" data-lang="zh"><p class="page-hero__desc">来自世界屋脊的 dispatch —— 穿越青藏高原的骑手们带来的摩托车游记、装备智慧与路线情报。</p></div>
+    <div class="lang-content" data-lang="en"><p class="page-hero__desc">Dispatches from the roof of the world &mdash; motorcycle travelogues, gear wisdom, and route intelligence from riders who have crossed the Tibetan Plateau.</p></div>
+  </div>
+</header>
+
+<main class="section" style="padding-top: 3rem;">
+  <div class="container">
+
+    <!-- Sticky Filter -->
+    <div class="filter-bar" id="filterBar">
+      <div class="filter-bar__inner">
+        <button class="filter-bar__item filter-bar__item--active" data-filter="all"><span data-lang-zh="全部" data-lang-en="All">All</span><span class="filter-bar__badge">24</span></button>
+        <button class="filter-bar__item" data-filter="travel-guide"><span data-lang-zh="旅行指南" data-lang-en="Travel Guide">Travel Guide</span><span class="filter-bar__badge">7</span></button>
+        <button class="filter-bar__item" data-filter="culture"><span data-lang-zh="文化" data-lang-en="Culture">Culture</span><span class="filter-bar__badge">2</span></button>
+        <button class="filter-bar__item" data-filter="photography"><span data-lang-zh="摄影" data-lang-en="Photography">Photography</span><span class="filter-bar__badge">3</span></button>
+        <button class="filter-bar__item" data-filter="travelogue"><span data-lang-zh="游记" data-lang-en="Travelogues">Travelogues</span><span class="filter-bar__badge">5</span></button>
+        <button class="filter-bar__item" data-filter="routes"><span data-lang-zh="路线" data-lang-en="Routes">Routes</span><span class="filter-bar__badge">4</span></button>
+        <button class="filter-bar__item" data-filter="gear"><span data-lang-zh="装备" data-lang-en="Gear">Gear</span><span class="filter-bar__badge">1</span></button>
+        <button class="filter-bar__item" data-filter="health"><span data-lang-zh="健康与安全" data-lang-en="Health & Safety">Health & Safety</span><span class="filter-bar__badge">2</span></button>
+        <button class="filter-bar__item" data-filter="reflection"><span data-lang-zh="随笔" data-lang-en="Reflection">Reflection</span><span class="filter-bar__badge">1</span></button>
+      </div>
+    </div>
+
+    <!-- Featured Article -->
+    <div id="leadContainer"></div>
+
+    <!-- Section Label -->
+    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem;">
+      <span style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-text-muted);" data-lang-zh="最新" data-lang-en="Latest">Latest</span>
+      <span style="flex:1;height:1px;background:var(--color-earth);"></span>
+    </div>
+
+    <!-- Article Grid -->
+    <div class="articles-grid" id="articleGrid"></div>
+
+    <!-- Empty State -->
+    <div class="empty" id="emptyState">
+      <p class="empty__text" data-lang-zh="该分类下暂无文章，请尝试其他筛选。" data-lang-en="No articles match this category. Try another filter.">No articles match this category. Try another filter.</p>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="nl animate">
+      <h2 class="nl__title" data-lang-zh="路书简报" data-lang-en="The Road Report">The Road Report</h2>
+      <p class="nl__desc" data-lang-zh="获取新路线、季节路况更新与青藏高原的故事——没有垃圾邮件，只有干货。" data-lang-en="Get new routes, seasonal condition updates, and stories from the Tibetan Plateau &mdash; no spam, just signal.">Get new routes, seasonal condition updates, and stories from the Tibetan Plateau &mdash; no spam, just signal.</p>
+      <form class="nl__form" onsubmit="event.preventDefault(); var b=this.querySelector('.nl__btn'); b.textContent='Noted. Thank you.'; b.style.borderColor='var(--color-primary)'; return false;">
+        <input class="nl__input" type="email" placeholder="Your email">
+        <button class="nl__btn" type="submit" data-lang-zh="订阅" data-lang-en="Subscribe">Subscribe</button>
+      </form>
+    </div>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">&#x1F3CD; <span data-lang-zh="西藏摩旅" data-lang-en="Motorcycle Tibet">Motorcycle Tibet</span></div>
+        <p class="footer__desc" data-lang-zh="你的青藏高原摩托车旅行指南。" data-lang-en="Your guide to motorcycle travel across the Tibetan Plateau.">Your guide to motorcycle travel across the Tibetan Plateau.</p>
+      </div>
+      <div><div class="footer__heading" data-lang-zh="探索" data-lang-en="Explore">Explore</div><ul class="footer__links"><li><a href="../articles/index.html">Articles</a></li><li><a href="../routes.html">Routes</a></li><li><a href="../about.html">About</a></li></ul></div>
+      <div><div class="footer__heading" data-lang-zh="分类" data-lang-en="Categories">Categories</div><ul class="footer__links"><li><a href="../articles/index.html">Travelogues</a></li><li><a href="../articles/index.html">Gear</a></li><li><a href="../articles/index.html">Safety</a></li></ul></div>
+      <div><div class="footer__heading" data-lang-zh="站点" data-lang-en="Site">Site</div><ul class="footer__links"><li><a href="../about.html">About</a></li><li><a href="../about.html">Contact</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><p>&copy; 2026 Motorcycle Tibet. Photos from Unsplash.</p></div>
+  </div>
+</footer>
+
+<script src="../js/lang.js"></script>
+<script src="../js/main.js"></script>
+<script>
+(function() {
+  var articles = [
+    { cat:'photography', catLabel:'Photography', catLabelZh:'摄影', title:'Every Shot is Wallpaper-Worthy: The Stunning Spring of This Hidden Tibetan Town', titleZh:'每一张都能当壁纸，这座宝藏小城的春天太惊艳了！', excerpt:'Spring breeze arrives, Bomi awakens. Peach blossoms blaze against glaciers. Every frame captures Eastern Tibet spring beauty.', excerptZh:'春风至，波密醒。桃花灼灼映冰川，山野烟火皆入镜。藏东春日摄影作品展，定格藏东春日美景，解锁波密限定浪漫。', date:'Mar 30, 2026', time:'5 min read', url:'bomi-spring-photography.html', img:'https://mmbiz.qpic.cn/sz_mmbiz_jpg/iaKdibbzuGd8GVL12jLLmVwFJPMXha6gQRP5eT5aL36BURMPmbdzJrmWYpRH2fnGPVNzCadZSe5XR8ia28P8r40UmFp9WCPYj3VAGrOOHRCapc/0?wx_fmt=jpeg', featured:false },
+    { cat:'travel-guide', catLabel:'Travel Guide', catLabelZh:'旅行指南', title:'Qingming Tibet Travel Guide: Hidden Spring Getaways That Heal the Soul', titleZh:'绝美刷屏！清明西藏出游攻略，小众踏青地治愈整个春天！', excerpt:'The spring breeze gently brushes the plateau. In this Qingming holiday carrying both remembrance and vitality, unlock a different kind of spring outing journey in Tibet.', excerptZh:'春风轻拂高原，雪域大地褪去冬日的素白。在这个兼具追思与生机的清明假期，不妨奔赴西藏，解锁一场别样的春日踏青之旅。', date:'Apr 3, 2026', time:'7 min read', url:'qingming-tibet-travel-guide.html', img:'https://mmbiz.qpic.cn/sz_mmbiz_jpg/iaKdibbzuGd8Hv04vwyYmZrTVQibyx4qhGBIVv6oXUH4ibIu0icF7XDCfYIGxVHaGCZjNfosTqvDErLZeicxtZIYRziaiaWvz3ZpvLeXr5wtzWrXG1k/0?wx_fmt=jpeg', featured:false },
+    { cat:'culture', catLabel:'Culture', catLabelZh:'文化', title:'Spring in Tibet: Peach Blossoms and Snow Paint a Prosperous Picture', titleZh:'春染雪域，桃花沐雪绘出好钱景', excerpt:'In April on the Qinghai-Tibet Plateau, pink peach blossoms and yellow rapeseed flowers form clusters and patches under the snow line.', excerptZh:'四月的青藏高原，林芝的桃花、油菜花镶嵌在雪线、蓝天、白云之下，春意盎然，一场不同于江南烟雨的春日经济正在这片高地生长。', date:'Apr 11, 2026', time:'5 min read', url:'spring-snow-peach-blossoms.html', img:'https://mmbiz.qpic.cn/mmbiz_jpg/iaKdibbzuGd8GNgyS2iajRWcHicGDbS3IBdVqaYnQxCRf99SjxDzNmwO98qHFKsKvLpGzFo5rDiaCIsK03IV6SkOnvQgj5oItlbk4jtAVOXOx4Kg/0?wx_fmt=jpeg', featured:false },
+    { cat:'travel-guide', catLabel:'Travel Guide', catLabelZh:'旅行指南', title:'10 Lazy Ways to Enjoy Tibet During May Day Holiday', titleZh:'五一游西藏｜10种懒人玩法，舒服~', excerpt:'Want to visit Tibet but do not want a special forces style trip? This guide features 10 lazy ways to enjoy Lhasa.', excerptZh:'五一假期想来西藏又不想特种兵式旅游？这篇攻略精选10种躺平式玩法，送给不喜欢到处跑的懒人宝宝！', date:'Apr 25, 2026', time:'6 min read', url:'may-day-tibet-lazy-guide.html', img:'https://mmbiz.qpic.cn/mmbiz_jpg/iaKdibbzuGd8HicpcW3le88nXxjgAKc1Jv6k2BVPku0j2nY4A21dFQ7eLcWGZllcfHiaADtNEpAG9GJhteSjbhFl1L3ic8kiccWJlk4OmoUjNmUbc/0?wx_fmt=jpeg', featured:false },
+    { cat:'culture', catLabel:'Culture', catLabelZh:'文化', title:'Spring Economy Boosts Tibet Tourism and Cultural Consumption', titleZh:'春日经济激发西藏文旅消费市场活力', excerpt:'Since the beginning of spring, Tibet tourism market has steadily warmed up with continuously released vitality.', excerptZh:'开春以来，西藏旅游市场稳步回暖、活力持续释放。记者走访拉萨多家旅行社，记录多彩春季里的西藏旅游新图景。', date:'Apr 26, 2026', time:'6 min read', url:'spring-economy-tibet-tourism.html', img:'https://mmbiz.qpic.cn/sz_mmbiz_jpg/iaKdibbzuGd8EtnlbqNd2Lib6dP9Hjl3hiaicQfcRB41JaTLgKGjEwYvLibhtZgVRcxJv6Cdiby5PRPWicYqbJdXDCYq0uXyDpMKPSv7m8r3OKQ2Mng/0?wx_fmt=jpeg', featured:false },
+    { cat:'travel-guide', catLabel:'Travel Guide', catLabelZh:'旅行指南', title:"2026 Let's Go to Tibet! Your Year-Round Travel Guide to This Must-Visit Destination", titleZh:'2026一起去西藏！这个人生必去目的地，全年出游攻略请查收！', excerpt:'From spring blossoms to winter snow, from Nyingchi peach flowers to Ali wilderness — plan your perfect Tibet trip month by month.', excerptZh:'从春花到冬雪，从林芝桃花到阿里荒原，2026西藏全年出游攻略帮你规划最佳旅行时间。', date:'Jan 5, 2026', time:'8 min read', url:'2026-tibet-year-round-travel-guide.html', img:'https://mmbiz.qpic.cn/mmbiz_jpg/1QJ6icD6IqvujKtsJattaciaibV2sxlmeEF0q5IbTONr5acPykrsZvEuGhiamjNN9VLVia6xAIjxf0BFbeGlbW47Rew/0?wx_fmt=jpeg', featured:false },
+    { cat:'travel-guide', catLabel:'Travel Guide', catLabelZh:'旅行指南', title:"Tibet's Most Asked-About Celebrity Route — Beginners Welcome!", titleZh:'被问爆的西藏"明星同款线"，小白也能冲！', excerpt:'Kula Gangri trekking, Yamdrok Lake circuit, Pumoyongcuo blue ice — these celebrity-level Tibet routes are beginner-friendly too.', excerptZh:'库拉岗日徒步节、羊卓雍错环湖、普莫雍错蓝冰……这些西藏明星同款线路，新手也能轻松驾驭。', date:'Mar 15, 2026', time:'7 min read', url:'tibet-celebrity-route-beginners.html', img:'https://mmbiz.qpic.cn/mmbiz_jpg/icVC8qxITrFWX8q8M9Tcbw1HABjS3AblwYqGKogvhZ9x8t1RiaVECFialUCABrAuWicAXfutZCVKibwVdmY8nyKZ36kqDLD41dNgDjxQOke7Tx8w/0?wx_fmt=jpeg', featured:false },
+    { cat:'travelogue', catLabel:'Travelogue', catLabelZh:'游记', title:'Opening Ngari Through a "Planet Earth" Lens', titleZh:'当我以"地球脉动"的方式打开阿里', excerpt:"Exploring Tibet's Ngari through a documentary lens — from Mount Kailash to Lake Manasarovar, feel the planet's primordial pulse.", excerptZh:'用纪录片视角探索西藏阿里——从冈仁波齐到玛旁雍错，感受地球最原始的脉动。', date:'Apr 8, 2026', time:'6 min read', url:'planet-earth-ngari.html', img:'https://mmbiz.qpic.cn/sz_mmbiz_jpg/BLGxk6BDOFRBica8oHxGfoCa1gF6GBkaMtX3O7UEvbGpMjA3oKvCBvvwd1ia2zlml6hXP2594FXZjMW87MXOIsN5wgHBicNMfDUDz6DD615icLY/0?wx_fmt=jpeg', featured:false },
+    { cat:'travel-guide', catLabel:'Travel Guide', catLabelZh:'旅行指南', title:'First Time in Tibet? This Guide Has Everything You Need!', titleZh:'第一次去西藏旅行？看这篇就够了！', excerpt:'Altitude sickness prevention, best seasons, essential gear, classic routes — your complete first-timer guide to Tibet.', excerptZh:'高反预防、最佳季节、必备装备、经典路线——首次进藏全攻略，一篇解决所有疑问。', date:'Feb 20, 2026', time:'10 min read', url:'first-tibet-trip-guide.html', img:'https://mmbiz.qpic.cn/sz_mmbiz_jpg/KcBJJcAPLQUUd1wiaNVammgjnibrHiaic3aiacuMMkGj5YE9Arpic062acLczvGPAK7GjOUJibP3iahA80re6GKEqdNRTckicG36BCOKuvdWVpwicDvaw/0?wx_fmt=jpeg', featured:false },
+    { cat:'photography', catLabel:'Photography', catLabelZh:'摄影', title:'Dopamine Overload! Ngari Spring Limited Color Palette', titleZh:'多巴胺爆棚！阿里春日限定色号上线', excerpt:"A feast of spring colors in Ngari — from golden earth forests to sapphire sacred lakes, every frame is nature's palette.", excerptZh:'阿里春天的色彩盛宴——从土林的金黄到圣湖的湛蓝，每一帧都是大自然的调色盘。', date:'Apr 12, 2026', time:'5 min read', url:'ngari-spring-colors.html', img:'https://mmbiz.qpic.cn/sz_mmbiz_jpg/BLGxk6BDOFT2pia8vokL2SAuJ3EhIxoYkV9wVIPzibFKLtBn46fB4UNvEHu51upTqX0Rg9aA1uSia1IDrXTrV2k2aBOVQw4DSxv4UPIGJic6wZw/0?wx_fmt=jpeg', featured:false },
+    { cat:'routes', catLabel:'Routes', catLabelZh:'路线', title:'Blue Dreams on the Plateau Summit: Discovering Coqen Along G216', titleZh:'高原之巅蓝色梦境：在216国道遇见措勤，这些地方你可曾到达？', excerpt:'Crossing the Changtang Plateau along G216, discover the secluded blue dreamscapes of Coqen.', excerptZh:'沿着216国道穿越羌塘高原，在措勤遇见遗世独立的蓝色梦境——仁多乡、扎日南木错、当惹雍错。', date:'Apr 18, 2026', time:'6 min read', url:'g216-coqen-blue-dream.html', img:'https://mmbiz.qpic.cn/mmbiz_jpg/BLGxk6BDOFSVM27Rgk0iatWIlRyibFW3LVvwGIvRaIGqDePtZlF5ibibm3dGFpPHyaSUfXbFAK96ga6XxezazOeY8C9B93fzqaGibIRcIP36eXiaY/0?wx_fmt=jpeg', featured:false },
+    { cat:'routes', catLabel:'Routes', catLabelZh:'路线', title:'6 Classic Tibet Routes, From 3 to 11 Days — All Covered!', titleZh:'旅游西藏6条经典路线，3-11天全涵盖！', excerpt:'From Lhasa loop to Ali northern route, 6 classic Tibet itineraries spanning 3-11 days.', excerptZh:'从拉萨环线到阿里大北线，6条经典西藏路线覆盖3-11天行程，满足不同时间和预算需求。', date:'Mar 1, 2026', time:'9 min read', url:'tibet-6-classic-routes.html', img:'https://mmbiz.qpic.cn/mmbiz_jpg/EoQ0Ys0pRibmB3JFPvz4gKNCpQKyf7QERIOSfHrawH1JicVB24MntYy6o16ddyQ2r8icXFCqbibDviaJZu0eEDG44joI3vicGp7OTVgT67zQBQWq4/0?wx_fmt=jpeg', featured:false },
+    { cat:'travelogue', catLabel:'Travelogue', catLabelZh:'游记', title:"Secret Gerze: Listening to the Symphony of Red and Blue in Changtang's Heart", titleZh:'秘境改则：在羌塘腹地聆听红与蓝的交响', excerpt:'Deep into the Changtang heartland, experience the natural symphony where red earth passes meet sapphire lakes in Gerze.', excerptZh:'深入羌塘腹地，在改则县感受红土达坂的赤红与扎日南木错的湛蓝交织出的自然交响。', date:'Apr 15, 2026', time:'6 min read', url:'gerze-changtang-red-blue.html', img:'https://mmbiz.qpic.cn/mmbiz_jpg/BLGxk6BDOFRFfPwTwBHDGNwlm52nW9NqibaNibEHZhw4l9Dic3PZIudGwXKF3LY5YMNMjgUZIsYXnFbEK18iaDC7p3tIXHB5k50w93wcwW8O6xI/0?wx_fmt=jpeg', featured:false },
+    { cat:'travel-guide', catLabel:'Travel Guide', catLabelZh:'旅行指南', title:'Bookmark These! 6 Routes to Refresh Your Tibet Travel List', titleZh:'收藏！6条游线更新你的西藏旅行清单', excerpt:'6 curated Tibet routes, from classic to offbeat, from cultural to natural — a complete upgrade for your travel list.', excerptZh:'6条精选西藏游线，从经典到小众，从人文到自然，全面升级你的西藏旅行清单。', date:'Mar 20, 2026', time:'7 min read', url:'6-routes-update-tibet-list.html', img:'https://mmbiz.qpic.cn/mmbiz_jpg/olJksHuukalCzstwXNYXJUOodfsRCHXZsSxZoiaSNUHicPhjiaeGugMb0W0YByxhyr20joWaTH0IiaW5LVSxniclKFfIoYrhtibwwmona3u7wvKxw/0?wx_fmt=jpeg', featured:false },
+    { cat:'travel-guide', catLabel:'Travel Guide', catLabelZh:'旅行指南', title:"Everyone, Here's Your Year-Round Ali Travel Guide!", titleZh:'所有人，阿里全年出游攻略请查收！', excerpt:'Ali is beautiful all year round — spring flowers, summer lakes, autumn earth forests, winter blue ice.', excerptZh:'阿里四季皆美——春赏花、夏观湖、秋探土林、冬览蓝冰，全年出游攻略一网打尽。', date:'Mar 25, 2026', time:'8 min read', url:'ali-year-round-travel-guide.html', img:'https://mmbiz.qpic.cn/mmbiz_jpg/UAb9RADsp65FADQjX5zRwVEobDpINdIncyn1pXmSSsX8dS746JcQ1JMSgFib424jud7252f2cibUSbkCicZw0JnzQ/0?wx_fmt=jpeg', featured:false },
+    { cat:'health', catLabel:'Health & Safety', catLabelZh:'健康与安全', title:'Ultimate Tibet Pitfall Avoidance Guide! 52 Hard-Learned Tips Before You Go', titleZh:'西藏旅游超全避雷攻略！52条血泪总结，进藏前必看！', excerpt:'52 practical Tibet tips, from altitude prevention to shopping scams, route planning to accommodation.', excerptZh:'52条进藏实用避坑指南，从高反预防到购物防骗，从路线规划到住宿选择，让你西藏之旅少走弯路。', date:'Feb 10, 2026', time:'12 min read', url:'tibet-52-tips-avoid-pitfalls.html', img:'http://mmecoa.qpic.cn/sz_mmecoa_jpg/AKCdAibRN93Y8EosU6K0pwHy4S5nTibGtbXTI8A0OwqPeaVT3KIDHIPfLfOicORxmGAy5P7d8xshVicKpdHmEw8laAZbOibRQgCHBP7jwHzq3Ex4/0?wx_fmt=jpeg', featured:false },
+    { cat:'photography', catLabel:'Photography', catLabelZh:'摄影', title:'Through His Lens: The Beauty of Nature and Humanity in Harmony', titleZh:'在他的镜头里，看见人与自然相融之美', excerpt:"Highland wildlife and nomadic life through a Tibetan photographer's lens — black-necked cranes, Tibetan antelopes, herder migrations.", excerptZh:'西藏摄影师镜头下的高原生灵与游牧生活——黑颈鹤、藏羚羊、牧民转场，定格人与自然最动人的瞬间。', date:'Apr 5, 2026', time:'5 min read', url:'lens-nature-human-harmony.html', img:'https://mmbiz.qpic.cn/sz_mmbiz_jpg/BLGxk6BDOFRb5O9via9fDqRoJuf3ibibWXiccBpSmsLPEQB8RWmEplqSJzca1jibWBKuouwuibKZX6j9UdE7PhvLabLzqXDicSWEas5nSsb4loBQxM/0?wx_fmt=jpeg', featured:false },
+    { cat:'health', catLabel:'Health & Safety', catLabelZh:'健康与安全', title:'The Wolf Mentality — Altitude Sickness Safety for Motorcycle Travelers', titleZh:'黄色的狼性 —— 关于摩旅高反需要注意事项', excerpt:'Before you twist the throttle toward the Plateau, understand the invisible danger that has ended countless journeys.', excerptZh:'在拧动油门前往高原之前，先了解那种已经终结了无数旅程的无形危险——学会识别红、黄、蓝三级警示信号。', date:'Oct 10, 2018', time:'8 min read', url:'altitude-sickness-tips.html', img:'https://mmbiz.qlogo.cn/mmbiz_jpg/QkrbI0NiaOvBBJcrsnwFFRIhuRbQOosbOU4hQHeTyG2ARnbFUX6Rf4yrHr44uPTOhiay8MibPvOL7IUSiaRHYO9wkg/0?wx_fmt=jpeg', featured:true },
+    { cat:'travelogue', catLabel:'Travelogue', catLabelZh:'游记', title:"Let's Go, Ride and Heal — A Motorcycle Journey Through Western Sichuan", titleZh:'走，我们骑摩托疗愈去', excerpt:'One hotpot, one jealous husband, and a road so good it feels like a private buffet for two wheels.', excerptZh:'一锅松茸鸡、一对吵架的康巴夫妻、一条好到像是为两轮车开的VIP通道。川西摩旅疗愈记。', date:'Aug 21, 2025', time:'5 min read', url:'motorcycle-healing-journey.html', img:'https://mmbiz.qpic.cn/sz_mmbiz_jpg/QkrbI0NiaOvDcNicYzMfJzKExLuy2Jlofxial3hSsg737fvMa7KnjuaFZrI6EyjlNr4zPUwLOh6gQibvziazPEaLZLQ/0?wx_fmt=jpeg', featured:false },
+    { cat:'routes', catLabel:'Routes', catLabelZh:'路线', title:'The Sichuan-Tibet Central Route: From Hardcore Hell to Scooter Paradise', titleZh:'川藏中线变身记：从前是硬核地狱，如今是踏板天堂！', excerpt:'How the once-feared central corridor became the best motorcycle road in western China.', excerptZh:'曾经令人闻风丧胆的川藏中线，如今已经全面升级——踏板车都能轻松驾驭，成为西部中国最佳的摩托车公路。', date:'Aug 23, 2025', time:'6 min read', url:'sichuan-tibet-central-route.html', img:'https://mmbiz.qpic.cn/sz_mmbiz_jpg/QkrbI0NiaOvCxrkFdZedyLYLYcE8HrlynpTd1uudiaEohYRYsyaNWIe0ssULfs42ELJNiad1kj6DQlKhXRyGHwOkA/0?wx_fmt=jpeg', featured:false },
+    { cat:'gear', catLabel:'Gear & Equipment', catLabelZh:'装备', title:"Bro, What's the Most Important Gear for Motorcycle Travel in Tibet?!", titleZh:'老铁，您摩旅西藏最重要的装备是啥？！', excerpt:'Veteran riders reveal their essential equipment picks after years in the Tibetan wilderness.', excerptZh:'资深骑手透露他们在西藏荒野多年后认定的必备装备。提示：最重要的不一定是 gadgets。', date:'Mar 19, 2026', time:'4 min read', url:'motorcycle-tibet-gear-guide.html', img:'https://mmbiz.qpic.cn/sz_mmbiz_jpg/V7KibjiawnhicqDC1wANzsMLsxPMy0CdjafSDlDwQYn3POAwib69K7AawDFjjtQkWuutc7QSzFjBg3s3S2wwaQlaS6KaI4qJvthIUn7ur3dL0uw/0?wx_fmt=jpeg', featured:false },
+    { cat:'travelogue', catLabel:'Travelogue', catLabelZh:'游记', title:'Born to Roam | A Motorcycle Journey Deep Into Shannan, Tibet', titleZh:'向远而生 | 摩旅西藏之深入山南', excerpt:'Football at 4,000 meters, hidden Himalayan gorges, and warm Tibetan hospitality on the road less traveled.', excerptZh:'四千米海拔的足球赛、隐秘的喜马拉雅峡谷、以及人迹罕至之路上藏族乡亲的热情好客。', date:'Jul 1, 2023', time:'7 min read', url:'motorcycle-tibet-shannan.html', img:'https://mmbiz.qpic.cn/sz_mmbiz_jpg/QkrbI0NiaOvDFZYcrQOVgEFyQ34s6do5OajLI71kkgv1CGVswiaW1GJHWlNGEhu0PfcjDaNoTPPEZ3wu09OGGz8Q/0?wx_fmt=jpeg', featured:false },
+    { cat:'travelogue', catLabel:'Travelogue', catLabelZh:'游记', title:"Bianba Encounters: A Knight's Motorcycle Diary Through Eastern Tibet", titleZh:'边坝见闻 | 恩星骑士摩旅西藏记', excerpt:'Chance meetings, remote schools, and a vanishing blue ice cave — observations from the road through Bianba.', excerptZh:'偶遇、偏远学校和一座正在消失的蓝冰洞——边坝路上的观察与思考。', date:'Oct 23, 2024', time:'6 min read', url:'bianba-motorcycle-diary.html', img:'https://mmbiz.qpic.cn/sz_mmbiz_jpg/QkrbI0NiaOvDRic1ianGt3YH30o1K6h9buGTBY6mk2EzTxJvHhicz6NiaF4E5lAaZBvuEhS7w8y6D0Ic078aJ8giba8g/0?wx_fmt=jpeg', featured:false },
+    { cat:'reflection', catLabel:'Reflection', catLabelZh:'随笔', title:'Shackles on Wheels: A Fable of Survival in Modern Tibet', titleZh:'车轮上的枷锁：藏区与现代社会的生存寓言', excerpt:'On motorcycles, Land Cruisers, and what the road teaches us about freedom and its price.', excerptZh:'关于摩托车、陆地巡洋舰，以及公路教会我们关于自由及其代价的一切。', date:'Aug 27, 2025', time:'5 min read', url:'wheels-shackles-tibet.html', img:'https://mmbiz.qpic.cn/sz_mmbiz_jpg/QkrbI0NiaOvDuFkFg5pdxM20yphicTYS9iak4ibEggye4QOMib760WqiaPToia65STgq6hObFhHmMRpWRynsrKvd10icUQ/0?wx_fmt=jpeg', featured:false }
+  ];
+
+  var currentLang = localStorage.getItem('site-lang') || 'zh';
+  var filter = 'all';
+  var leadCtr = document.getElementById('leadContainer');
+  var grid = document.getElementById('articleGrid');
+  var empty = document.getElementById('emptyState');
+  var items = document.querySelectorAll('.filter-bar__item');
+
+  function card(a) {
+    return '<article class="post animate">' +
+      '<a href="' + a.url + '" class="post__thumb">' +
+        '<img class="post__img" src="' + a.img + '" alt="" loading="lazy" onerror="this.parentElement.style.background=\'#333\'; this.remove();">' +
+      '</a>' +
+      '<div class="post__body">' +
+        '<span class="post__cat">' + a.catLabel + '</span>' +
+        '<h3 class="post__title"><a href="' + a.url + '">' + a.title + '</a></h3>' +
+        '<p class="post__excerpt">' + a.excerpt + '</p>' +
+        '<div class="post__meta"><span>' + a.date + '</span><span>' + a.time + '</span></div>' +
+      '</div>' +
+    '</article>';
+  }
+
+  function lead(a) {
+    return '<article class="feature animate">' +
+      '<div class="feature__media">' +
+        '<img class="feature__img" src="' + a.img + '" alt="" loading="eager" onerror="this.parentElement.style.background=\'#333\'; this.remove();">' +
+      '</div>' +
+      '<div class="feature__body">' +
+        '<span class="feature__label">Editor\'s Pick &mdash; ' + a.catLabel + '</span>' +
+        '<h2 class="feature__title"><a href="' + a.url + '">' + a.title + '</a></h2>' +
+        '<p class="feature__excerpt">' + a.excerpt + '</p>' +
+        '<div class="feature__meta"><span>' + a.date + '</span><span>' + a.time + '</span><span>Essential Reading</span></div>' +
+      '</div>' +
+    '</article>';
+  }
+
+  function render() {
+    var f = articles.filter(function(a) { return filter === 'all' || a.cat === filter; });
+    if (!f.length) { leadCtr.innerHTML = ''; grid.innerHTML = ''; empty.style.display = 'block'; return; }
+    empty.style.display = 'none';
+
+    var leadArticle = f.find(function(a) { return a.featured; }) || f[0];
+    leadCtr.innerHTML = lead(leadArticle);
+
+    var rest = f.filter(function(a) { return a !== leadArticle; });
+    grid.innerHTML = rest.map(card).join('');
+
+    setTimeout(function() {
+      document.querySelectorAll('.animate').forEach(function(el) {
+        el.classList.remove('animate--visible');
+        new IntersectionObserver(function(entries, obs) {
+          entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('animate--visible'); obs.unobserve(e.target); } });
+        }, { threshold: 0.1 }).observe(el);
+      });
+    }, 60);
+  }
+
+  items.forEach(function(it) {
+    it.addEventListener('click', function() {
+      items.forEach(function(i) { i.classList.remove('filter-bar__item--active'); });
+      it.classList.add('filter-bar__item--active');
+      filter = it.getAttribute('data-filter');
+      window.addEventListener('langchange', function(e) {
+    currentLang = e.detail.lang;
+    render();
+  });
+
+  render();
+      document.getElementById('filterBar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  window.addEventListener('langchange', function(e) {
+    currentLang = e.detail.lang;
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

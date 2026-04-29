@@ -1,0 +1,88 @@
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: 1rem;
+}
+
+.lang-btn {
+  background: transparent;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.lang-btn:hover {
+  color: var(--color-text);
+}
+
+.lang-btn--active {
+  color: var(--color-primary);
+  background: rgba(185, 28, 28, 0.08);
+}
+
+.lang-divider {
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+}
+
+/* ====== Language content visibility ====== */
+
+/* Default: hide all lang-content but keep layout space during transition */
+.lang-content {
+  display: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Show Chinese when html lang is zh or zh-CN */
+html[lang="zh"] .lang-content[data-lang="zh"],
+html[lang="zh-CN"] .lang-content[data-lang="zh"] {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Show English when html lang is en */
+html[lang="en"] .lang-content[data-lang="en"] {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Inline variant */
+html[lang="zh"] .lang-content.lang-content--inline[data-lang="zh"],
+html[lang="zh-CN"] .lang-content.lang-content--inline[data-lang="zh"] {
+  display: inline;
+  opacity: 1;
+  transform: none;
+}
+
+html[lang="en"] .lang-content.lang-content--inline[data-lang="en"] {
+  display: inline;
+  opacity: 1;
+  transform: none;
+}
+
+/* Fallback: if no lang set on html, default to Chinese */
+html:not([lang]) .lang-content[data-lang="zh"] {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* No-JS fallback: show Chinese by default */
+@media (scripting: none) {
+  .lang-content[data-lang="zh"] {
+    display: block;
+    opacity: 1;
+    transform: none;
+  }
+}
