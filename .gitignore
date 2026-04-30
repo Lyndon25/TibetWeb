@@ -15,3 +15,51 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# Documents (downloaded references, reports, etc.)
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+
+# Archives
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+*.bz2
+
+# Media files (videos / audio)
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.flv
+*.wmv
+*.mp3
+*.wav
+*.aac
+*.flac
+
+# Design / source assets
+*.psd
+*.ai
+*.sketch
+*.xd
+*.fig
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Local environment files
+.env
+.env.local
