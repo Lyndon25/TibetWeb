@@ -8,12 +8,18 @@ Usage:
 """
 import os
 import sys
+
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_SKILL_DIR = os.path.dirname(_SCRIPT_DIR)
+
+sys.path.insert(0, _SCRIPT_DIR)
 from lib import validators, atomic_io
 
 
 def main():
-    results = validators.audit_all_articles('articles')
-    out_path = os.path.join('scripts', 'deep_audit_results.txt')
+    articles_dir = os.path.join(_SKILL_DIR, 'articles')
+    results = validators.audit_all_articles(articles_dir)
+    out_path = os.path.join(_SKILL_DIR, 'scripts', 'deep_audit_results.txt')
 
     lines = []
     if not results:
