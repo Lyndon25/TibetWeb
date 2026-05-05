@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Trek the Mount Kailash kora and visit Lake Manasarovar on this 12-day spiritual journey. Expert guides, all permits, small groups. Book your Tibet pilgrimage.">
+  <title>12 Days Kailash Tour | TibetRide - Sacred Mountain Pilgrimage</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/lang.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+  <script>
+    (function(){
+      var k='site-lang',l=localStorage.getItem(k);
+      if(l==='en'){document.documentElement.setAttribute('lang','en');}
+      else{document.documentElement.setAttribute('lang','zh-CN');}
+    })();
+  </script>
+  <style>
+    /* ===== Tour Page Styles ===== */
+    .tour-hero {
+      position: relative;
+      height: 70vh;
+      min-height: 480px;
+      max-height: 640px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .tour-hero__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .tour-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 100%);
+    }
+    .tour-hero__content {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-width);
+      width: 100%;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      color: #fff;
+    }
+    .tour-hero__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+    .tour-hero__meta span {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+    }
+    .tour-hero__title {
+      font-size: clamp(2rem, 1.5rem + 3vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      max-width: 720px;
+    }
+    .tour-hero__price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+    }
+    .tour-hero__price small {
+      font-size: 0.9rem;
+      font-weight: 400;
+      opacity: 0.8;
+    }
+    .tour-hero__actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* ===== Highlights ===== */
+    .highlights {
+      background: var(--color-earth-light);
+      padding: 3rem 0;
+    }
+    .highlights__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .highlight-item {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      background: #fff;
+      padding: 1.25rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .highlight-item__icon {
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    /* ===== Itinerary ===== */
+    .itinerary {
+      padding: 4rem 0;
+      max-width: var(--max-width-narrow);
+      margin: 0 auto;
+    }
+    .itinerary__title {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+    }
+    .itinerary-day {
+      background: #fff;
+      border: 1px solid var(--color-earth);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .itinerary-day__header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .itinerary-day__badge {
+      background: var(--color-primary);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.3rem 0.7rem;
+      border-radius: 100px;
+    }
+    .itinerary-day__title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin: 0;
+    }
+    .itinerary-day__desc {
+      color: var(--color-text-muted);
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+    }
+    .itinerary-day__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--color-text-light);
+    }
+
+    /* ===== Inclusions / Exclusions ===== */
+    .inclusions {
+      background: var(--color-secondary-light);
+      padding: 3rem 0;
+    }
+    .inclusions__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .inclusions__block h3 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--color-secondary);
+    }
+    .inclusions__block ul {
+      list-style: disc;
+      padding-left: 1.25rem;
+    }
+    .inclusions__block li {
+      margin-bottom: 0.5rem;
+      color: var(--color-text-muted);
+    }
+
+    /* ===== Pricing ===== */
+    .pricing {
+      padding: 3rem 0;
+      max-width: var(--max-width-narrow);
+      margin: 0 auto;
+      text-align: center;
+    }
+    .pricing__title {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .pricing__note {
+      color: var(--color-text-light);
+      margin-bottom: 1.5rem;
+    }
+    .pricing__table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+    }
+    .pricing__table th, .pricing__table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--color-earth);
+    }
+    .pricing__table th {
+      background: var(--color-earth-light);
+      font-weight: 600;
+      text-align: left;
+    }
+    .pricing__table td {
+      text-align: left;
+    }
+    .pricing__table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ===== FAQ ===== */
+    .faq {
+      padding: 3rem 0;
+      max-width: var(--max-width-narrow);
+      margin: 0 auto;
+    }
+    .faq__title {
+      font-size: 1.75rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .faq-item {
+      background: #fff;
+      border: 1px solid var(--color-earth);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+    }
+    .faq-item summary {
+      padding: 1.25rem;
+      font-weight: 600;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-item summary::after {
+      content: '+';
+      font-size: 1.25rem;
+      color: var(--color-primary);
+    }
+    .faq-item[open] summary::after {
+      content: '-';
+    }
+    .faq-item p {
+      padding: 0 1.25rem 1.25rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    /* ===== CTA Section ===== */
+    .tour-cta {
+      background: var(--color-primary);
+      color: #fff;
+      text-align: center;
+      padding: 4rem 1.5rem;
+    }
+    .tour-cta__title {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .tour-cta__desc {
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "12 Days Mount Kailash & Lake Manasarovar Pilgrimage",
+  "description": "Trek the Mount Kailash kora and visit Lake Manasarovar on this 12-day spiritual journey. Expert guides, all permits, small groups. Book your Tibet pilgrimage.",
+  "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80",
+  "offers": {
+    "@type": "Offer",
+    "price": "1499",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav nav--scrolled">
+  <div class="nav__inner">
+    <a href="../index.html" class="nav__logo" style="color: var(--color-text);">
+      <span class="nav__logo-icon">&#x1F3CD;</span>
+      <span class="lang-content lang-content--inline" data-lang="zh">TibetRide</span>
+      <span class="lang-content lang-content--inline" data-lang="en">TibetRide</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="../index.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="首页" data-lang-en="Home">Home</a></li>
+      <li><a href="index.html" class="nav__link nav__link--active" data-lang-zh="线路" data-lang-en="Tours">Tours</a></li>
+      <li><a href="../guides/index.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="攻略" data-lang-en="Guide">Guide</a></li>
+      <li><a href="../about.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="关于" data-lang-en="About">About</a></li>
+      <li><a href="../contact.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="联系" data-lang-en="Contact">Contact</a></li>
+    </ul>
+    <button class="nav__toggle" aria-label="Toggle menu">
+      <span style="background: var(--color-text);"></span>
+      <span style="background: var(--color-text);"></span>
+      <span style="background: var(--color-text);"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="tour-hero">
+  <img class="tour-hero__bg" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80" alt="Mount Kailash sacred peak in Western Tibet" loading="eager">
+  <div class="tour-hero__overlay"></div>
+  <div class="tour-hero__content">
+    <div class="tour-hero__meta">
+      <span data-lang-zh="&#128337; 12天" data-lang-en="&#128337; 12 Days">&#128337; 12 Days</span>
+      <span data-lang-zh="&#128101; 最多6人" data-lang-en="&#128101; Max 6">&#128101; Max 6</span>
+      <span data-lang-zh="&#127757; 5月-9月" data-lang-en="&#127757; May - Sep">&#127757; May - Sep</span>
+      <span data-lang-zh="&#128170; 挑战" data-lang-en="&#128170; Challenging">&#128170; Challenging</span>
+    </div>
+    <h1 class="tour-hero__title" data-lang-zh="冈仁波齐与玛旁雍错12日朝圣之旅" data-lang-en="12 Days Mount Kailash & Lake Manasarovar Pilgrimage">12 Days Mount Kailash & Lake Manasarovar Pilgrimage</h1>
+    <div class="tour-hero__price">
+      <span data-lang-zh="起价" data-lang-en="From">From</span> USD 1499 <small data-lang-zh="每人" data-lang-en="per person">per person</small>
+    </div>
+    <div class="tour-hero__actions">
+      <a href="../customize.html?tour=kailash-12-days" class="btn btn--primary btn--lg" data-lang-zh="获取报价" data-lang-en="Get Free Quote">Get Free Quote</a>
+      <a href="https://wa.me/?text=Hi%20TibetRide%2C%20I%20am%20interested%20in%20the%2012%20Days%20Mount%20Kailash%20&%20Lake%20Manasarovar%20Pilgrimage" class="btn btn--outline btn--lg" target="_blank" rel="noopener" data-lang-zh="WhatsApp咨询" data-lang-en="Chat on WhatsApp">Chat on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- Overview -->
+<section class="section">
+  <div class="container container--narrow">
+    <h2 class="section-title" data-lang-zh="行程概览" data-lang-en="Tour Overview">Tour Overview</h2>
+    <p data-lang-zh="一生一次的亚洲最神圣山峰之旅。完成52公里冈仁波齐转山，沐浴玛旁雍错圣湖，探索失落的古格王朝。" data-lang-en="The journey of a lifetime to the most sacred mountain in Asia. Trek the 52km Kailash kora, bathe in the crystal waters of Lake Manasarovar, and explore the lost kingdom of Guge.">The journey of a lifetime to the most sacred mountain in Asia. Trek the 52km Kailash kora, bathe in the crystal waters of Lake Manasarovar, and explore the lost kingdom of Guge.</p>
+  </div>
+</section>
+
+<!-- Highlights -->
+<section class="highlights">
+  <div class="highlights__grid">
+
+        <div class="highlight-item">
+          <div class="highlight-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4v6m0 0l4 4m-4-4l-4 4"/><circle cx="12" cy="2" r="1"/><path d="M7 21l3-4 1 3h4l1-3 3 4"/></svg></div>
+          <span data-lang-zh="冈仁波齐三日转山徒步" data-lang-en="3-day Mount Kailash kora trek">3-day Mount Kailash kora trek</span>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.74 5.87a8 8 0 1 1-11.48 0L12 2.69z"/></svg></div>
+          <span data-lang-zh="圣湖玛旁雍错湖畔" data-lang-en="Holy Lake Manasarovar shores">Holy Lake Manasarovar shores</span>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M9 21v-6h6v6"/></svg></div>
+          <span data-lang-zh="古格王朝遗址" data-lang-en="Ancient Guge Kingdom ruins">Ancient Guge Kingdom ruins</span>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 10c-1.5 0-2.5.5-3 1.5-.5 1-1 3-1 4.5 0 1.5.5 2.5 2 3 1.5.5 3-.5 4-2s1.5-3 1-4.5c-.5-1.5-2-2.5-4-2.5z"/><path d="M7 9c-1 0-2 .5-2.5 1.5S4 12 4 13s.5 2 1.5 2.5 2.5.5 3.5-.5 1.5-2.5 1-3.5-1.5-2-3-2z"/><path d="M17 9c1 0 2 .5 2.5 1.5S20 12 20 13s-.5 2-1.5 2.5-2.5.5-3.5-.5-1.5-2.5-1-3.5 1.5-2 3-2z"/><path d="M12 2c-1 0-2 .5-2.5 1.5S9 5 9 6s.5 2 1.5 2.5 2.5.5 3.5-.5 1.5-2.5 1-3.5S13 2 12 2z"/></svg></div>
+          <span data-lang-zh="羌塘高原野生动物" data-lang-en="Wildlife of the Changtang Plateau">Wildlife of the Changtang Plateau</span>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M12 3v18"/></svg></div>
+          <span data-lang-zh="托林寺参观" data-lang-en="Tholing Monastery visit">Tholing Monastery visit</span>
+        </div>
+  </div>
+</section>
+
+<!-- Itinerary -->
+<section class="itinerary">
+  <h2 class="itinerary__title" data-lang-zh="每日行程" data-lang-en="Daily Itinerary">Daily Itinerary</h2>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 1</span>
+        <h3 class="itinerary-day__title" data-lang-zh="抵达拉萨" data-lang-en="Arrival in Lhasa">Arrival in Lhasa</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="接站入住，休息。" data-lang-en="Airport pickup, hotel check-in, rest.">Airport pickup, hotel check-in, rest.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 晚餐" data-lang-en="&#127860; Dinner">&#127860; Dinner</span>
+        <span data-lang-zh="&#127976; 拉萨四星酒店" data-lang-en="&#127976; Lhasa 4-star hotel">&#127976; Lhasa 4-star hotel</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 2</span>
+        <h3 class="itinerary-day__title" data-lang-zh="拉萨适应日" data-lang-en="Lhasa Acclimatization">Lhasa Acclimatization</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="布达拉宫与大昭寺，全天适应高原。" data-lang-en="Potala Palace and Jokhang Temple. Full day for altitude adjustment.">Potala Palace and Jokhang Temple. Full day for altitude adjustment.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐, 午餐" data-lang-en="&#127860; Breakfast, Lunch">&#127860; Breakfast, Lunch</span>
+        <span data-lang-zh="&#127976; 拉萨四星酒店" data-lang-en="&#127976; Lhasa 4-star hotel">&#127976; Lhasa 4-star hotel</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 3</span>
+        <h3 class="itinerary-day__title" data-lang-zh="拉萨至日喀则" data-lang-en="Lhasa to Shigatse">Lhasa to Shigatse</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="经羊卓雍错与江孜前往日喀则。" data-lang-en="Scenic drive via Yamdrok Lake and Gyantse.">Scenic drive via Yamdrok Lake and Gyantse.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐, 午餐, 晚餐" data-lang-en="&#127860; Breakfast, Lunch, Dinner">&#127860; Breakfast, Lunch, Dinner</span>
+        <span data-lang-zh="&#127976; 日喀则四星酒店" data-lang-en="&#127976; Shigatse 4-star hotel">&#127976; Shigatse 4-star hotel</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 4</span>
+        <h3 class="itinerary-day__title" data-lang-zh="日喀则至萨嘎" data-lang-en="Shigatse to Saga">Shigatse to Saga</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="长途驱车进入西藏西部，地貌剧烈变化。" data-lang-en="Long drive into Western Tibet. Landscapes change dramatically.">Long drive into Western Tibet. Landscapes change dramatically.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐, 午餐, 晚餐" data-lang-en="&#127860; Breakfast, Lunch, Dinner">&#127860; Breakfast, Lunch, Dinner</span>
+        <span data-lang-zh="&#127976; 萨嘎招待所" data-lang-en="&#127976; Saga guesthouse">&#127976; Saga guesthouse</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 5</span>
+        <h3 class="itinerary-day__title" data-lang-zh="萨嘎至塔尔钦" data-lang-en="Saga to Darchen">Saga to Darchen</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="抵达冈仁波齐门户小镇，为转山做最后准备。" data-lang-en="Reach the gateway town to Mount Kailash. Final preparation for kora.">Reach the gateway town to Mount Kailash. Final preparation for kora.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐, 午餐, 晚餐" data-lang-en="&#127860; Breakfast, Lunch, Dinner">&#127860; Breakfast, Lunch, Dinner</span>
+        <span data-lang-zh="&#127976; 塔尔钦招待所" data-lang-en="&#127976; Darchen guesthouse">&#127976; Darchen guesthouse</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 6</span>
+        <h3 class="itinerary-day__title" data-lang-zh="转山第一天" data-lang-en="Kailash Kora Day 1">Kailash Kora Day 1</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="塔尔钦至止热寺 (20公里)，观冈仁波齐北壁。" data-lang-en="Trek from Darchen to Dirapuk Monastery (20km). Views of Kailash north face.">Trek from Darchen to Dirapuk Monastery (20km). Views of Kailash north face.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐, 午餐, 晚餐" data-lang-en="&#127860; Breakfast, Lunch, Dinner">&#127860; Breakfast, Lunch, Dinner</span>
+        <span data-lang-zh="&#127976; 止热寺招待所" data-lang-en="&#127976; Dirapuk guesthouse">&#127976; Dirapuk guesthouse</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 7</span>
+        <h3 class="itinerary-day__title" data-lang-zh="转山第二天" data-lang-en="Kailash Kora Day 2">Kailash Kora Day 2</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="翻越卓玛拉山口 (5640米) 最高点，至祖楚普 (18公里)。" data-lang-en="Cross Dolma La Pass (5,640m), the highest point. Trek to Zutulpuk (18km).">Cross Dolma La Pass (5,640m), the highest point. Trek to Zutulpuk (18km).</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐, 午餐, 晚餐" data-lang-en="&#127860; Breakfast, Lunch, Dinner">&#127860; Breakfast, Lunch, Dinner</span>
+        <span data-lang-zh="&#127976; 祖楚普招待所" data-lang-en="&#127976; Zutulpuk guesthouse">&#127976; Zutulpuk guesthouse</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 8</span>
+        <h3 class="itinerary-day__title" data-lang-zh="转山第三天与玛旁雍错" data-lang-en="Kailash Kora Day 3 & Manasarovar">Kailash Kora Day 3 & Manasarovar</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="完成转山返回塔尔钦 (14公里)，前往玛旁雍错。" data-lang-en="Complete kora back to Darchen (14km). Drive to Lake Manasarovar.">Complete kora back to Darchen (14km). Drive to Lake Manasarovar.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐, 午餐, 晚餐" data-lang-en="&#127860; Breakfast, Lunch, Dinner">&#127860; Breakfast, Lunch, Dinner</span>
+        <span data-lang-zh="&#127976; 玛旁雍错湖畔招待所" data-lang-en="&#127976; Manasarovar guesthouse">&#127976; Manasarovar guesthouse</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 9</span>
+        <h3 class="itinerary-day__title" data-lang-zh="玛旁雍错与古格王朝" data-lang-en="Lake Manasarovar & Guge Kingdom">Lake Manasarovar & Guge Kingdom</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="上午圣湖，下午探索古格王朝遗址。" data-lang-en="Morning at Manasarovar. Afternoon explore the ruins of Guge Kingdom.">Morning at Manasarovar. Afternoon explore the ruins of Guge Kingdom.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐, 午餐, 晚餐" data-lang-en="&#127860; Breakfast, Lunch, Dinner">&#127860; Breakfast, Lunch, Dinner</span>
+        <span data-lang-zh="&#127976; 札达酒店" data-lang-en="&#127976; Zanda hotel">&#127976; Zanda hotel</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 10</span>
+        <h3 class="itinerary-day__title" data-lang-zh="返回萨嘎" data-lang-en="Return to Saga">Return to Saga</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="长途返程，沿途摄影与观赏野生动物。" data-lang-en="Long drive back with stops for photos and wildlife spotting.">Long drive back with stops for photos and wildlife spotting.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐, 午餐, 晚餐" data-lang-en="&#127860; Breakfast, Lunch, Dinner">&#127860; Breakfast, Lunch, Dinner</span>
+        <span data-lang-zh="&#127976; 萨嘎招待所" data-lang-en="&#127976; Saga guesthouse">&#127976; Saga guesthouse</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 11</span>
+        <h3 class="itinerary-day__title" data-lang-zh="萨嘎返回拉萨" data-lang-en="Saga to Lhasa">Saga to Lhasa</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="返回拉萨，告别晚宴。" data-lang-en="Drive back to Lhasa. Farewell dinner.">Drive back to Lhasa. Farewell dinner.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐, 午餐, 晚餐" data-lang-en="&#127860; Breakfast, Lunch, Dinner">&#127860; Breakfast, Lunch, Dinner</span>
+        <span data-lang-zh="&#127976; 拉萨四星酒店" data-lang-en="&#127976; Lhasa 4-star hotel">&#127976; Lhasa 4-star hotel</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 12</span>
+        <h3 class="itinerary-day__title" data-lang-zh="送站离藏" data-lang-en="Departure">Departure</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="送机，旅程圆满结束。" data-lang-en="Airport transfer. Journey complete.">Airport transfer. Journey complete.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐" data-lang-en="&#127860; Breakfast">&#127860; Breakfast</span>
+        <span data-lang-zh="&#127976; N/A" data-lang-en="&#127976; N/A">&#127976; N/A</span>
+      </div>
+    </div>
+</section>
+
+<!-- Inclusions & Exclusions -->
+<section class="inclusions">
+  <div class="inclusions__grid">
+    <div class="inclusions__block">
+      <h3 data-lang-zh="费用包含" data-lang-en="What's Included">What's Included</h3>
+      <ul>
+        <li data-lang-zh="全部所需证件 (入藏函、边防证、军区通行证)" data-lang-en="All required permits (TTP, Alien's, military areas)">All required permits (TTP, Alien's, military areas)</li>
+        <li data-lang-zh="经验丰富的英文导游" data-lang-en="Experienced English-speaking guide">Experienced English-speaking guide</li>
+        <li data-lang-zh="转山背夫与牦牛驮运行李" data-lang-en="Porters and yaks for kora luggage">Porters and yaks for kora luggage</li>
+        <li data-lang-zh="住宿 (11晚，标准不一)" data-lang-en="Accommodation (11 nights, mixed standard)">Accommodation (11 nights, mixed standard)</li>
+        <li data-lang-zh="全部餐食" data-lang-en="All meals">All meals</li>
+        <li data-lang-zh="四驱越野车" data-lang-en="Private 4WD vehicle">Private 4WD vehicle</li>
+        <li data-lang-zh="氧气与急救包" data-lang-en="Oxygen and first aid kit">Oxygen and first aid kit</li>
+        <li data-lang-zh="转山夜宿睡袋" data-lang-en="Sleeping bag for kora nights">Sleeping bag for kora nights</li>
+      </ul>
+    </div>
+    <div class="inclusions__block">
+      <h3 data-lang-zh="费用不含" data-lang-en="Not Included">Not Included</h3>
+      <ul>
+        <li data-lang-zh="往返拉萨机票" data-lang-en="Flights to/from Lhasa">Flights to/from Lhasa</li>
+        <li data-lang-zh="旅游保险 (必需)" data-lang-en="Travel insurance (mandatory)">Travel insurance (mandatory)</li>
+        <li data-lang-zh="转山个人背夫 (可选)" data-lang-en="Personal porter for kora (optional)">Personal porter for kora (optional)</li>
+        <li data-lang-zh="小费" data-lang-en="Tips">Tips</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="pricing">
+  <h2 class="pricing__title" data-lang-zh="价格表" data-lang-en="Pricing">Pricing</h2>
+  <p class="pricing__note" data-lang-zh="人数越多，人均价格越低" data-lang-en="Price per person decreases as group size increases">Price per person decreases as group size increases</p>
+  <table class="pricing__table">
+    <thead>
+      <tr>
+        <th data-lang-zh="人数" data-lang-en="Group Size">Group Size</th>
+        <th data-lang-zh="人均价格" data-lang-en="Price Per Person">Price Per Person</th>
+      </tr>
+    </thead>
+    <tbody>
+
+          <tr>
+            <td>2 travelers</td>
+            <td><strong>$1499</strong> / person</td>
+          </tr>
+
+          <tr>
+            <td>4 travelers</td>
+            <td><strong>$1298</strong> / person</td>
+          </tr>
+
+          <tr>
+            <td>6 travelers</td>
+            <td><strong>$1198</strong> / person</td>
+          </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <h2 class="faq__title" data-lang-zh="常见问题" data-lang-en="Frequently Asked Questions">Frequently Asked Questions</h2>
+
+      <details class="faq-item">
+        <summary data-lang-zh="冈仁波齐转山体力要求高吗？" data-lang-en="How physically demanding is the Kailash kora?">How physically demanding is the Kailash kora?</summary>
+        <p data-lang-zh="中等偏挑战。需能在高海拔每天徒步6-8小时。我们提供全程支持。" data-lang-en="Moderate to challenging. You should be able to hike 6-8 hours per day at high altitude. We provide support.">Moderate to challenging. You should be able to hike 6-8 hours per day at high altitude. We provide support.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary data-lang-zh="转山途中住宿条件如何？" data-lang-en="What are the accommodations like during the kora?">What are the accommodations like during the kora?</summary>
+        <p data-lang-zh="基础招待所多人间，提供睡袋，供应简单热餐。" data-lang-en="Basic guesthouses with dormitory beds. Sleeping bags provided. Simple but hot meals.">Basic guesthouses with dormitory beds. Sleeping bags provided. Simple but hot meals.</p>
+      </details>
+</section>
+
+<!-- CTA -->
+<section class="tour-cta">
+  <h2 class="tour-cta__title" data-lang-zh="准备好出发了吗？" data-lang-en="Ready to Book?">Ready to Book?</h2>
+  <p class="tour-cta__desc" data-lang-zh="告诉我们您的旅行计划，我们将在24小时内回复。" data-lang-en="Tell us your travel plans and we will get back to you within 24 hours.">Tell us your travel plans and we will get back to you within 24 hours.</p>
+  <a href="../customize.html?tour=kailash-12-days" class="btn btn--light btn--lg" data-lang-zh="获取免费报价" data-lang-en="Get Free Quote">Get Free Quote</a>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">TibetRide</div>
+        <p class="footer__desc" data-lang-zh="探索西藏，与本地专家同行。" data-lang-en="Explore Tibet with local experts.">Explore Tibet with local experts.</p>
+      </div>
+      <div>
+        <div class="footer__heading" data-lang-zh="探索" data-lang-en="Explore">Explore</div>
+        <ul class="footer__links">
+          <li><a href="index.html" data-lang-zh="线路" data-lang-en="Tours">Tours</a></li>
+          <li><a href="../guides/index.html" data-lang-zh="攻略" data-lang-en="Travel Guide">Travel Guide</a></li>
+          <li><a href="../articles/index.html" data-lang-zh="故事" data-lang-en="Stories">Stories</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading" data-lang-zh="公司" data-lang-en="Company">Company</div>
+        <ul class="footer__links">
+          <li><a href="../about.html" data-lang-zh="关于我们" data-lang-en="About Us">About Us</a></li>
+          <li><a href="../contact.html" data-lang-zh="联系我们" data-lang-en="Contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 TibetRide.com. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/lang.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

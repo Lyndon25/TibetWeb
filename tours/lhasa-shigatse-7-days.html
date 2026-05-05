@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore Tibet's cultural corridor from Lhasa to Shigatse. Visit Yamdrok Lake, Gyantse Kumbum, and Tashilhunpo Monastery with expert guides.">
+  <title>7 Days Lhasa Shigatse Tour | TibetRide - Yamdrok Lake & Tashilhunpo</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/lang.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+  <script>
+    (function(){
+      var k='site-lang',l=localStorage.getItem(k);
+      if(l==='en'){document.documentElement.setAttribute('lang','en');}
+      else{document.documentElement.setAttribute('lang','zh-CN');}
+    })();
+  </script>
+  <style>
+    /* ===== Tour Page Styles ===== */
+    .tour-hero {
+      position: relative;
+      height: 70vh;
+      min-height: 480px;
+      max-height: 640px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .tour-hero__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .tour-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 100%);
+    }
+    .tour-hero__content {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-width);
+      width: 100%;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      color: #fff;
+    }
+    .tour-hero__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+    .tour-hero__meta span {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+    }
+    .tour-hero__title {
+      font-size: clamp(2rem, 1.5rem + 3vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      max-width: 720px;
+    }
+    .tour-hero__price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+    }
+    .tour-hero__price small {
+      font-size: 0.9rem;
+      font-weight: 400;
+      opacity: 0.8;
+    }
+    .tour-hero__actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* ===== Highlights ===== */
+    .highlights {
+      background: var(--color-earth-light);
+      padding: 3rem 0;
+    }
+    .highlights__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .highlight-item {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      background: #fff;
+      padding: 1.25rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .highlight-item__icon {
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    /* ===== Itinerary ===== */
+    .itinerary {
+      padding: 4rem 0;
+      max-width: var(--max-width-narrow);
+      margin: 0 auto;
+    }
+    .itinerary__title {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+    }
+    .itinerary-day {
+      background: #fff;
+      border: 1px solid var(--color-earth);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .itinerary-day__header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .itinerary-day__badge {
+      background: var(--color-primary);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.3rem 0.7rem;
+      border-radius: 100px;
+    }
+    .itinerary-day__title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin: 0;
+    }
+    .itinerary-day__desc {
+      color: var(--color-text-muted);
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+    }
+    .itinerary-day__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--color-text-light);
+    }
+
+    /* ===== Inclusions / Exclusions ===== */
+    .inclusions {
+      background: var(--color-secondary-light);
+      padding: 3rem 0;
+    }
+    .inclusions__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .inclusions__block h3 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--color-secondary);
+    }
+    .inclusions__block ul {
+      list-style: disc;
+      padding-left: 1.25rem;
+    }
+    .inclusions__block li {
+      margin-bottom: 0.5rem;
+      color: var(--color-text-muted);
+    }
+
+    /* ===== Pricing ===== */
+    .pricing {
+      padding: 3rem 0;
+      max-width: var(--max-width-narrow);
+      margin: 0 auto;
+      text-align: center;
+    }
+    .pricing__title {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .pricing__note {
+      color: var(--color-text-light);
+      margin-bottom: 1.5rem;
+    }
+    .pricing__table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+    }
+    .pricing__table th, .pricing__table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--color-earth);
+    }
+    .pricing__table th {
+      background: var(--color-earth-light);
+      font-weight: 600;
+      text-align: left;
+    }
+    .pricing__table td {
+      text-align: left;
+    }
+    .pricing__table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ===== FAQ ===== */
+    .faq {
+      padding: 3rem 0;
+      max-width: var(--max-width-narrow);
+      margin: 0 auto;
+    }
+    .faq__title {
+      font-size: 1.75rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .faq-item {
+      background: #fff;
+      border: 1px solid var(--color-earth);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+    }
+    .faq-item summary {
+      padding: 1.25rem;
+      font-weight: 600;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-item summary::after {
+      content: '+';
+      font-size: 1.25rem;
+      color: var(--color-primary);
+    }
+    .faq-item[open] summary::after {
+      content: '-';
+    }
+    .faq-item p {
+      padding: 0 1.25rem 1.25rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    /* ===== CTA Section ===== */
+    .tour-cta {
+      background: var(--color-primary);
+      color: #fff;
+      text-align: center;
+      padding: 4rem 1.5rem;
+    }
+    .tour-cta__title {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .tour-cta__desc {
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "7 Days Lhasa to Shigatse Discovery",
+  "description": "Explore Tibet's cultural corridor from Lhasa to Shigatse. Visit Yamdrok Lake, Gyantse Kumbum, and Tashilhunpo Monastery with expert guides.",
+  "image": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&q=80",
+  "offers": {
+    "@type": "Offer",
+    "price": "823",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav nav--scrolled">
+  <div class="nav__inner">
+    <a href="../index.html" class="nav__logo" style="color: var(--color-text);">
+      <span class="nav__logo-icon">&#x1F3CD;</span>
+      <span class="lang-content lang-content--inline" data-lang="zh">TibetRide</span>
+      <span class="lang-content lang-content--inline" data-lang="en">TibetRide</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="../index.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="首页" data-lang-en="Home">Home</a></li>
+      <li><a href="index.html" class="nav__link nav__link--active" data-lang-zh="线路" data-lang-en="Tours">Tours</a></li>
+      <li><a href="../guides/index.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="攻略" data-lang-en="Guide">Guide</a></li>
+      <li><a href="../about.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="关于" data-lang-en="About">About</a></li>
+      <li><a href="../contact.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="联系" data-lang-en="Contact">Contact</a></li>
+    </ul>
+    <button class="nav__toggle" aria-label="Toggle menu">
+      <span style="background: var(--color-text);"></span>
+      <span style="background: var(--color-text);"></span>
+      <span style="background: var(--color-text);"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="tour-hero">
+  <img class="tour-hero__bg" src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&q=80" alt="Yamdrok Lake turquoise waters" loading="eager">
+  <div class="tour-hero__overlay"></div>
+  <div class="tour-hero__content">
+    <div class="tour-hero__meta">
+      <span data-lang-zh="&#128337; 7天" data-lang-en="&#128337; 7 Days">&#128337; 7 Days</span>
+      <span data-lang-zh="&#128101; 最多8人" data-lang-en="&#128101; Max 8">&#128101; Max 8</span>
+      <span data-lang-zh="&#127757; 5月-10月" data-lang-en="&#127757; May - Oct">&#127757; May - Oct</span>
+      <span data-lang-zh="&#128170; 轻松" data-lang-en="&#128170; Easy">&#128170; Easy</span>
+    </div>
+    <h1 class="tour-hero__title" data-lang-zh="拉萨至日喀则7日探索" data-lang-en="7 Days Lhasa to Shigatse Discovery">7 Days Lhasa to Shigatse Discovery</h1>
+    <div class="tour-hero__price">
+      <span data-lang-zh="起价" data-lang-en="From">From</span> USD 823 <small data-lang-zh="每人" data-lang-en="per person">per person</small>
+    </div>
+    <div class="tour-hero__actions">
+      <a href="../customize.html?tour=lhasa-shigatse-7-days" class="btn btn--primary btn--lg" data-lang-zh="获取报价" data-lang-en="Get Free Quote">Get Free Quote</a>
+      <a href="https://wa.me/?text=Hi%20TibetRide%2C%20I%20am%20interested%20in%20the%207%20Days%20Lhasa%20to%20Shigatse%20Discovery" class="btn btn--outline btn--lg" target="_blank" rel="noopener" data-lang-zh="WhatsApp咨询" data-lang-en="Chat on WhatsApp">Chat on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- Overview -->
+<section class="section">
+  <div class="container container--narrow">
+    <h2 class="section-title" data-lang-zh="行程概览" data-lang-en="Tour Overview">Tour Overview</h2>
+    <p data-lang-zh="从拉萨前往日喀则，穿越西藏最壮丽的风景。欣赏碧蓝的羊卓雍错、古老的江孜和雄伟的扎什伦布寺。" data-lang-en="Journey from Lhasa to Shigatse through some of Tibet's most stunning landscapes. Marvel at turquoise Yamdrok Lake, ancient Gyantse, and the majestic Tashilhunpo Monastery.">Journey from Lhasa to Shigatse through some of Tibet's most stunning landscapes. Marvel at turquoise Yamdrok Lake, ancient Gyantse, and the majestic Tashilhunpo Monastery.</p>
+  </div>
+</section>
+
+<!-- Highlights -->
+<section class="highlights">
+  <div class="highlights__grid">
+
+        <div class="highlight-item">
+          <div class="highlight-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.74 5.87a8 8 0 1 1-11.48 0L12 2.69z"/></svg></div>
+          <span data-lang-zh="圣湖羊卓雍错全景" data-lang-en="Sacred Yamdrok Lake panorama">Sacred Yamdrok Lake panorama</span>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M9 21v-6h6v6"/></svg></div>
+          <span data-lang-zh="江孜白居寺十万佛塔" data-lang-en="Gyantse Kumbum Stupa">Gyantse Kumbum Stupa</span>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M12 3v18"/></svg></div>
+          <span data-lang-zh="日喀则扎什伦布寺" data-lang-en="Tashilhunpo Monastery, Shigatse">Tashilhunpo Monastery, Shigatse</span>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3l4 8 5-5 5 15H2L8 3z"/></svg></div>
+          <span data-lang-zh="近距离接触卡若拉冰川" data-lang-en="Karola Glacier up close">Karola Glacier up close</span>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg></div>
+          <span data-lang-zh="沿友谊公路 Scenic Drive" data-lang-en="Scenic drive along Friendship Highway">Scenic drive along Friendship Highway</span>
+        </div>
+  </div>
+</section>
+
+<!-- Itinerary -->
+<section class="itinerary">
+  <h2 class="itinerary__title" data-lang-zh="每日行程" data-lang-en="Daily Itinerary">Daily Itinerary</h2>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 1</span>
+        <h3 class="itinerary-day__title" data-lang-zh="抵达拉萨" data-lang-en="Arrival in Lhasa">Arrival in Lhasa</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="机场接站，酒店入住。休息适应高原。" data-lang-en="Airport pickup and hotel check-in. Rest for altitude acclimatization.">Airport pickup and hotel check-in. Rest for altitude acclimatization.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 晚餐" data-lang-en="&#127860; Dinner">&#127860; Dinner</span>
+        <span data-lang-zh="&#127976; 拉萨四星酒店" data-lang-en="&#127976; Lhasa 4-star hotel">&#127976; Lhasa 4-star hotel</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 2</span>
+        <h3 class="itinerary-day__title" data-lang-zh="拉萨市区精华" data-lang-en="Lhasa City Highlights">Lhasa City Highlights</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="布达拉宫、大昭寺、八廓街。" data-lang-en="Potala Palace, Jokhang Temple, and Barkhor Street exploration.">Potala Palace, Jokhang Temple, and Barkhor Street exploration.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐, 午餐" data-lang-en="&#127860; Breakfast, Lunch">&#127860; Breakfast, Lunch</span>
+        <span data-lang-zh="&#127976; 拉萨四星酒店" data-lang-en="&#127976; Lhasa 4-star hotel">&#127976; Lhasa 4-star hotel</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 3</span>
+        <h3 class="itinerary-day__title" data-lang-zh="拉萨至江孜" data-lang-en="Lhasa to Gyantse">Lhasa to Gyantse</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="翻越岗巴拉山口眺望羊湖，参观卡若拉冰川，抵达江孜。" data-lang-en="Drive over Kamba La Pass for Yamdrok Lake view. Visit Karola Glacier and arrive in Gyantse.">Drive over Kamba La Pass for Yamdrok Lake view. Visit Karola Glacier and arrive in Gyantse.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐, 午餐, 晚餐" data-lang-en="&#127860; Breakfast, Lunch, Dinner">&#127860; Breakfast, Lunch, Dinner</span>
+        <span data-lang-zh="&#127976; 江孜三星酒店" data-lang-en="&#127976; Gyantse 3-star hotel">&#127976; Gyantse 3-star hotel</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 4</span>
+        <h3 class="itinerary-day__title" data-lang-zh="江孜至日喀则" data-lang-en="Gyantse to Shigatse">Gyantse to Shigatse</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="上午白居寺与十万佛塔，下午驱车前往日喀则。" data-lang-en="Morning at Gyantse Kumbum and Pelkor Chode Monastery. Afternoon drive to Shigatse.">Morning at Gyantse Kumbum and Pelkor Chode Monastery. Afternoon drive to Shigatse.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐, 午餐" data-lang-en="&#127860; Breakfast, Lunch">&#127860; Breakfast, Lunch</span>
+        <span data-lang-zh="&#127976; 日喀则四星酒店" data-lang-en="&#127976; Shigatse 4-star hotel">&#127976; Shigatse 4-star hotel</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 5</span>
+        <h3 class="itinerary-day__title" data-lang-zh="日喀则探索" data-lang-en="Shigatse Exploration">Shigatse Exploration</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="参观班禅驻锡地扎什伦布寺，逛当地集市。" data-lang-en="Visit Tashilhunpo Monastery, seat of the Panchen Lama. Explore local markets.">Visit Tashilhunpo Monastery, seat of the Panchen Lama. Explore local markets.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐, 午餐" data-lang-en="&#127860; Breakfast, Lunch">&#127860; Breakfast, Lunch</span>
+        <span data-lang-zh="&#127976; 日喀则四星酒店" data-lang-en="&#127976; Shigatse 4-star hotel">&#127976; Shigatse 4-star hotel</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 6</span>
+        <h3 class="itinerary-day__title" data-lang-zh="返回拉萨" data-lang-en="Return to Lhasa">Return to Lhasa</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="沿途风景返回拉萨，傍晚自由活动。" data-lang-en="Scenic drive back to Lhasa with stops for photos. Evening free in Lhasa.">Scenic drive back to Lhasa with stops for photos. Evening free in Lhasa.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐, 午餐" data-lang-en="&#127860; Breakfast, Lunch">&#127860; Breakfast, Lunch</span>
+        <span data-lang-zh="&#127976; 拉萨四星酒店" data-lang-en="&#127976; Lhasa 4-star hotel">&#127976; Lhasa 4-star hotel</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 7</span>
+        <h3 class="itinerary-day__title" data-lang-zh="送站离藏" data-lang-en="Departure">Departure</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="送机或送站，行程结束。" data-lang-en="Airport or train station transfer. End of tour.">Airport or train station transfer. End of tour.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐" data-lang-en="&#127860; Breakfast">&#127860; Breakfast</span>
+        <span data-lang-zh="&#127976; N/A" data-lang-en="&#127976; N/A">&#127976; N/A</span>
+      </div>
+    </div>
+</section>
+
+<!-- Inclusions & Exclusions -->
+<section class="inclusions">
+  <div class="inclusions__grid">
+    <div class="inclusions__block">
+      <h3 data-lang-zh="费用包含" data-lang-en="What's Included">What's Included</h3>
+      <ul>
+        <li data-lang-zh="入藏函" data-lang-en="Tibet Travel Permit">Tibet Travel Permit</li>
+        <li data-lang-zh="持证英文导游" data-lang-en="Licensed English-speaking guide">Licensed English-speaking guide</li>
+        <li data-lang-zh="酒店住宿 (6晚)" data-lang-en="Hotel accommodation (6 nights)">Hotel accommodation (6 nights)</li>
+        <li data-lang-zh="行程所列餐食" data-lang-en="Meals as per itinerary">Meals as per itinerary</li>
+        <li data-lang-zh="全部景点门票" data-lang-en="All entrance fees">All entrance fees</li>
+        <li data-lang-zh="专车专司机" data-lang-en="Private vehicle with driver">Private vehicle with driver</li>
+      </ul>
+    </div>
+    <div class="inclusions__block">
+      <h3 data-lang-zh="费用不含" data-lang-en="Not Included">Not Included</h3>
+      <ul>
+        <li data-lang-zh="往返拉萨机票" data-lang-en="Flights to/from Lhasa">Flights to/from Lhasa</li>
+        <li data-lang-zh="个人消费" data-lang-en="Personal expenses">Personal expenses</li>
+        <li data-lang-zh="旅游保险" data-lang-en="Travel insurance">Travel insurance</li>
+        <li data-lang-zh="导游司机小费" data-lang-en="Tips for guide and driver">Tips for guide and driver</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="pricing">
+  <h2 class="pricing__title" data-lang-zh="价格表" data-lang-en="Pricing">Pricing</h2>
+  <p class="pricing__note" data-lang-zh="人数越多，人均价格越低" data-lang-en="Price per person decreases as group size increases">Price per person decreases as group size increases</p>
+  <table class="pricing__table">
+    <thead>
+      <tr>
+        <th data-lang-zh="人数" data-lang-en="Group Size">Group Size</th>
+        <th data-lang-zh="人均价格" data-lang-en="Price Per Person">Price Per Person</th>
+      </tr>
+    </thead>
+    <tbody>
+
+          <tr>
+            <td>2 travelers</td>
+            <td><strong>$823</strong> / person</td>
+          </tr>
+
+          <tr>
+            <td>4 travelers</td>
+            <td><strong>$698</strong> / person</td>
+          </tr>
+
+          <tr>
+            <td>6 travelers</td>
+            <td><strong>$598</strong> / person</td>
+          </tr>
+
+          <tr>
+            <td>8 travelers</td>
+            <td><strong>$548</strong> / person</td>
+          </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <h2 class="faq__title" data-lang-zh="常见问题" data-lang-en="Frequently Asked Questions">Frequently Asked Questions</h2>
+
+      <details class="faq-item">
+        <summary data-lang-zh="拉萨到日喀则车程多久？" data-lang-en="How long is the drive from Lhasa to Shigatse?">How long is the drive from Lhasa to Shigatse?</summary>
+        <p data-lang-zh="含景点停留约5-6小时。友谊公路路况良好，全程铺装路面。" data-lang-en="About 5-6 hours with scenic stops. The Friendship Highway is paved and in good condition.">About 5-6 hours with scenic stops. The Friendship Highway is paved and in good condition.</p>
+      </details>
+</section>
+
+<!-- CTA -->
+<section class="tour-cta">
+  <h2 class="tour-cta__title" data-lang-zh="准备好出发了吗？" data-lang-en="Ready to Book?">Ready to Book?</h2>
+  <p class="tour-cta__desc" data-lang-zh="告诉我们您的旅行计划，我们将在24小时内回复。" data-lang-en="Tell us your travel plans and we will get back to you within 24 hours.">Tell us your travel plans and we will get back to you within 24 hours.</p>
+  <a href="../customize.html?tour=lhasa-shigatse-7-days" class="btn btn--light btn--lg" data-lang-zh="获取免费报价" data-lang-en="Get Free Quote">Get Free Quote</a>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">TibetRide</div>
+        <p class="footer__desc" data-lang-zh="探索西藏，与本地专家同行。" data-lang-en="Explore Tibet with local experts.">Explore Tibet with local experts.</p>
+      </div>
+      <div>
+        <div class="footer__heading" data-lang-zh="探索" data-lang-en="Explore">Explore</div>
+        <ul class="footer__links">
+          <li><a href="index.html" data-lang-zh="线路" data-lang-en="Tours">Tours</a></li>
+          <li><a href="../guides/index.html" data-lang-zh="攻略" data-lang-en="Travel Guide">Travel Guide</a></li>
+          <li><a href="../articles/index.html" data-lang-zh="故事" data-lang-en="Stories">Stories</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading" data-lang-zh="公司" data-lang-en="Company">Company</div>
+        <ul class="footer__links">
+          <li><a href="../about.html" data-lang-zh="关于我们" data-lang-en="About Us">About Us</a></li>
+          <li><a href="../contact.html" data-lang-zh="联系我们" data-lang-en="Contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 TibetRide.com. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/lang.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

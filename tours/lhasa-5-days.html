@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover the heart of Tibet in 5 days. Visit Potala Palace, Jokhang Temple, and Barkhor Street with our expert local guides. Small groups, all permits included.">
+  <title>5 Days Lhasa Tour | TibetRide - Explore Tibet With Local Experts</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/lang.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+  <script>
+    (function(){
+      var k='site-lang',l=localStorage.getItem(k);
+      if(l==='en'){document.documentElement.setAttribute('lang','en');}
+      else{document.documentElement.setAttribute('lang','zh-CN');}
+    })();
+  </script>
+  <style>
+    /* ===== Tour Page Styles ===== */
+    .tour-hero {
+      position: relative;
+      height: 70vh;
+      min-height: 480px;
+      max-height: 640px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .tour-hero__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .tour-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 100%);
+    }
+    .tour-hero__content {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-width);
+      width: 100%;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      color: #fff;
+    }
+    .tour-hero__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+    .tour-hero__meta span {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+    }
+    .tour-hero__title {
+      font-size: clamp(2rem, 1.5rem + 3vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      max-width: 720px;
+    }
+    .tour-hero__price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+    }
+    .tour-hero__price small {
+      font-size: 0.9rem;
+      font-weight: 400;
+      opacity: 0.8;
+    }
+    .tour-hero__actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* ===== Highlights ===== */
+    .highlights {
+      background: var(--color-earth-light);
+      padding: 3rem 0;
+    }
+    .highlights__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .highlight-item {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      background: #fff;
+      padding: 1.25rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .highlight-item__icon {
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    /* ===== Itinerary ===== */
+    .itinerary {
+      padding: 4rem 0;
+      max-width: var(--max-width-narrow);
+      margin: 0 auto;
+    }
+    .itinerary__title {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+    }
+    .itinerary-day {
+      background: #fff;
+      border: 1px solid var(--color-earth);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .itinerary-day__header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .itinerary-day__badge {
+      background: var(--color-primary);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.3rem 0.7rem;
+      border-radius: 100px;
+    }
+    .itinerary-day__title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin: 0;
+    }
+    .itinerary-day__desc {
+      color: var(--color-text-muted);
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+    }
+    .itinerary-day__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--color-text-light);
+    }
+
+    /* ===== Inclusions / Exclusions ===== */
+    .inclusions {
+      background: var(--color-secondary-light);
+      padding: 3rem 0;
+    }
+    .inclusions__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .inclusions__block h3 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--color-secondary);
+    }
+    .inclusions__block ul {
+      list-style: disc;
+      padding-left: 1.25rem;
+    }
+    .inclusions__block li {
+      margin-bottom: 0.5rem;
+      color: var(--color-text-muted);
+    }
+
+    /* ===== Pricing ===== */
+    .pricing {
+      padding: 3rem 0;
+      max-width: var(--max-width-narrow);
+      margin: 0 auto;
+      text-align: center;
+    }
+    .pricing__title {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .pricing__note {
+      color: var(--color-text-light);
+      margin-bottom: 1.5rem;
+    }
+    .pricing__table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+    }
+    .pricing__table th, .pricing__table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--color-earth);
+    }
+    .pricing__table th {
+      background: var(--color-earth-light);
+      font-weight: 600;
+      text-align: left;
+    }
+    .pricing__table td {
+      text-align: left;
+    }
+    .pricing__table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ===== FAQ ===== */
+    .faq {
+      padding: 3rem 0;
+      max-width: var(--max-width-narrow);
+      margin: 0 auto;
+    }
+    .faq__title {
+      font-size: 1.75rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .faq-item {
+      background: #fff;
+      border: 1px solid var(--color-earth);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+    }
+    .faq-item summary {
+      padding: 1.25rem;
+      font-weight: 600;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-item summary::after {
+      content: '+';
+      font-size: 1.25rem;
+      color: var(--color-primary);
+    }
+    .faq-item[open] summary::after {
+      content: '-';
+    }
+    .faq-item p {
+      padding: 0 1.25rem 1.25rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    /* ===== CTA Section ===== */
+    .tour-cta {
+      background: var(--color-primary);
+      color: #fff;
+      text-align: center;
+      padding: 4rem 1.5rem;
+    }
+    .tour-cta__title {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .tour-cta__desc {
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "5 Days Lhasa Essence Tour",
+  "description": "Discover the heart of Tibet in 5 days. Visit Potala Palace, Jokhang Temple, and Barkhor Street with our expert local guides. Small groups, all permits included.",
+  "image": "https://images.unsplash.com/photo-1545063914-9f4da7a5f5cf?w=1200&q=80",
+  "offers": {
+    "@type": "Offer",
+    "price": "598",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav nav--scrolled">
+  <div class="nav__inner">
+    <a href="../index.html" class="nav__logo" style="color: var(--color-text);">
+      <span class="nav__logo-icon">&#x1F3CD;</span>
+      <span class="lang-content lang-content--inline" data-lang="zh">TibetRide</span>
+      <span class="lang-content lang-content--inline" data-lang="en">TibetRide</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="../index.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="首页" data-lang-en="Home">Home</a></li>
+      <li><a href="index.html" class="nav__link nav__link--active" data-lang-zh="线路" data-lang-en="Tours">Tours</a></li>
+      <li><a href="../guides/index.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="攻略" data-lang-en="Guide">Guide</a></li>
+      <li><a href="../about.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="关于" data-lang-en="About">About</a></li>
+      <li><a href="../contact.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="联系" data-lang-en="Contact">Contact</a></li>
+    </ul>
+    <button class="nav__toggle" aria-label="Toggle menu">
+      <span style="background: var(--color-text);"></span>
+      <span style="background: var(--color-text);"></span>
+      <span style="background: var(--color-text);"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="tour-hero">
+  <img class="tour-hero__bg" src="https://images.unsplash.com/photo-1545063914-9f4da7a5f5cf?w=1200&q=80" alt="Potala Palace in Lhasa" loading="eager">
+  <div class="tour-hero__overlay"></div>
+  <div class="tour-hero__content">
+    <div class="tour-hero__meta">
+      <span data-lang-zh="&#128337; 5天" data-lang-en="&#128337; 5 Days">&#128337; 5 Days</span>
+      <span data-lang-zh="&#128101; 最多8人" data-lang-en="&#128101; Max 8">&#128101; Max 8</span>
+      <span data-lang-zh="&#127757; 4月-10月" data-lang-en="&#127757; Apr - Oct">&#127757; Apr - Oct</span>
+      <span data-lang-zh="&#128170; 轻松" data-lang-en="&#128170; Easy">&#128170; Easy</span>
+    </div>
+    <h1 class="tour-hero__title" data-lang-zh="拉萨精华5日游" data-lang-en="5 Days Lhasa Essence Tour">5 Days Lhasa Essence Tour</h1>
+    <div class="tour-hero__price">
+      <span data-lang-zh="起价" data-lang-en="From">From</span> USD 598 <small data-lang-zh="每人" data-lang-en="per person">per person</small>
+    </div>
+    <div class="tour-hero__actions">
+      <a href="../customize.html?tour=lhasa-5-days" class="btn btn--primary btn--lg" data-lang-zh="获取报价" data-lang-en="Get Free Quote">Get Free Quote</a>
+      <a href="https://wa.me/?text=Hi%20TibetRide%2C%20I%20am%20interested%20in%20the%205%20Days%20Lhasa%20Essence%20Tour" class="btn btn--outline btn--lg" target="_blank" rel="noopener" data-lang-zh="WhatsApp咨询" data-lang-en="Chat on WhatsApp">Chat on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- Overview -->
+<section class="section">
+  <div class="container container--narrow">
+    <h2 class="section-title" data-lang-zh="行程概览" data-lang-en="Tour Overview">Tour Overview</h2>
+    <p data-lang-zh="用五天时间从容探索西藏的精神心脏。从布达拉宫到八廓街，领略藏族文化与热情好客。" data-lang-en="Discover the spiritual heart of Tibet in five carefully paced days. From the majestic Potala Palace to the bustling Barkhor Street, this tour introduces you to Tibetan culture, Buddhism, and warm hospitality.">Discover the spiritual heart of Tibet in five carefully paced days. From the majestic Potala Palace to the bustling Barkhor Street, this tour introduces you to Tibetan culture, Buddhism, and warm hospitality.</p>
+  </div>
+</section>
+
+<!-- Highlights -->
+<section class="highlights">
+  <div class="highlights__grid">
+
+        <div class="highlight-item">
+          <div class="highlight-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M9 21v-6h6v6"/></svg></div>
+          <span data-lang-zh="布达拉宫导览" data-lang-en="Potala Palace guided tour">Potala Palace guided tour</span>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4v6m0 0l4 4m-4-4l-4 4"/><circle cx="12" cy="2" r="1"/><path d="M7 21l3-4 1 3h4l1-3 3 4"/></svg></div>
+          <span data-lang-zh="大昭寺与八廓街" data-lang-en="Jokhang Temple & Barkhor Street">Jokhang Temple & Barkhor Street</span>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.6C12.5 4.7 16 4 19 6c-2.8 2-4 5-2.2 8.5A7 7 0 0 1 11 20z"/><path d="M11 20v-9"/></svg></div>
+          <span data-lang-zh="罗布林卡与色拉寺" data-lang-en="Norbulingka & Sera Monastery">Norbulingka & Sera Monastery</span>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 2v20"/><path d="M15 15a3 3 0 0 0 3-3V2"/></svg></div>
+          <span data-lang-zh="藏民家访晚宴" data-lang-en="Tibetan welcome dinner">Tibetan welcome dinner</span>
+        </div>
+
+        <div class="highlight-item">
+          <div class="highlight-item__icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg></div>
+          <span data-lang-zh="全程代办入藏函" data-lang-en="Tibet Travel Permit included">Tibet Travel Permit included</span>
+        </div>
+  </div>
+</section>
+
+<!-- Itinerary -->
+<section class="itinerary">
+  <h2 class="itinerary__title" data-lang-zh="每日行程" data-lang-en="Daily Itinerary">Daily Itinerary</h2>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 1</span>
+        <h3 class="itinerary-day__title" data-lang-zh="抵达拉萨" data-lang-en="Arrival in Lhasa">Arrival in Lhasa</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="机场接站，酒店入住，适应休息。晚间导游 briefing。" data-lang-en="Airport pickup, hotel check-in, acclimatization rest. Evening briefing with guide.">Airport pickup, hotel check-in, acclimatization rest. Evening briefing with guide.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 晚餐" data-lang-en="&#127860; Dinner">&#127860; Dinner</span>
+        <span data-lang-zh="&#127976; 拉萨四星酒店" data-lang-en="&#127976; Lhasa 4-star hotel">&#127976; Lhasa 4-star hotel</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 2</span>
+        <h3 class="itinerary-day__title" data-lang-zh="布达拉宫与大昭寺" data-lang-en="Potala Palace & Jokhang Temple">Potala Palace & Jokhang Temple</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="上午布达拉宫，下午大昭寺与八廓街漫步。" data-lang-en="Morning at Potala Palace. Afternoon at Jokhang Temple and Barkhor Street stroll.">Morning at Potala Palace. Afternoon at Jokhang Temple and Barkhor Street stroll.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐, 午餐" data-lang-en="&#127860; Breakfast, Lunch">&#127860; Breakfast, Lunch</span>
+        <span data-lang-zh="&#127976; 拉萨四星酒店" data-lang-en="&#127976; Lhasa 4-star hotel">&#127976; Lhasa 4-star hotel</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 3</span>
+        <h3 class="itinerary-day__title" data-lang-zh="罗布林卡与色拉寺" data-lang-en="Norbulingka & Sera Monastery">Norbulingka & Sera Monastery</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="上午罗布林卡夏宫，下午色拉寺观看辩经。" data-lang-en="Explore Norbulingka Summer Palace. Afternoon at Sera Monastery to watch monk debates.">Explore Norbulingka Summer Palace. Afternoon at Sera Monastery to watch monk debates.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐, 午餐" data-lang-en="&#127860; Breakfast, Lunch">&#127860; Breakfast, Lunch</span>
+        <span data-lang-zh="&#127976; 拉萨四星酒店" data-lang-en="&#127976; Lhasa 4-star hotel">&#127976; Lhasa 4-star hotel</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 4</span>
+        <h3 class="itinerary-day__title" data-lang-zh="哲蚌寺与本地生活" data-lang-en="Drepung Monastery & Local Life">Drepung Monastery & Local Life</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="参观哲蚌寺，曾为西藏最大寺院。下午自由活动，探索茶馆与市场。" data-lang-en="Visit Drepung Monastery, once the largest monastery in Tibet. Afternoon free to explore local teahouses and markets.">Visit Drepung Monastery, once the largest monastery in Tibet. Afternoon free to explore local teahouses and markets.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐" data-lang-en="&#127860; Breakfast">&#127860; Breakfast</span>
+        <span data-lang-zh="&#127976; 拉萨四星酒店" data-lang-en="&#127976; Lhasa 4-star hotel">&#127976; Lhasa 4-star hotel</span>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day__header">
+        <span class="itinerary-day__badge">Day 5</span>
+        <h3 class="itinerary-day__title" data-lang-zh="送站离藏" data-lang-en="Departure">Departure</h3>
+      </div>
+      <p class="itinerary-day__desc" data-lang-zh="早餐后送机或送站，告别西藏，一路平安。" data-lang-en="After breakfast, transfer to airport or train station. Farewell and safe travels.">After breakfast, transfer to airport or train station. Farewell and safe travels.</p>
+      <div class="itinerary-day__meta">
+        <span data-lang-zh="&#127860; 早餐" data-lang-en="&#127860; Breakfast">&#127860; Breakfast</span>
+        <span data-lang-zh="&#127976; N/A" data-lang-en="&#127976; N/A">&#127976; N/A</span>
+      </div>
+    </div>
+</section>
+
+<!-- Inclusions & Exclusions -->
+<section class="inclusions">
+  <div class="inclusions__grid">
+    <div class="inclusions__block">
+      <h3 data-lang-zh="费用包含" data-lang-en="What's Included">What's Included</h3>
+      <ul>
+        <li data-lang-zh="入藏函 (TTP)" data-lang-en="Tibet Travel Permit (TTP)">Tibet Travel Permit (TTP)</li>
+        <li data-lang-zh="持证英文导游" data-lang-en="Licensed English-speaking guide">Licensed English-speaking guide</li>
+        <li data-lang-zh="四星级酒店住宿 (4晚)" data-lang-en="4-star hotel accommodation (4 nights)">4-star hotel accommodation (4 nights)</li>
+        <li data-lang-zh="行程所列餐食" data-lang-en="Meals as listed in itinerary">Meals as listed in itinerary</li>
+        <li data-lang-zh="机场/火车站接送" data-lang-en="Airport/train station transfers">Airport/train station transfers</li>
+        <li data-lang-zh="所列景点门票" data-lang-en="Entrance fees to all listed attractions">Entrance fees to all listed attractions</li>
+      </ul>
+    </div>
+    <div class="inclusions__block">
+      <h3 data-lang-zh="费用不含" data-lang-en="Not Included">Not Included</h3>
+      <ul>
+        <li data-lang-zh="往返拉萨国际机票" data-lang-en="International flights to/from Lhasa">International flights to/from Lhasa</li>
+        <li data-lang-zh="个人消费与小费" data-lang-en="Personal expenses and tips">Personal expenses and tips</li>
+        <li data-lang-zh="旅游保险" data-lang-en="Travel insurance">Travel insurance</li>
+        <li data-lang-zh="行程外自选活动" data-lang-en="Optional activities not listed">Optional activities not listed</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="pricing">
+  <h2 class="pricing__title" data-lang-zh="价格表" data-lang-en="Pricing">Pricing</h2>
+  <p class="pricing__note" data-lang-zh="人数越多，人均价格越低" data-lang-en="Price per person decreases as group size increases">Price per person decreases as group size increases</p>
+  <table class="pricing__table">
+    <thead>
+      <tr>
+        <th data-lang-zh="人数" data-lang-en="Group Size">Group Size</th>
+        <th data-lang-zh="人均价格" data-lang-en="Price Per Person">Price Per Person</th>
+      </tr>
+    </thead>
+    <tbody>
+
+          <tr>
+            <td>2 travelers</td>
+            <td><strong>$598</strong> / person</td>
+          </tr>
+
+          <tr>
+            <td>4 travelers</td>
+            <td><strong>$498</strong> / person</td>
+          </tr>
+
+          <tr>
+            <td>6 travelers</td>
+            <td><strong>$428</strong> / person</td>
+          </tr>
+
+          <tr>
+            <td>8 travelers</td>
+            <td><strong>$398</strong> / person</td>
+          </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <h2 class="faq__title" data-lang-zh="常见问题" data-lang-en="Frequently Asked Questions">Frequently Asked Questions</h2>
+
+      <details class="faq-item">
+        <summary data-lang-zh="需要入藏函吗？" data-lang-en="Do I need a Tibet Travel Permit?">Do I need a Tibet Travel Permit?</summary>
+        <p data-lang-zh="需要。我们免费为您代办全部入藏函手续。" data-lang-en="Yes. We handle all permit applications for you at no extra cost.">Yes. We handle all permit applications for you at no extra cost.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary data-lang-zh="拉萨海拔多少？" data-lang-en="What is the altitude of Lhasa?">What is the altitude of Lhasa?</summary>
+        <p data-lang-zh="拉萨海拔3650米。我们安排充足时间让您适应高原。" data-lang-en="Lhasa sits at 3,650m. We pace the tour to allow proper acclimatization.">Lhasa sits at 3,650m. We pace the tour to allow proper acclimatization.</p>
+      </details>
+</section>
+
+<!-- CTA -->
+<section class="tour-cta">
+  <h2 class="tour-cta__title" data-lang-zh="准备好出发了吗？" data-lang-en="Ready to Book?">Ready to Book?</h2>
+  <p class="tour-cta__desc" data-lang-zh="告诉我们您的旅行计划，我们将在24小时内回复。" data-lang-en="Tell us your travel plans and we will get back to you within 24 hours.">Tell us your travel plans and we will get back to you within 24 hours.</p>
+  <a href="../customize.html?tour=lhasa-5-days" class="btn btn--light btn--lg" data-lang-zh="获取免费报价" data-lang-en="Get Free Quote">Get Free Quote</a>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">TibetRide</div>
+        <p class="footer__desc" data-lang-zh="探索西藏，与本地专家同行。" data-lang-en="Explore Tibet with local experts.">Explore Tibet with local experts.</p>
+      </div>
+      <div>
+        <div class="footer__heading" data-lang-zh="探索" data-lang-en="Explore">Explore</div>
+        <ul class="footer__links">
+          <li><a href="index.html" data-lang-zh="线路" data-lang-en="Tours">Tours</a></li>
+          <li><a href="../guides/index.html" data-lang-zh="攻略" data-lang-en="Travel Guide">Travel Guide</a></li>
+          <li><a href="../articles/index.html" data-lang-zh="故事" data-lang-en="Stories">Stories</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading" data-lang-zh="公司" data-lang-en="Company">Company</div>
+        <ul class="footer__links">
+          <li><a href="../about.html" data-lang-zh="关于我们" data-lang-en="About Us">About Us</a></li>
+          <li><a href="../contact.html" data-lang-zh="联系我们" data-lang-en="Contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 TibetRide.com. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/lang.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

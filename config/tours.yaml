@@ -1,0 +1,607 @@
+tours:
+  - slug: lhasa-5-days
+    name: "5 Days Lhasa Essence Tour"
+    nameZh: "拉萨精华5日游"
+    duration: 5
+    durationUnit: days
+    startingPrice: 598
+    currency: USD
+    maxGroupSize: 8
+    difficulty: Easy
+    difficultyZh: "轻松"
+    bestSeason: "Apr - Oct"
+    bestSeasonZh: "4月-10月"
+    coverImage: "https://images.unsplash.com/photo-1545063914-9f4da7a5f5cf?w=1200&q=80"
+    coverImageAlt: "Potala Palace in Lhasa"
+    highlights:
+      - text: "Potala Palace guided tour"
+        textZh: "布达拉宫导览"
+        icon: landmark
+      - text: "Jokhang Temple & Barkhor Street"
+        textZh: "大昭寺与八廓街"
+        icon: walking
+      - text: "Norbulingka & Sera Monastery"
+        textZh: "罗布林卡与色拉寺"
+        icon: leaf
+      - text: "Tibetan welcome dinner"
+        textZh: "藏民家访晚宴"
+        icon: utensils
+      - text: "Tibet Travel Permit included"
+        textZh: "全程代办入藏函"
+        icon: file-check
+    overview: "Discover the spiritual heart of Tibet in five carefully paced days. From the majestic Potala Palace to the bustling Barkhor Street, this tour introduces you to Tibetan culture, Buddhism, and warm hospitality."
+    overviewZh: "用五天时间从容探索西藏的精神心脏。从布达拉宫到八廓街，领略藏族文化与热情好客。"
+    itinerary:
+      - day: 1
+        title: "Arrival in Lhasa"
+        titleZh: "抵达拉萨"
+        desc: "Airport pickup, hotel check-in, acclimatization rest. Evening briefing with guide."
+        descZh: "机场接站，酒店入住，适应休息。晚间导游 briefing。"
+        meals: [Dinner]
+        mealsZh: [晚餐]
+        accommodation: "Lhasa 4-star hotel"
+        accommodationZh: "拉萨四星酒店"
+      - day: 2
+        title: "Potala Palace & Jokhang Temple"
+        titleZh: "布达拉宫与大昭寺"
+        desc: "Morning at Potala Palace. Afternoon at Jokhang Temple and Barkhor Street stroll."
+        descZh: "上午布达拉宫，下午大昭寺与八廓街漫步。"
+        meals: [Breakfast, Lunch]
+        mealsZh: [早餐, 午餐]
+        accommodation: "Lhasa 4-star hotel"
+        accommodationZh: "拉萨四星酒店"
+      - day: 3
+        title: "Norbulingka & Sera Monastery"
+        titleZh: "罗布林卡与色拉寺"
+        desc: "Explore Norbulingka Summer Palace. Afternoon at Sera Monastery to watch monk debates."
+        descZh: "上午罗布林卡夏宫，下午色拉寺观看辩经。"
+        meals: [Breakfast, Lunch]
+        mealsZh: [早餐, 午餐]
+        accommodation: "Lhasa 4-star hotel"
+        accommodationZh: "拉萨四星酒店"
+      - day: 4
+        title: "Drepung Monastery & Local Life"
+        titleZh: "哲蚌寺与本地生活"
+        desc: "Visit Drepung Monastery, once the largest monastery in Tibet. Afternoon free to explore local teahouses and markets."
+        descZh: "参观哲蚌寺，曾为西藏最大寺院。下午自由活动，探索茶馆与市场。"
+        meals: [Breakfast]
+        mealsZh: [早餐]
+        accommodation: "Lhasa 4-star hotel"
+        accommodationZh: "拉萨四星酒店"
+      - day: 5
+        title: "Departure"
+        titleZh: "送站离藏"
+        desc: "After breakfast, transfer to airport or train station. Farewell and safe travels."
+        descZh: "早餐后送机或送站，告别西藏，一路平安。"
+        meals: [Breakfast]
+        mealsZh: [早餐]
+        accommodation: "N/A"
+        accommodationZh: "N/A"
+    inclusions:
+      - "Tibet Travel Permit (TTP)"
+      - "Licensed English-speaking guide"
+      - "4-star hotel accommodation (4 nights)"
+      - "Meals as listed in itinerary"
+      - "Airport/train station transfers"
+      - "Entrance fees to all listed attractions"
+    inclusionsZh:
+      - "入藏函 (TTP)"
+      - "持证英文导游"
+      - "四星级酒店住宿 (4晚)"
+      - "行程所列餐食"
+      - "机场/火车站接送"
+      - "所列景点门票"
+    exclusions:
+      - "International flights to/from Lhasa"
+      - "Personal expenses and tips"
+      - "Travel insurance"
+      - "Optional activities not listed"
+    exclusionsZh:
+      - "往返拉萨国际机票"
+      - "个人消费与小费"
+      - "旅游保险"
+      - "行程外自选活动"
+    pricing:
+      - travelers: 2
+        pricePerPerson: 598
+      - travelers: 4
+        pricePerPerson: 498
+      - travelers: 6
+        pricePerPerson: 428
+      - travelers: 8
+        pricePerPerson: 398
+    faq:
+      - q: "Do I need a Tibet Travel Permit?"
+        a: "Yes. We handle all permit applications for you at no extra cost."
+        qZh: "需要入藏函吗？"
+        aZh: "需要。我们免费为您代办全部入藏函手续。"
+      - q: "What is the altitude of Lhasa?"
+        a: "Lhasa sits at 3,650m. We pace the tour to allow proper acclimatization."
+        qZh: "拉萨海拔多少？"
+        aZh: "拉萨海拔3650米。我们安排充足时间让您适应高原。"
+    metaTitle: "5 Days Lhasa Tour | TibetRide - Explore Tibet With Local Experts"
+    metaDescription: "Discover the heart of Tibet in 5 days. Visit Potala Palace, Jokhang Temple, and Barkhor Street with our expert local guides. Small groups, all permits included."
+
+  - slug: lhasa-shigatse-7-days
+    name: "7 Days Lhasa to Shigatse Discovery"
+    nameZh: "拉萨至日喀则7日探索"
+    duration: 7
+    durationUnit: days
+    startingPrice: 823
+    currency: USD
+    maxGroupSize: 8
+    difficulty: Easy
+    difficultyZh: "轻松"
+    bestSeason: "May - Oct"
+    bestSeasonZh: "5月-10月"
+    coverImage: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&q=80"
+    coverImageAlt: "Yamdrok Lake turquoise waters"
+    highlights:
+      - text: "Sacred Yamdrok Lake panorama"
+        textZh: "圣湖羊卓雍错全景"
+        icon: water
+      - text: "Gyantse Kumbum Stupa"
+        textZh: "江孜白居寺十万佛塔"
+        icon: landmark
+      - text: "Tashilhunpo Monastery, Shigatse"
+        textZh: "日喀则扎什伦布寺"
+        icon: temple
+      - text: "Karola Glacier up close"
+        textZh: "近距离接触卡若拉冰川"
+        icon: mountain
+      - text: "Scenic drive along Friendship Highway"
+        textZh: "沿友谊公路 Scenic Drive"
+        icon: car
+    overview: "Journey from Lhasa to Shigatse through some of Tibet's most stunning landscapes. Marvel at turquoise Yamdrok Lake, ancient Gyantse, and the majestic Tashilhunpo Monastery."
+    overviewZh: "从拉萨前往日喀则，穿越西藏最壮丽的风景。欣赏碧蓝的羊卓雍错、古老的江孜和雄伟的扎什伦布寺。"
+    itinerary:
+      - day: 1
+        title: "Arrival in Lhasa"
+        titleZh: "抵达拉萨"
+        desc: "Airport pickup and hotel check-in. Rest for altitude acclimatization."
+        descZh: "机场接站，酒店入住。休息适应高原。"
+        meals: [Dinner]
+        mealsZh: [晚餐]
+        accommodation: "Lhasa 4-star hotel"
+        accommodationZh: "拉萨四星酒店"
+      - day: 2
+        title: "Lhasa City Highlights"
+        titleZh: "拉萨市区精华"
+        desc: "Potala Palace, Jokhang Temple, and Barkhor Street exploration."
+        descZh: "布达拉宫、大昭寺、八廓街。"
+        meals: [Breakfast, Lunch]
+        mealsZh: [早餐, 午餐]
+        accommodation: "Lhasa 4-star hotel"
+        accommodationZh: "拉萨四星酒店"
+      - day: 3
+        title: "Lhasa to Gyantse"
+        titleZh: "拉萨至江孜"
+        desc: "Drive over Kamba La Pass for Yamdrok Lake view. Visit Karola Glacier and arrive in Gyantse."
+        descZh: "翻越岗巴拉山口眺望羊湖，参观卡若拉冰川，抵达江孜。"
+        meals: [Breakfast, Lunch, Dinner]
+        mealsZh: [早餐, 午餐, 晚餐]
+        accommodation: "Gyantse 3-star hotel"
+        accommodationZh: "江孜三星酒店"
+      - day: 4
+        title: "Gyantse to Shigatse"
+        titleZh: "江孜至日喀则"
+        desc: "Morning at Gyantse Kumbum and Pelkor Chode Monastery. Afternoon drive to Shigatse."
+        descZh: "上午白居寺与十万佛塔，下午驱车前往日喀则。"
+        meals: [Breakfast, Lunch]
+        mealsZh: [早餐, 午餐]
+        accommodation: "Shigatse 4-star hotel"
+        accommodationZh: "日喀则四星酒店"
+      - day: 5
+        title: "Shigatse Exploration"
+        titleZh: "日喀则探索"
+        desc: "Visit Tashilhunpo Monastery, seat of the Panchen Lama. Explore local markets."
+        descZh: "参观班禅驻锡地扎什伦布寺，逛当地集市。"
+        meals: [Breakfast, Lunch]
+        mealsZh: [早餐, 午餐]
+        accommodation: "Shigatse 4-star hotel"
+        accommodationZh: "日喀则四星酒店"
+      - day: 6
+        title: "Return to Lhasa"
+        titleZh: "返回拉萨"
+        desc: "Scenic drive back to Lhasa with stops for photos. Evening free in Lhasa."
+        descZh: "沿途风景返回拉萨，傍晚自由活动。"
+        meals: [Breakfast, Lunch]
+        mealsZh: [早餐, 午餐]
+        accommodation: "Lhasa 4-star hotel"
+        accommodationZh: "拉萨四星酒店"
+      - day: 7
+        title: "Departure"
+        titleZh: "送站离藏"
+        desc: "Airport or train station transfer. End of tour."
+        descZh: "送机或送站，行程结束。"
+        meals: [Breakfast]
+        mealsZh: [早餐]
+        accommodation: "N/A"
+        accommodationZh: "N/A"
+    inclusions:
+      - "Tibet Travel Permit"
+      - "Licensed English-speaking guide"
+      - "Hotel accommodation (6 nights)"
+      - "Meals as per itinerary"
+      - "All entrance fees"
+      - "Private vehicle with driver"
+    inclusionsZh:
+      - "入藏函"
+      - "持证英文导游"
+      - "酒店住宿 (6晚)"
+      - "行程所列餐食"
+      - "全部景点门票"
+      - "专车专司机"
+    exclusions:
+      - "Flights to/from Lhasa"
+      - "Personal expenses"
+      - "Travel insurance"
+      - "Tips for guide and driver"
+    exclusionsZh:
+      - "往返拉萨机票"
+      - "个人消费"
+      - "旅游保险"
+      - "导游司机小费"
+    pricing:
+      - travelers: 2
+        pricePerPerson: 823
+      - travelers: 4
+        pricePerPerson: 698
+      - travelers: 6
+        pricePerPerson: 598
+      - travelers: 8
+        pricePerPerson: 548
+    faq:
+      - q: "How long is the drive from Lhasa to Shigatse?"
+        a: "About 5-6 hours with scenic stops. The Friendship Highway is paved and in good condition."
+        qZh: "拉萨到日喀则车程多久？"
+        aZh: "含景点停留约5-6小时。友谊公路路况良好，全程铺装路面。"
+    metaTitle: "7 Days Lhasa Shigatse Tour | TibetRide - Yamdrok Lake & Tashilhunpo"
+    metaDescription: "Explore Tibet's cultural corridor from Lhasa to Shigatse. Visit Yamdrok Lake, Gyantse Kumbum, and Tashilhunpo Monastery with expert guides."
+
+  - slug: everest-9-days
+    name: "9 Days Everest Base Camp Tibet Tour"
+    nameZh: "珠峰大本营9日西藏之旅"
+    duration: 9
+    durationUnit: days
+    startingPrice: 1034
+    currency: USD
+    maxGroupSize: 6
+    difficulty: Moderate
+    difficultyZh: "中等"
+    bestSeason: "Apr - Oct"
+    bestSeasonZh: "4月-10月"
+    coverImage: "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?w=1200&q=80"
+    coverImageAlt: "Mount Everest at sunrise from Tibet side"
+    highlights:
+      - text: "Stand at Everest Base Camp (5,200m)"
+        textZh: "抵达珠峰大本营 (5200米)"
+        icon: mountain
+      - text: "Sunrise over Everest from Rongbuk"
+        textZh: "绒布寺观珠峰日出"
+        icon: sun
+      - text: "Turquoise Yamdrok Lake"
+        textZh: "碧蓝羊卓雍错"
+        icon: water
+      - text: "Tashilhunpo Monastery in Shigatse"
+        textZh: "日喀则扎什伦布寺"
+        icon: temple
+      - text: "Small group max 6 travelers"
+        textZh: "小团最多6人"
+        icon: users
+    overview: "The ultimate Tibetan adventure. Journey from Lhasa to the foot of the world's highest peak. Stand at Everest Base Camp and witness the sunrise that has captivated explorers for generations."
+    overviewZh: "终极西藏冒险。从拉萨前往世界最高峰脚下，站在珠峰大本营，见证世代 explorer 为之倾倒的日出。"
+    itinerary:
+      - day: 1
+        title: "Arrival in Lhasa"
+        titleZh: "抵达拉萨"
+        desc: "Pickup and hotel check-in. Rest for acclimatization."
+        descZh: "接站入住，休息适应高原。"
+        meals: [Dinner]
+        mealsZh: [晚餐]
+        accommodation: "Lhasa 4-star hotel"
+        accommodationZh: "拉萨四星酒店"
+      - day: 2
+        title: "Lhasa Sightseeing"
+        titleZh: "拉萨观光"
+        desc: "Potala Palace and Jokhang Temple visit."
+        descZh: "布达拉宫与大昭寺。"
+        meals: [Breakfast, Lunch]
+        mealsZh: [早餐, 午餐]
+        accommodation: "Lhasa 4-star hotel"
+        accommodationZh: "拉萨四星酒店"
+      - day: 3
+        title: "Lhasa to Shigatse"
+        titleZh: "拉萨至日喀则"
+        desc: "Drive via Yamdrok Lake, Karola Glacier, and Gyantse to Shigatse."
+        descZh: "经羊卓雍错、卡若拉冰川、江孜前往日喀则。"
+        meals: [Breakfast, Lunch, Dinner]
+        mealsZh: [早餐, 午餐, 晚餐]
+        accommodation: "Shigatse 4-star hotel"
+        accommodationZh: "日喀则四星酒店"
+      - day: 4
+        title: "Shigatse to Everest"
+        titleZh: "日喀则至珠峰"
+        desc: "Drive to Everest Base Camp via Tingri. Overnight at Everest Town or Rongbuk area."
+        descZh: "经定日前往珠峰大本营，宿珠峰小镇或绒布寺附近。"
+        meals: [Breakfast, Lunch, Dinner]
+        mealsZh: [早餐, 午餐, 晚餐]
+        accommodation: "Guesthouse near EBC"
+        accommodationZh: "大本营附近招待所"
+      - day: 5
+        title: "Everest Sunrise & Return"
+        titleZh: "珠峰日出与返程"
+        desc: "Early morning sunrise view of Everest. Drive back to Shigatse."
+        descZh: "清晨观珠峰日出，返回日喀则。"
+        meals: [Breakfast, Lunch]
+        mealsZh: [早餐, 午餐]
+        accommodation: "Shigatse 4-star hotel"
+        accommodationZh: "日喀则四星酒店"
+      - day: 6
+        title: "Shigatse to Lhasa"
+        titleZh: "日喀则返回拉萨"
+        desc: "Visit Tashilhunpo Monastery, then drive back to Lhasa."
+        descZh: "参观扎什伦布寺后返回拉萨。"
+        meals: [Breakfast, Lunch]
+        mealsZh: [早餐, 午餐]
+        accommodation: "Lhasa 4-star hotel"
+        accommodationZh: "拉萨四星酒店"
+      - day: 7
+        title: "Namtso Lake Day Trip"
+        titleZh: "纳木错一日游"
+        desc: "Full day excursion to Namtso Lake, one of Tibet's three sacred lakes."
+        descZh: "全天 excursion 前往西藏三大圣湖之一纳木错。"
+        meals: [Breakfast, Lunch]
+        mealsZh: [早餐, 午餐]
+        accommodation: "Lhasa 4-star hotel"
+        accommodationZh: "拉萨四星酒店"
+      - day: 8
+        title: "Lhasa Free Day"
+        titleZh: "拉萨自由活动"
+        desc: "Free day to explore teahouses, shops, or revisit favorite spots. Optional cooking class."
+        descZh: "自由探索茶馆、商铺或重访喜爱景点。可选藏餐烹饪体验。"
+        meals: [Breakfast]
+        mealsZh: [早餐]
+        accommodation: "Lhasa 4-star hotel"
+        accommodationZh: "拉萨四星酒店"
+      - day: 9
+        title: "Departure"
+        titleZh: "送站离藏"
+        desc: "Airport transfer. Tour concludes."
+        descZh: "送机，行程结束。"
+        meals: [Breakfast]
+        mealsZh: [早餐]
+        accommodation: "N/A"
+        accommodationZh: "N/A"
+    inclusions:
+      - "Tibet Travel Permit and Alien's Travel Permit"
+      - "Licensed English-speaking guide"
+      - "Hotel accommodation (8 nights)"
+      - "Meals per itinerary"
+      - "All entrance fees"
+      - "Private vehicle with experienced driver"
+      - "Oxygen supply for high altitude"
+    inclusionsZh:
+      - "入藏函与边防证"
+      - "持证英文导游"
+      - "酒店住宿 (8晚)"
+      - "行程餐食"
+      - "全部门票"
+      - "专车与经验丰富的司机"
+      - "高原氧气供应"
+    exclusions:
+      - "Flights to/from Lhasa"
+      - "Personal expenses and tips"
+      - "Travel insurance (mandatory)"
+      - "Meals not listed"
+    exclusionsZh:
+      - "往返拉萨机票"
+      - "个人消费与小费"
+      - "旅游保险 (必需)"
+      - "行程外餐食"
+    pricing:
+      - travelers: 2
+        pricePerPerson: 1034
+      - travelers: 4
+        pricePerPerson: 898
+      - travelers: 6
+        pricePerPerson: 798
+    faq:
+      - q: "What is the altitude at Everest Base Camp?"
+        a: "EBC is at 5,200m. We provide oxygen and pace the journey carefully."
+        qZh: "珠峰大本营海拔多少？"
+        aZh: "5200米。我们提供氧气并精心安排行程节奏。"
+      - q: "What are the accommodations like near EBC?"
+        a: "Basic but clean guesthouses. Private rooms available. Hot meals provided."
+        qZh: "大本营附近住宿条件如何？"
+        aZh: "基础但干净的招待所，有独立房间，供应热餐。"
+    metaTitle: "9 Days Everest Base Camp Tibet Tour | TibetRide - Stand at the Top of the World"
+    metaDescription: "Journey to Everest Base Camp from Lhasa. 9-day small group tour with expert guides, all permits, and comfortable pace. Book your Tibet adventure."
+
+  - slug: kailash-12-days
+    name: "12 Days Mount Kailash & Lake Manasarovar Pilgrimage"
+    nameZh: "冈仁波齐与玛旁雍错12日朝圣之旅"
+    duration: 12
+    durationUnit: days
+    startingPrice: 1499
+    currency: USD
+    maxGroupSize: 6
+    difficulty: Challenging
+    difficultyZh: "挑战"
+    bestSeason: "May - Sep"
+    bestSeasonZh: "5月-9月"
+    coverImage: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80"
+    coverImageAlt: "Mount Kailash sacred peak in Western Tibet"
+    highlights:
+      - text: "3-day Mount Kailash kora trek"
+        textZh: "冈仁波齐三日转山徒步"
+        icon: hiking
+      - text: "Holy Lake Manasarovar shores"
+        textZh: "圣湖玛旁雍错湖畔"
+        icon: water
+      - text: "Ancient Guge Kingdom ruins"
+        textZh: "古格王朝遗址"
+        icon: ruins
+      - text: "Wildlife of the Changtang Plateau"
+        textZh: "羌塘高原野生动物"
+        icon: paw
+      - text: "Tholing Monastery visit"
+        textZh: "托林寺参观"
+        icon: temple
+    overview: "The journey of a lifetime to the most sacred mountain in Asia. Trek the 52km Kailash kora, bathe in the crystal waters of Lake Manasarovar, and explore the lost kingdom of Guge."
+    overviewZh: "一生一次的亚洲最神圣山峰之旅。完成52公里冈仁波齐转山，沐浴玛旁雍错圣湖，探索失落的古格王朝。"
+    itinerary:
+      - day: 1
+        title: "Arrival in Lhasa"
+        titleZh: "抵达拉萨"
+        desc: "Airport pickup, hotel check-in, rest."
+        descZh: "接站入住，休息。"
+        meals: [Dinner]
+        mealsZh: [晚餐]
+        accommodation: "Lhasa 4-star hotel"
+        accommodationZh: "拉萨四星酒店"
+      - day: 2
+        title: "Lhasa Acclimatization"
+        titleZh: "拉萨适应日"
+        desc: "Potala Palace and Jokhang Temple. Full day for altitude adjustment."
+        descZh: "布达拉宫与大昭寺，全天适应高原。"
+        meals: [Breakfast, Lunch]
+        mealsZh: [早餐, 午餐]
+        accommodation: "Lhasa 4-star hotel"
+        accommodationZh: "拉萨四星酒店"
+      - day: 3
+        title: "Lhasa to Shigatse"
+        titleZh: "拉萨至日喀则"
+        desc: "Scenic drive via Yamdrok Lake and Gyantse."
+        descZh: "经羊卓雍错与江孜前往日喀则。"
+        meals: [Breakfast, Lunch, Dinner]
+        mealsZh: [早餐, 午餐, 晚餐]
+        accommodation: "Shigatse 4-star hotel"
+        accommodationZh: "日喀则四星酒店"
+      - day: 4
+        title: "Shigatse to Saga"
+        titleZh: "日喀则至萨嘎"
+        desc: "Long drive into Western Tibet. Landscapes change dramatically."
+        descZh: "长途驱车进入西藏西部，地貌剧烈变化。"
+        meals: [Breakfast, Lunch, Dinner]
+        mealsZh: [早餐, 午餐, 晚餐]
+        accommodation: "Saga guesthouse"
+        accommodationZh: "萨嘎招待所"
+      - day: 5
+        title: "Saga to Darchen"
+        titleZh: "萨嘎至塔尔钦"
+        desc: "Reach the gateway town to Mount Kailash. Final preparation for kora."
+        descZh: "抵达冈仁波齐门户小镇，为转山做最后准备。"
+        meals: [Breakfast, Lunch, Dinner]
+        mealsZh: [早餐, 午餐, 晚餐]
+        accommodation: "Darchen guesthouse"
+        accommodationZh: "塔尔钦招待所"
+      - day: 6
+        title: "Kailash Kora Day 1"
+        titleZh: "转山第一天"
+        desc: "Trek from Darchen to Dirapuk Monastery (20km). Views of Kailash north face."
+        descZh: "塔尔钦至止热寺 (20公里)，观冈仁波齐北壁。"
+        meals: [Breakfast, Lunch, Dinner]
+        mealsZh: [早餐, 午餐, 晚餐]
+        accommodation: "Dirapuk guesthouse"
+        accommodationZh: "止热寺招待所"
+      - day: 7
+        title: "Kailash Kora Day 2"
+        titleZh: "转山第二天"
+        desc: "Cross Dolma La Pass (5,640m), the highest point. Trek to Zutulpuk (18km)."
+        descZh: "翻越卓玛拉山口 (5640米) 最高点，至祖楚普 (18公里)。"
+        meals: [Breakfast, Lunch, Dinner]
+        mealsZh: [早餐, 午餐, 晚餐]
+        accommodation: "Zutulpuk guesthouse"
+        accommodationZh: "祖楚普招待所"
+      - day: 8
+        title: "Kailash Kora Day 3 & Manasarovar"
+        titleZh: "转山第三天与玛旁雍错"
+        desc: "Complete kora back to Darchen (14km). Drive to Lake Manasarovar."
+        descZh: "完成转山返回塔尔钦 (14公里)，前往玛旁雍错。"
+        meals: [Breakfast, Lunch, Dinner]
+        mealsZh: [早餐, 午餐, 晚餐]
+        accommodation: "Manasarovar guesthouse"
+        accommodationZh: "玛旁雍错湖畔招待所"
+      - day: 9
+        title: "Lake Manasarovar & Guge Kingdom"
+        titleZh: "玛旁雍错与古格王朝"
+        desc: "Morning at Manasarovar. Afternoon explore the ruins of Guge Kingdom."
+        descZh: "上午圣湖，下午探索古格王朝遗址。"
+        meals: [Breakfast, Lunch, Dinner]
+        mealsZh: [早餐, 午餐, 晚餐]
+        accommodation: "Zanda hotel"
+        accommodationZh: "札达酒店"
+      - day: 10
+        title: "Return to Saga"
+        titleZh: "返回萨嘎"
+        desc: "Long drive back with stops for photos and wildlife spotting."
+        descZh: "长途返程，沿途摄影与观赏野生动物。"
+        meals: [Breakfast, Lunch, Dinner]
+        mealsZh: [早餐, 午餐, 晚餐]
+        accommodation: "Saga guesthouse"
+        accommodationZh: "萨嘎招待所"
+      - day: 11
+        title: "Saga to Lhasa"
+        titleZh: "萨嘎返回拉萨"
+        desc: "Drive back to Lhasa. Farewell dinner."
+        descZh: "返回拉萨，告别晚宴。"
+        meals: [Breakfast, Lunch, Dinner]
+        mealsZh: [早餐, 午餐, 晚餐]
+        accommodation: "Lhasa 4-star hotel"
+        accommodationZh: "拉萨四星酒店"
+      - day: 12
+        title: "Departure"
+        titleZh: "送站离藏"
+        desc: "Airport transfer. Journey complete."
+        descZh: "送机，旅程圆满结束。"
+        meals: [Breakfast]
+        mealsZh: [早餐]
+        accommodation: "N/A"
+        accommodationZh: "N/A"
+    inclusions:
+      - "All required permits (TTP, Alien's, military areas)"
+      - "Experienced English-speaking guide"
+      - "Porters and yaks for kora luggage"
+      - "Accommodation (11 nights, mixed standard)"
+      - "All meals"
+      - "Private 4WD vehicle"
+      - "Oxygen and first aid kit"
+      - "Sleeping bag for kora nights"
+    inclusionsZh:
+      - "全部所需证件 (入藏函、边防证、军区通行证)"
+      - "经验丰富的英文导游"
+      - "转山背夫与牦牛驮运行李"
+      - "住宿 (11晚，标准不一)"
+      - "全部餐食"
+      - "四驱越野车"
+      - "氧气与急救包"
+      - "转山夜宿睡袋"
+    exclusions:
+      - "Flights to/from Lhasa"
+      - "Travel insurance (mandatory)"
+      - "Personal porter for kora (optional)"
+      - "Tips"
+    exclusionsZh:
+      - "往返拉萨机票"
+      - "旅游保险 (必需)"
+      - "转山个人背夫 (可选)"
+      - "小费"
+    pricing:
+      - travelers: 2
+        pricePerPerson: 1499
+      - travelers: 4
+        pricePerPerson: 1298
+      - travelers: 6
+        pricePerPerson: 1198
+    faq:
+      - q: "How physically demanding is the Kailash kora?"
+        a: "Moderate to challenging. You should be able to hike 6-8 hours per day at high altitude. We provide support."
+        qZh: "冈仁波齐转山体力要求高吗？"
+        aZh: "中等偏挑战。需能在高海拔每天徒步6-8小时。我们提供全程支持。"
+      - q: "What are the accommodations like during the kora?"
+        a: "Basic guesthouses with dormitory beds. Sleeping bags provided. Simple but hot meals."
+        qZh: "转山途中住宿条件如何？"
+        aZh: "基础招待所多人间，提供睡袋，供应简单热餐。"
+    metaTitle: "12 Days Kailash Tour | TibetRide - Sacred Mountain Pilgrimage"
+    metaDescription: "Trek the Mount Kailash kora and visit Lake Manasarovar on this 12-day spiritual journey. Expert guides, all permits, small groups. Book your Tibet pilgrimage."

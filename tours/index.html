@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Small group Tibet tours with local experts. From Lhasa to Everest and Kailash, all permits included.">
+  <title data-lang-zh="线路 - TibetRide" data-lang-en="Tibet Tours | TibetRide">Tibet Tours | TibetRide</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/lang.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+  <script>
+    (function(){
+      var k='site-lang',l=localStorage.getItem(k);
+      if(l==='en'){document.documentElement.setAttribute('lang','en');}
+      else{document.documentElement.setAttribute('lang','zh-CN');}
+    })();
+  </script>
+  <style>
+    .tours-hero {
+      background: linear-gradient(135deg, #1c1917 0%, #292524 50%, #44403c 100%);
+      color: #fff;
+      text-align: center;
+      padding: 6rem 1.5rem 4rem;
+    }
+    .tours-hero__title {
+      font-size: clamp(2rem, 1.5rem + 3vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+    .tours-hero__desc {
+      opacity: 0.85;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .tours-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+    .tour-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+    }
+    .tour-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-xl);
+    }
+    .tour-card__image-wrap {
+      display: block;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+    }
+    .tour-card__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .tour-card:hover .tour-card__image {
+      transform: scale(1.04);
+    }
+    .tour-card__body {
+      padding: 1.5rem;
+    }
+    .tour-card__meta {
+      display: flex;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--color-text-light);
+      margin-bottom: 0.75rem;
+    }
+    .tour-card__title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+    .tour-card__title a:hover {
+      color: var(--color-primary);
+    }
+    .tour-card__desc {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .tour-card__footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .tour-card__price {
+      font-weight: 700;
+      color: var(--color-primary);
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav nav--scrolled">
+  <div class="nav__inner">
+    <a href="../index.html" class="nav__logo" style="color: var(--color-text);">
+      <span class="nav__logo-icon">&#x1F3CD;</span> TibetRide
+    </a>
+    <ul class="nav__links">
+      <li><a href="../index.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="首页" data-lang-en="Home">Home</a></li>
+      <li><a href="index.html" class="nav__link nav__link--active" data-lang-zh="线路" data-lang-en="Tours">Tours</a></li>
+      <li><a href="../guides/index.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="攻略" data-lang-en="Guide">Guide</a></li>
+      <li><a href="../about.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="关于" data-lang-en="About">About</a></li>
+      <li><a href="../contact.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="联系" data-lang-en="Contact">Contact</a></li>
+    </ul>
+    <button class="nav__toggle" aria-label="Toggle menu">
+      <span style="background: var(--color-text);"></span>
+      <span style="background: var(--color-text);"></span>
+      <span style="background: var(--color-text);"></span>
+    </button>
+  </div>
+</nav>
+
+<header class="tours-hero">
+  <h1 class="tours-hero__title" data-lang-zh="精选西藏线路" data-lang-en="Curated Tibet Tours">Curated Tibet Tours</h1>
+  <p class="tours-hero__desc" data-lang-zh="小团出行，本地专家带队，全程代办入藏函。" data-lang-en="Small groups, local expert guides, all permits handled.">Small groups, local expert guides, all permits handled.</p>
+</header>
+
+<main class="tours-grid">
+
+      <article class="tour-card animate">
+        <a href="lhasa-5-days.html" class="tour-card__image-wrap">
+          <img class="tour-card__image" src="https://images.unsplash.com/photo-1545063914-9f4da7a5f5cf?w=1200&q=80" alt="Potala Palace in Lhasa" loading="lazy">
+        </a>
+        <div class="tour-card__body">
+          <div class="tour-card__meta">
+            <span>&#128337; 5 Days</span>
+            <span>&#128170; Easy</span>
+            <span>&#127757; Apr - Oct</span>
+          </div>
+          <h3 class="tour-card__title"><a href="lhasa-5-days.html" data-lang-zh="拉萨精华5日游" data-lang-en="5 Days Lhasa Essence Tour">5 Days Lhasa Essence Tour</a></h3>
+          <p class="tour-card__desc" data-lang-zh="用五天时间从容探索西藏的精神心脏。从布达拉宫到八廓街，领略藏族文化与热情好客。..." data-lang-en="Discover the spiritual heart of Tibet in five carefully paced days. From the majestic Potala Palace to the bustling Barkhor Street, this tou...">Discover the spiritual heart of Tibet in five carefully paced days. From the majestic Potala Palace to the bustling Barkhor Street, this tou...</p>
+          <div class="tour-card__footer">
+            <span class="tour-card__price">From USD 598</span>
+            <a href="lhasa-5-days.html" class="btn btn--primary" data-lang-zh="查看详情" data-lang-en="View Details">View Details</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="tour-card animate">
+        <a href="lhasa-shigatse-7-days.html" class="tour-card__image-wrap">
+          <img class="tour-card__image" src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&q=80" alt="Yamdrok Lake turquoise waters" loading="lazy">
+        </a>
+        <div class="tour-card__body">
+          <div class="tour-card__meta">
+            <span>&#128337; 7 Days</span>
+            <span>&#128170; Easy</span>
+            <span>&#127757; May - Oct</span>
+          </div>
+          <h3 class="tour-card__title"><a href="lhasa-shigatse-7-days.html" data-lang-zh="拉萨至日喀则7日探索" data-lang-en="7 Days Lhasa to Shigatse Discovery">7 Days Lhasa to Shigatse Discovery</a></h3>
+          <p class="tour-card__desc" data-lang-zh="从拉萨前往日喀则，穿越西藏最壮丽的风景。欣赏碧蓝的羊卓雍错、古老的江孜和雄伟的扎什伦布寺。..." data-lang-en="Journey from Lhasa to Shigatse through some of Tibet's most stunning landscapes. Marvel at turquoise Yamdrok Lake, ancient Gyantse, and the ...">Journey from Lhasa to Shigatse through some of Tibet's most stunning landscapes. Marvel at turquoise Yamdrok Lake, ancient Gyantse, and the ...</p>
+          <div class="tour-card__footer">
+            <span class="tour-card__price">From USD 823</span>
+            <a href="lhasa-shigatse-7-days.html" class="btn btn--primary" data-lang-zh="查看详情" data-lang-en="View Details">View Details</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="tour-card animate">
+        <a href="everest-9-days.html" class="tour-card__image-wrap">
+          <img class="tour-card__image" src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?w=1200&q=80" alt="Mount Everest at sunrise from Tibet side" loading="lazy">
+        </a>
+        <div class="tour-card__body">
+          <div class="tour-card__meta">
+            <span>&#128337; 9 Days</span>
+            <span>&#128170; Moderate</span>
+            <span>&#127757; Apr - Oct</span>
+          </div>
+          <h3 class="tour-card__title"><a href="everest-9-days.html" data-lang-zh="珠峰大本营9日西藏之旅" data-lang-en="9 Days Everest Base Camp Tibet Tour">9 Days Everest Base Camp Tibet Tour</a></h3>
+          <p class="tour-card__desc" data-lang-zh="终极西藏冒险。从拉萨前往世界最高峰脚下，站在珠峰大本营，见证世代 explorer 为之倾倒的日出。..." data-lang-en="The ultimate Tibetan adventure. Journey from Lhasa to the foot of the world's highest peak. Stand at Everest Base Camp and witness the sunri...">The ultimate Tibetan adventure. Journey from Lhasa to the foot of the world's highest peak. Stand at Everest Base Camp and witness the sunri...</p>
+          <div class="tour-card__footer">
+            <span class="tour-card__price">From USD 1034</span>
+            <a href="everest-9-days.html" class="btn btn--primary" data-lang-zh="查看详情" data-lang-en="View Details">View Details</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="tour-card animate">
+        <a href="kailash-12-days.html" class="tour-card__image-wrap">
+          <img class="tour-card__image" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80" alt="Mount Kailash sacred peak in Western Tibet" loading="lazy">
+        </a>
+        <div class="tour-card__body">
+          <div class="tour-card__meta">
+            <span>&#128337; 12 Days</span>
+            <span>&#128170; Challenging</span>
+            <span>&#127757; May - Sep</span>
+          </div>
+          <h3 class="tour-card__title"><a href="kailash-12-days.html" data-lang-zh="冈仁波齐与玛旁雍错12日朝圣之旅" data-lang-en="12 Days Mount Kailash & Lake Manasarovar Pilgrimage">12 Days Mount Kailash & Lake Manasarovar Pilgrimage</a></h3>
+          <p class="tour-card__desc" data-lang-zh="一生一次的亚洲最神圣山峰之旅。完成52公里冈仁波齐转山，沐浴玛旁雍错圣湖，探索失落的古格王朝。..." data-lang-en="The journey of a lifetime to the most sacred mountain in Asia. Trek the 52km Kailash kora, bathe in the crystal waters of Lake Manasarovar, ...">The journey of a lifetime to the most sacred mountain in Asia. Trek the 52km Kailash kora, bathe in the crystal waters of Lake Manasarovar, ...</p>
+          <div class="tour-card__footer">
+            <span class="tour-card__price">From USD 1499</span>
+            <a href="kailash-12-days.html" class="btn btn--primary" data-lang-zh="查看详情" data-lang-en="View Details">View Details</a>
+          </div>
+        </div>
+      </article>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">TibetRide</div>
+        <p class="footer__desc" data-lang-zh="探索西藏，与本地专家同行。" data-lang-en="Explore Tibet with local experts.">Explore Tibet with local experts.</p>
+      </div>
+      <div>
+        <div class="footer__heading" data-lang-zh="探索" data-lang-en="Explore">Explore</div>
+        <ul class="footer__links">
+          <li><a href="index.html">Tours</a></li>
+          <li><a href="../guides/index.html">Travel Guide</a></li>
+          <li><a href="../articles/index.html">Stories</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Company</div>
+        <ul class="footer__links">
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 TibetRide.com. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/lang.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

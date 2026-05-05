@@ -56,12 +56,13 @@ def main():
     parser.add_argument('--convert', action='store_true', help='Run article generation')
     parser.add_argument('--rebuild', action='store_true', help='Run EN content rebuild')
     parser.add_argument('--sync', action='store_true', help='Run image sync')
+    parser.add_argument('--tours', action='store_true', help='Run tour page generation')
     parser.add_argument('--validate', action='store_true', help='Run validation only')
     parser.add_argument('--slug', type=str, help='Process only this slug')
     parser.add_argument('--all', action='store_true', help='Run full pipeline')
     args = parser.parse_args()
 
-    if not any([args.convert, args.rebuild, args.sync, args.validate, args.all]):
+    if not any([args.convert, args.rebuild, args.sync, args.validate, args.tours, args.all]):
         parser.print_help()
         sys.exit(1)
 
@@ -70,6 +71,9 @@ def main():
     if args.all or args.convert:
         # Pass --slug to convert_articles_v2 if supported
         ok &= _run_phase('Article Generation', 'convert_articles_v2')
+
+    if args.all or args.tours:
+        ok &= _run_phase('Tour Generation', 'generate_tours')
 
     if args.all or args.rebuild:
         ok &= _run_phase('EN Rebuild', 'rebuild_en')
