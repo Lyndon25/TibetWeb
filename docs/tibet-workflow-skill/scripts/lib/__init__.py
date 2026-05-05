@@ -1,3 +1,0 @@
-"""
-TibetJourneyWebsite shared library modules.
-"""

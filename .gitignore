@@ -63,3 +63,6 @@ Thumbs.db
 # Local environment files
 .env
 .env.local
+
+# Documentation / notes (local only)
+docs/
