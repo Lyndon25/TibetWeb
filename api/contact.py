@@ -1,6 +1,6 @@
 # api/contact.py
 # Vercel Python Serverless Function
-# Handles contact form submissions: writes to Notion + sends email via Resend
+# Handles contact form submissions: sends notification to Feishu group via webhook
 
 import os
 import json
@@ -8,23 +8,15 @@ import urllib.request
 from http.server import BaseHTTPRequestHandler
 
 # ── Environment Variables (set in Vercel Dashboard) ──────────────────────────
-NOTION_TOKEN   = os.environ.get("NOTION_TOKEN")
-NOTION_DB_ID   = os.environ.get("NOTION_DB_ID")
-RESEND_API_KEY = os.environ.get("RESEND_API_KEY")
-ALERT_EMAIL    = os.environ.get("ALERT_EMAIL", "hello@tibetride.com")
-WECHAT_WEBHOOK = os.environ.get("WECHAT_WEBHOOK", "")
+FEISHU_WEBHOOK = os.environ.get("FEISHU_WEBHOOK", "")
 
-# ── Constants ────────────────────────────────────────────────────────────────
-NOTION_API_URL = "https://api.notion.com/v1/pages"
-RESEND_API_URL = "https://api.resend.com/emails"
-
-# Tour slug → human-readable name mapping (must match customize.html options)
+# ── Tour / Budget mapping ────────────────────────────────────────────────────
 TOUR_NAMES = {
-    "lhasa-5-days":        "5 Days Lhasa Essence Tour",
+    "lhasa-5-days":          "5 Days Lhasa Essence Tour",
     "lhasa-shigatse-7-days": "7 Days Lhasa to Shigatse",
-    "everest-9-days":      "9 Days Everest Base Camp",
-    "kailash-12-days":     "12 Days Mount Kailash",
-    "custom":              "Fully Custom",
+    "everest-9-days":        "9 Days Everest Base Camp",
+    "kailash-12-days":       "12 Days Mount Kailash",
+    "custom":                "Fully Custom",
 }
 
 BUDGET_LABELS = {
@@ -45,7 +37,7 @@ class handler(BaseHTTPRequestHandler):
     def do_POST(self):
         # 1. Read request body
         content_len = int(self.headers.get("Content-Length", 0))
-        body_bytes  = self.rfile.read(content_len)
+        body_bytes = self.rfile.read(content_len)
         try:
             data = json.loads(body_bytes.decode("utf-8"))
         except json.JSONDecodeError:
@@ -54,56 +46,22 @@ class handler(BaseHTTPRequestHandler):
 
         # 2. Validate required fields
         required = ["name", "email", "travel_date", "travelers"]
-        missing  = [f for f in required if not data.get(f)]
+        missing = [f for f in required if not data.get(f)]
         if missing:
             self._send_json(400, {"error": f"Missing fields: {', '.join(missing)}"})
             return
 
-        errors = []
+        # 3. Check webhook config
+        if not FEISHU_WEBHOOK:
+            self._send_json(500, {"error": "Feishu webhook not configured"})
+            return
 
-        # 3. Write to Notion
-        notion_ok = False
-        notion_page_id = None
-        if NOTION_TOKEN and NOTION_DB_ID:
-            try:
-                notion_page_id = _write_to_notion(data)
-                notion_ok = True
-            except Exception as e:
-                errors.append(f"Notion write failed: {e}")
-        else:
-            errors.append("Notion not configured")
-
-        # 4. Send email via Resend
-        email_ok = False
-        if RESEND_API_KEY:
-            try:
-                _send_email(data)
-                email_ok = True
-            except Exception as e:
-                errors.append(f"Email send failed: {e}")
-        else:
-            errors.append("Resend not configured")
-
-        # 5. Optional: WeChat Work webhook
-        if WECHAT_WEBHOOK:
-            try:
-                _send_wechat(data)
-            except Exception as e:
-                errors.append(f"WeChat notify failed: {e}")
-
-        # 6. Response
-        if notion_ok or email_ok:
-            self._send_json(200, {
-                "success": True,
-                "notion_id": notion_page_id,
-                "warnings": errors if errors else None,
-            })
-        else:
-            self._send_json(500, {
-                "success": False,
-                "error": "All backends failed",
-                "details": errors,
-            })
+        # 4. Send to Feishu
+        try:
+            _send_feishu(data)
+            self._send_json(200, {"success": True})
+        except Exception as e:
+            self._send_json(500, {"success": False, "error": str(e)})
 
     # ── Helpers ──────────────────────────────────────────────────────────────
 
@@ -120,130 +78,67 @@ class handler(BaseHTTPRequestHandler):
         self.wfile.write(json.dumps(payload).encode("utf-8"))
 
 
-# ── Backend implementations ──────────────────────────────────────────────────
-
-def _write_to_notion(data: dict) -> str:
-    """Create a new page in the Notion database. Returns the page id."""
-    tour_label  = TOUR_NAMES.get(data.get("tour_type", ""), data.get("tour_type", ""))
-    budget_label = BUDGET_LABELS.get(data.get("budget", ""), data.get("budget", ""))
+def _send_feishu(data: dict):
+    """Send an interactive card message to Feishu group via webhook."""
+    tour_label = TOUR_NAMES.get(
+        data.get("tour_type", ""), data.get("tour_type", "Not specified")
+    )
+    budget_label = BUDGET_LABELS.get(
+        data.get("budget", ""), data.get("budget", "Not specified")
+    )
 
     payload = {
-        "parent": {"database_id": NOTION_DB_ID},
-        "properties": {
-            "Name": {
-                "title": [{"text": {"content": data.get("name", "")}}]
+        "msg_type": "interactive",
+        "card": {
+            "config": {"wide_screen_mode": True},
+            "header": {
+                "title": {
+                    "tag": "plain_text",
+                    "content": "🎒 新旅行咨询"
+                },
+                "template": "red"
             },
-            "Email": {
-                "email": data.get("email", "")
-            },
-            "Travel Date": {
-                "date": {"start": data.get("travel_date", "")}
-            } if data.get("travel_date") else {"rich_text": [{"text": {"content": ""}}]},
-            "Travelers": {
-                "number": int(data["travelers"]) if str(data.get("travelers", "")).isdigit() else None
-            },
-            "Tour": {
-                "select": {"name": tour_label or "Not specified"}
-            },
-            "Budget": {
-                "select": {"name": budget_label or "Not specified"}
-            },
-            "Message": {
-                "rich_text": [{"text": {"content": data.get("message", "")}}]
-            },
-            "Status": {
-                "select": {"name": "New"}
-            },
-            "Source": {
-                "select": {"name": data.get("source", "Website")}
-            },
+            "elements": [
+                {
+                    "tag": "div",
+                    "text": {
+                        "tag": "lark_md",
+                        "content": (
+                            f"**姓名：**{data.get('name', '')}\n"
+                            f"**邮箱：**{data.get('email', '')}\n"
+                            f"**出发日期：**{data.get('travel_date', '')}\n"
+                            f"**人数：**{data.get('travelers', '')}\n"
+                            f"**线路：**{tour_label}\n"
+                            f"**预算：**{budget_label}\n"
+                            f"**留言：**{data.get('message', '')[:300]}"
+                        )
+                    }
+                },
+                {
+                    "tag": "action",
+                    "actions": [
+                        {
+                            "tag": "button",
+                            "text": {
+                                "tag": "plain_text",
+                                "content": "📧 发送邮件回复"
+                            },
+                            "type": "primary",
+                            "url": f"mailto:{data.get('email', '')}"
+                        }
+                    ]
+                }
+            ]
         }
     }
 
     req = urllib.request.Request(
-        NOTION_API_URL,
-        data=json.dumps(payload).encode("utf-8"),
-        headers={
-            "Authorization": f"Bearer {NOTION_TOKEN}",
-            "Content-Type": "application/json",
-            "Notion-Version": "2022-06-28",
-        },
-        method="POST",
-    )
-    with urllib.request.urlopen(req, timeout=15) as resp:
-        result = json.loads(resp.read().decode("utf-8"))
-        return result.get("id", "")
-
-
-def _send_email(data: dict):
-    """Send notification email via Resend."""
-    tour_label   = TOUR_NAMES.get(data.get("tour_type", ""), data.get("tour_type", "Not specified"))
-    budget_label = BUDGET_LABELS.get(data.get("budget", ""), data.get("budget", "Not specified"))
-
-    html_body = f"""<!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"></head>
-<body style="font-family: Inter, sans-serif; line-height: 1.6; color: #1c1917;">
-  <h2 style="color: #b91c1c;">New TibetTrip Inquiry</h2>
-  <table style="border-collapse: collapse; width: 100%; max-width: 600px;">
-    <tr><td style="padding: 8px; border-bottom: 1px solid #e5e0d8; font-weight: 600;">Name</td><td style="padding: 8px; border-bottom: 1px solid #e5e0d8;">{data.get('name','')}</td></tr>
-    <tr><td style="padding: 8px; border-bottom: 1px solid #e5e0d8; font-weight: 600;">Email</td><td style="padding: 8px; border-bottom: 1px solid #e5e0d8;">{data.get('email','')}</td></tr>
-    <tr><td style="padding: 8px; border-bottom: 1px solid #e5e0d8; font-weight: 600;">Travel Date</td><td style="padding: 8px; border-bottom: 1px solid #e5e0d8;">{data.get('travel_date','')}</td></tr>
-    <tr><td style="padding: 8px; border-bottom: 1px solid #e5e0d8; font-weight: 600;">Travelers</td><td style="padding: 8px; border-bottom: 1px solid #e5e0d8;">{data.get('travelers','')}</td></tr>
-    <tr><td style="padding: 8px; border-bottom: 1px solid #e5e0d8; font-weight: 600;">Tour</td><td style="padding: 8px; border-bottom: 1px solid #e5e0d8;">{tour_label}</td></tr>
-    <tr><td style="padding: 8px; border-bottom: 1px solid #e5e0d8; font-weight: 600;">Budget</td><td style="padding: 8px; border-bottom: 1px solid #e5e0d8;">{budget_label}</td></tr>
-    <tr><td style="padding: 8px; font-weight: 600; vertical-align: top;">Message</td><td style="padding: 8px;">{data.get('message','').replace(chr(10), '<br>')}</td></tr>
-  </table>
-  <p style="margin-top: 24px; font-size: 0.875rem; color: #78716c;">
-    Submitted from TibetRide.com
-  </p>
-</body>
-</html>"""
-
-    payload = {
-        "from": "TibetRide <noreply@tibetride.com>",
-        "to": [ALERT_EMAIL],
-        "subject": f"[TibetRide] New inquiry from {data.get('name', '')}",
-        "html": html_body,
-        "reply_to": data.get("email", ""),
-    }
-
-    req = urllib.request.Request(
-        RESEND_API_URL,
-        data=json.dumps(payload).encode("utf-8"),
-        headers={
-            "Authorization": f"Bearer {RESEND_API_KEY}",
-            "Content-Type": "application/json",
-        },
-        method="POST",
-    )
-    with urllib.request.urlopen(req, timeout=15) as resp:
-        resp.read()  # consume response
-
-
-def _send_wechat(data: dict):
-    """Send notification via WeChat Work group robot webhook."""
-    tour_label = TOUR_NAMES.get(data.get("tour_type", ""), data.get("tour_type", "Not specified"))
-    payload = {
-        "msgtype": "markdown",
-        "markdown": {
-            "content": (
-                f"**New TibetRide Inquiry**\n\n"
-                f"Name: {data.get('name','')}\n"
-                f"Email: {data.get('email','')}\n"
-                f"Date: {data.get('travel_date','')}\n"
-                f"Travelers: {data.get('travelers','')}\n"
-                f"Tour: {tour_label}\n"
-                f"Budget: {data.get('budget','Not specified')}\n"
-                f"Message: {data.get('message','')[:200]}"
-            )
-        }
-    }
-    req = urllib.request.Request(
-        WECHAT_WEBHOOK,
+        FEISHU_WEBHOOK,
         data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
         headers={"Content-Type": "application/json"},
         method="POST",
     )
     with urllib.request.urlopen(req, timeout=10) as resp:
-        resp.read()
+        result = json.loads(resp.read().decode("utf-8"))
+        if result.get("code") != 0:
+            raise RuntimeError(f"Feishu API error: {result}")
