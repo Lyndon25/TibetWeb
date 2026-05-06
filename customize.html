@@ -134,6 +134,40 @@
       }
     }
 
+    /* Form status message */
+    .form-status {
+      grid-column: 1 / -1;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      display: none;
+    }
+    .form-status--success {
+      display: block;
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+    .form-status--error {
+      display: block;
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+    .btn--submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .btn--loading::after {
+      content: "...";
+      animation: dots 1.5s infinite;
+    }
+    @keyframes dots {
+      0%, 20% { content: "."; }
+      40% { content: ".."; }
+      60%, 100% { content: "..."; }
+    }
+
     /* WhatsApp float button */
     .whatsapp-float {
       position: fixed;
@@ -190,7 +224,7 @@
 
 <section class="form-section">
   <div class="container">
-    <form class="form-grid" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <form class="form-grid" id="contactForm">
       <!-- Name -->
       <div class="form-group">
         <label class="form-label" for="name" data-lang-zh="姓名 *" data-lang-en="Name *">Name *</label>
@@ -262,6 +296,8 @@
 
       <div class="form-note" data-lang-zh="提交后我们将在24小时内通过邮件回复。 urgent 需求请直接 WhatsApp 联系。" data-lang-en="We will reply via email within 24 hours. For urgent requests, please contact us on WhatsApp.">We will reply via email within 24 hours. For urgent requests, please contact us on WhatsApp.</div>
 
+      <div class="form-status" id="formStatus"></div>
+
       <div class="form-actions">
         <button type="submit" class="btn--submit" data-lang-zh="获取免费报价" data-lang-en="Get Free Quote">Get Free Quote</button>
         <a href="https://wa.me/" class="btn--whatsapp" target="_blank" rel="noopener">
@@ -310,7 +346,7 @@
 <script src="js/lang.js"></script>
 <script src="js/main.js"></script>
 <script>
-  // Auto-fill tour from URL parameter
+  // 1. Auto-fill tour from URL parameter
   (function() {
     var params = new URLSearchParams(window.location.search);
     var tour = params.get('tour');
@@ -318,6 +354,85 @@
       var select = document.getElementById('tour-type');
       if (select) select.value = tour;
     }
+  })();
+
+  // 2. Form submission via fetch to /api/contact
+  (function() {
+    var form = document.getElementById('contactForm');
+    var statusEl = document.getElementById('formStatus');
+    var submitBtn = form.querySelector('.btn--submit');
+    var originalBtnText = submitBtn.textContent;
+
+    function showStatus(msg, isError) {
+      statusEl.textContent = msg;
+      statusEl.className = 'form-status form-status--' + (isError ? 'error' : 'success');
+      statusEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function clearStatus() {
+      statusEl.className = 'form-status';
+      statusEl.textContent = '';
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      clearStatus();
+
+      // Gather data
+      var data = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        travel_date: form.travel_date.value,
+        travelers: form.travelers.value,
+        tour_type: form.tour_type.value,
+        budget: form.budget.value,
+        message: form.message.value.trim(),
+        source: form.source.value
+      };
+
+      // Loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = originalBtnText;
+      submitBtn.classList.add('btn--loading');
+
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(result) {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('btn--loading');
+        submitBtn.textContent = originalBtnText;
+
+        if (result.success) {
+          showStatus(
+            document.documentElement.getAttribute('lang') === 'zh-CN'
+              ? '提交成功！我们已收到您的咨询，将在24小时内通过邮件回复您。'
+              : 'Submitted successfully! We have received your inquiry and will reply via email within 24 hours.',
+            false
+          );
+          form.reset();
+        } else {
+          showStatus(
+            (result.error || 'Submission failed. Please try again or contact us via WhatsApp.'),
+            true
+          );
+        }
+      })
+      .catch(function(err) {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('btn--loading');
+        submitBtn.textContent = originalBtnText;
+        showStatus(
+          document.documentElement.getAttribute('lang') === 'zh-CN'
+            ? '网络错误，请稍后重试或直接通过微信/WhatsApp 联系我们。'
+            : 'Network error. Please try again later or contact us via WhatsApp.',
+          true
+        );
+      });
+    });
   })();
 </script>
 </body>

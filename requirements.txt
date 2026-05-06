@@ -1,0 +1,3 @@
+# Python dependencies for Vercel Serverless Functions
+# Only built-in modules are used (urllib, json, os, http.server)
+# No external packages required for the contact API
