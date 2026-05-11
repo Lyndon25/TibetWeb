@@ -1,16 +1,19 @@
 {
   "version": 2,
   "name": "tibetride-website",
-  "builds": [
-    {
-      "src": "api/**/*.py",
-      "use": "@vercel/python"
+  "functions": {
+    "api/contact.py": {
+      "maxDuration": 10
     }
-  ],
+  },
   "routes": [
     {
       "src": "/api/(.*)",
       "dest": "/api/$1.py"
+    },
+    {
+      "src": "/",
+      "dest": "/index.html"
     },
     {
       "src": "/tours",
