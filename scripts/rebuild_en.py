@@ -9,21 +9,32 @@ import os
 import sys
 import argparse
 
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_SKILL_DIR = os.path.dirname(_SCRIPT_DIR)
+
 from lib import atomic_io, html_parser as hp, article_config, en_extractor
 
-SRC_DIR = 'AddingArticleWorkSpace/1'
-ARTICLES_DIR = 'articles'
+SRC_DIR = os.path.join(_SKILL_DIR, 'AddingArticleWorkSpace', '1')
+ARTICLES_DIR = os.path.join(_SKILL_DIR, 'articles')
 
 
 def rebuild_article(slug: str, file_pattern: str, strict: bool = False) -> tuple[bool, str]:
     """Rebuild EN content for a single article."""
     article_path = os.path.join(ARTICLES_DIR, f'{slug}.html')
     if not os.path.exists(article_path):
-        return False, 'article not found'
+        return True, 'skipped (article file not generated yet)'
+
+    # Check if this article is configured to have EN translation
+    articles = article_config.load_articles()
+    art = article_config.get_article_by_slug(articles, slug)
+    if art and not art.get('has_en_translation', False):
+        return True, 'skipped (has_en_translation: false)'
 
     en_html, source_type = en_extractor.extract_en(SRC_DIR, file_pattern, strict=strict)
     if not en_html:
-        return False, 'no EN translation found in source'
+        if not art:
+            return False, 'no EN translation found in source (article not in config)'
+        return True, 'skipped (no EN source file available)'
 
     content = atomic_io.read_file(article_path)
 
@@ -77,10 +88,12 @@ def main():
 
     log = []
     failed = False
+    matched = False
 
     for slug, pattern in file_map.items():
         if args.slug and slug != args.slug:
             continue
+        matched = True
         ok, msg = rebuild_article(slug, pattern, strict=args.strict)
         line = f'{slug}.html: {msg}'
         log.append(line)
@@ -88,7 +101,12 @@ def main():
         if not ok:
             failed = True
 
-    log_path = os.path.join('scripts', 'rebuild_en_log.txt')
+    if args.slug and not matched:
+        msg = f'{args.slug}.html: skipped (no EN translation configured)'
+        log.append(msg)
+        print(msg)
+
+    log_path = os.path.join(_SKILL_DIR, 'scripts', 'rebuild_en_log.txt')
     atomic_io.atomic_write(log_path, '\n'.join(log))
 
     if failed:

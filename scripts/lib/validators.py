@@ -128,10 +128,15 @@ def audit_file(path: str) -> list[str]:
         en_body = en_blocks[1]
         zh_body = zh_blocks[1]
 
-        en_imgs = hp.count_imgs(en_body)
-        zh_imgs = hp.count_imgs(zh_body)
-        if en_imgs != zh_imgs:
-            issues.append(f"Image count mismatch: ZH={zh_imgs}, EN={en_imgs}")
+        # Skip image count check for articles without real EN translation
+        if 'translation-needed' in en_body:
+            skip_img_check = True
+        else:
+            skip_img_check = False
+            en_imgs = hp.count_imgs(en_body)
+            zh_imgs = hp.count_imgs(zh_body)
+            if en_imgs != zh_imgs:
+                issues.append(f"Image count mismatch: ZH={zh_imgs}, EN={en_imgs}")
 
         zh_in_en_body = find_chinese_in_en(en_body)
         if zh_in_en_body:

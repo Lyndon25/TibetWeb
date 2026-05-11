@@ -1,0 +1,44 @@
+articles:
+- slug: 西藏轻徒步天花板巴松措新措2日沉浸式攻略新手零压力解锁雪山蓝湖秘境
+  file_pattern: 西藏轻徒步天花板巴松措新措2日沉浸式攻略新手零压力解锁雪山蓝湖秘境
+  has_en_translation: true
+  category: travel-guide
+  catLabel: Travel Guide
+  catLabelZh: 旅行指南
+  date: '2026-05-11'
+  time: 5 min read
+  author:
+    zh: 西藏工布旅游
+    en: 西藏工布旅游
+  title:
+    zh: 西藏轻徒步天花板｜巴松措+新措2日沉浸式攻略，新手零压力解锁雪山蓝湖秘境
+    en: 西藏轻徒步天花板｜巴松措+新措2日沉浸式攻略，新手零压力解锁雪山蓝湖秘境
+  excerpt:
+    zh: 看腻了人山人海的常规打卡线，只想钻进深山里，去见一眼不染尘埃的雪山湖泊？
+    en: 看腻了人山人海的常规打卡线，只想钻进深山里，去见一眼不染尘埃的雪山湖泊？
+  related: []
+- slug: 西藏自驾全境全览上篇川藏线g318进藏-拉萨及周边
+  file_pattern: 西藏自驾全境全览上篇川藏线G318进藏拉萨及周边
+  has_en_translation: true
+  category: travel-guide
+  catLabel: Travel Guide
+  catLabelZh: 旅行指南
+  date: '2026-05-11'
+  time: 5 min read
+  author:
+    zh: 来游四方
+    en: 来游四方
+  title:
+    zh: 西藏自驾全境全览上篇：川藏线G318进藏 — 拉萨及周边
+    en: 西藏自驾全境全览上篇：川藏线G318进藏 — 拉萨及周边
+  excerpt:
+    zh: 川藏线G318进藏 — 拉萨及周边 成都 → 康定 → 理塘 → 巴塘 → 芒康 → 八宿 → 然乌 → 波密 → 林芝 → 拉萨
+    en: 川藏线G318进藏 — 拉萨及周边 成都 → 康定 → 理塘 → 巴塘 → 芒康 → 八宿 → 然乌 → 波密 → 林芝 → 拉萨
+  related: []
+defaults:
+  site_name:
+    zh: TibetRide
+    en: TibetRide
+  site_tagline:
+    zh: 探索西藏
+    en: Explore Tibet

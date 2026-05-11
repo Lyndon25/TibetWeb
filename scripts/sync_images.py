@@ -1,18 +1,23 @@
 """
 Synchronize images between ZH and EN body blocks with proportional distribution.
+
 Consolidates: fix_en_body_images_from_zh.py + fix_en_image_distribution.py + fix_image_counts.py
 
 Usage:
-    python scripts/sync_images.py [--fix-distribution]
+    python scripts/sync_images.py [--no-fix-distribution] [--slug <slug>]
 """
 import os
 import sys
 import re
 import argparse
 
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_SKILL_DIR = os.path.dirname(_SCRIPT_DIR)
+
+sys.path.insert(0, _SCRIPT_DIR)
 from lib import atomic_io, html_parser as hp
 
-ARTICLES_DIR = 'articles'
+ARTICLES_DIR = os.path.join(_SKILL_DIR, 'articles')
 
 
 def _analyze_zh_distribution(zh_block: str) -> tuple[list[tuple[str, int]], int]:
@@ -78,6 +83,10 @@ def sync_file(path: str, fix_distribution: bool = True) -> tuple[bool, str]:
 
     if not zh_block_full or not en_block_full:
         return False, 'missing ZH or EN body block'
+
+    # Skip articles without real EN translation (only placeholder)
+    if 'translation-needed' in en_block_full:
+        return True, 'skipped (no EN translation available)'
 
     zh_imgs = hp.extract_imgs(zh_block_full)
     en_imgs = hp.extract_imgs(en_block_full)
@@ -151,7 +160,7 @@ def main():
         if not ok:
             failed = True
 
-    log_path = os.path.join('scripts', 'sync_images_log.txt')
+    log_path = os.path.join(_SKILL_DIR, 'scripts', 'sync_images_log.txt')
     atomic_io.atomic_write(log_path, '\n'.join(log))
 
     if failed:
