@@ -1,10 +1,15 @@
 """
 Extract English content from WeChat source HTML/MD files.
-Consolidates logic from rebuild_en_from_source.py, fix_en_content.py, fix_mixed_lang.py.
+
+Supports multiple source formats:
+- HTML with <div id="english_translation">
+- Markdown with # English Translation
+- Standalone .en.md file (parallel to source)
+- Standalone .en.html file (parallel to source)
 """
 import os
 import re
-import html
+import html as html_module
 from bs4 import BeautifulSoup
 
 
@@ -28,23 +33,20 @@ def _chinese_ratio(text: str) -> float:
 
 def _normalize_html_entities(raw: str) -> str:
     """Safely normalize HTML entities without breaking URLs."""
-    # First unescape any existing entities, then re-escape properly
-    return html.escape(html.unescape(raw))
+    return html_module.escape(html_module.unescape(raw))
 
 
 def extract_from_html(src_path: str, strict_chinese_filter: bool = False) -> str | None:
     """
     Extract English translation from a WeChat HTML source file.
 
-    Args:
-        src_path: path to the source HTML file
-        strict_chinese_filter: if True, skip paragraphs with >30% Chinese chars
+    Looks for <div id="english_translation"> or <section id="english_translation">
     """
     with open(src_path, 'r', encoding='utf-8') as f:
         html_text = f.read()
 
     soup = BeautifulSoup(html_text, 'html.parser')
-    en_div = soup.find('div', id='english_translation')
+    en_div = soup.find('div', id='english_translation') or soup.find('section', id='english_translation')
     if not en_div:
         return None
 
@@ -89,7 +91,7 @@ def extract_from_html(src_path: str, strict_chinese_filter: bool = False) -> str
                         parts.append(f'<h2>{text}</h2>' if elem.name == 'h2' else f'<h3>{text}</h3>')
             elif elem.name == 'p':
                 text = elem.get_text(strip=True)
-                if text and len(text) > 2 and not text.startswith('▲'):
+                if text and len(text) > 2 and not text.startswith('\u25b2'):
                     if any(k in text.lower() for k in ['editor:', 'photo credit', 'proofreader', 'reviewer', 'source:']):
                         continue
                     if _chinese_ratio(text) > 0.3:
@@ -139,7 +141,7 @@ def extract_from_md(src_path: str) -> str | None:
         if line.startswith('- '):
             content = line[2:]
             content = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', content)
-            parts.append(f'<p>• {content}</p>')
+            parts.append(f'<p>\u2022 {content}</p>')
             continue
         content = line
         content = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', content)
@@ -150,22 +152,108 @@ def extract_from_md(src_path: str) -> str | None:
     return '\n'.join(parts) if parts else None
 
 
+def extract_from_standalone_en(src_dir: str, file_pattern: str) -> str | None:
+    """
+    Extract English from standalone .en.md or .en.html files.
+
+    Looks for files matching:
+      - {pattern}*.en.md
+      - {pattern}*.en.html
+    """
+    if not file_pattern:
+        return None
+
+    files = [f for f in os.listdir(src_dir) if file_pattern in f]
+
+    # Check for .en.md
+    en_md = next((f for f in files if f.endswith('.en.md')), None)
+    if en_md:
+        with open(os.path.join(src_dir, en_md), 'r', encoding='utf-8') as f:
+            text = f.read()
+        # Parse as markdown-like content
+        lines = text.split('\n')
+        parts = []
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+            if line.startswith('# '):
+                parts.append(f'<h2>{line[2:]}</h2>')
+                continue
+            if line.startswith('## '):
+                parts.append(f'<h3>{line[3:]}</h3>')
+                continue
+            if line.startswith('!['):
+                m = re.search(r'!\[.*?\]\((.*?)\)', line)
+                if m:
+                    parts.append(f'<img src="{m.group(1)}" alt="" loading="lazy">')
+                continue
+            if line.startswith('- '):
+                content = line[2:]
+                content = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', content)
+                parts.append(f'<p>\u2022 {content}</p>')
+                continue
+            content = line
+            content = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', content)
+            if content:
+                parts.append(f'<p>{content}</p>')
+        return '\n'.join(parts) if parts else None
+
+    # Check for .en.html
+    en_html = next((f for f in files if f.endswith('.en.html')), None)
+    if en_html:
+        with open(os.path.join(src_dir, en_html), 'r', encoding='utf-8') as f:
+            text = f.read()
+        soup = BeautifulSoup(text, 'html.parser')
+        body = soup.body or soup
+        # Extract all meaningful elements
+        parts = []
+        for elem in body.find_all(['h2', 'h3', 'h4', 'p', 'img']):
+            if elem.name == 'img':
+                src = elem.get('src', '')
+                if src:
+                    parts.append(f'<img src="{src}" alt="" loading="lazy">')
+            elif elem.name in ('h2', 'h3', 'h4'):
+                text_content = elem.get_text(strip=True)
+                if text_content:
+                    parts.append(f'<{elem.name}>{text_content}</{elem.name}>')
+            elif elem.name == 'p':
+                text_content = elem.get_text(strip=True)
+                if text_content:
+                    parts.append(f'<p>{text_content}</p>')
+        return '\n'.join(parts) if parts else None
+
+    return None
+
+
 def extract_en(src_dir: str, file_pattern: str, strict: bool = False) -> tuple[str | None, str]:
     """
     Find source file by pattern and extract English content.
 
-    Returns:
-        (en_html, source_type) where source_type is 'html', 'md', or ''
-    """
-    files = [f for f in os.listdir(src_dir) if file_pattern in f]
-    html_file = next((f for f in files if f.endswith('.html')), None)
-    md_file = next((f for f in files if f.endswith('.md')), None)
+    Tries multiple sources in order:
+    1. Standalone .en.md / .en.html
+    2. HTML with div#english_translation
+    3. Markdown with # English Translation
 
+    Returns:
+        (en_html, source_type) where source_type is 'standalone', 'html', 'md', or ''
+    """
+    files = [f for f in os.listdir(src_dir) if file_pattern in f] if file_pattern else []
+
+    # 1. Standalone files
+    standalone = extract_from_standalone_en(src_dir, file_pattern)
+    if standalone:
+        return standalone, 'standalone'
+
+    # 2. HTML source
+    html_file = next((f for f in files if f.endswith('.html') and not f.endswith('.en.html')), None)
     if html_file:
         en = extract_from_html(os.path.join(src_dir, html_file), strict_chinese_filter=strict)
         if en:
             return en, 'html'
 
+    # 3. Markdown source
+    md_file = next((f for f in files if f.endswith('.md') and not f.endswith('.en.md')), None)
     if md_file:
         en = extract_from_md(os.path.join(src_dir, md_file))
         if en:
