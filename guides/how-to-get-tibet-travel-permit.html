@@ -18,9 +18,12 @@
     })();
   </script>
   <style>
-    .guide-hero { background: linear-gradient(135deg, #1c1917 0%, #292524 50%, #44403c 100%); color: #fff; text-align: center; padding: 5rem 1.5rem 3rem; }
+    .guide-hero { position: relative; min-height: 45vh; display: flex; align-items: center; justify-content: center; color: #fff; text-align: center; overflow: hidden; background: #1c1917; }
+    .guide-hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.4; }
+    .guide-hero__overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.6) 100%); }
+    .guide-hero__content { position: relative; z-index: 1; padding: 5rem 1.5rem 3rem; max-width: 720px; }
     .guide-hero__title { font-size: clamp(1.75rem, 1.4rem + 2vw, 2.5rem); font-weight: 800; margin-bottom: 0.75rem; }
-    .guide-hero__desc { opacity: 0.85; max-width: 640px; margin: 0 auto; }
+    .guide-hero__desc { opacity: 0.9; max-width: 640px; margin: 0 auto; }
     .guide-body { padding: 3rem 0; max-width: var(--max-width-narrow); margin: 0 auto; }
     .guide-body h2 { font-size: 1.5rem; font-weight: 700; margin: 2.5rem 0 1rem; color: var(--color-text); }
     .guide-body h3 { font-size: 1.15rem; font-weight: 600; margin: 1.75rem 0 0.75rem; }
@@ -80,8 +83,12 @@
 </nav>
 
 <header class="guide-hero">
-  <h1 class="guide-hero__title" data-lang-zh="如何办理入藏函：2026完整指南" data-lang-en="How to Get a Tibet Travel Permit: Complete 2026 Guide">How to Get a Tibet Travel Permit: Complete 2026 Guide</h1>
-  <p class="guide-hero__desc" data-lang-zh="谁需要入藏函、如何申请、处理时间、费用——一文解答所有疑问" data-lang-en="Who needs it, how to apply, processing time, costs — everything answered in one place">Who needs it, how to apply, processing time, costs — everything answered in one place</p>
+  <img class="guide-hero__bg" src="https://images.unsplash.com/photo-1545063914-9f4da7a5f5cf?w=1920&q=80" alt="Potala Palace in Lhasa" onerror="this.style.display='none'; this.nextElementSibling.style.background='linear-gradient(135deg, #1c1917 0%, #292524 100%)';">
+  <div class="guide-hero__overlay"></div>
+  <div class="guide-hero__content">
+    <h1 class="guide-hero__title" data-lang-zh="如何办理入藏函：2026完整指南" data-lang-en="How to Get a Tibet Travel Permit: Complete 2026 Guide">How to Get a Tibet Travel Permit: Complete 2026 Guide</h1>
+    <p class="guide-hero__desc" data-lang-zh="谁需要入藏函、如何申请、处理时间、费用——一文解答所有疑问" data-lang-en="Who needs it, how to apply, processing time, costs — everything answered in one place">Who needs it, how to apply, processing time, costs — everything answered in one place</p>
+  </div>
 </header>
 
 <main class="guide-body container container--narrow">
