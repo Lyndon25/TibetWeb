@@ -56,10 +56,14 @@ SKIP_PATTERNS = re.compile(
     r'\u7cbe\u9009\u7559\u8a00|\u5199\u7559\u8a00|\u8d5e\u8d4f|\u559c\u6b22\u4f5c\u8005|\u5206\u4eab|\u6536\u85cf|\u5728\u770b|'
     r'\u5e7f\u544a\u6295\u653e|\u5546\u52a1\u5408\u4f5c|\u8054\u7cfb.*?\u5fae\u4fe1|.*?\u516c\u4f17\u53f7|'
     r'\u70b9\u51fb\u4e0b\u65b9|\u6233\u8fd9\u91cc|\u6233.*?\u9605\u8bfb\u539f\u6587|'
-    r'\u672c\u6587.*?\u7f16\u8f91|\u672c\u6587.*?\u6765\u6e90|\u8d23\u4efb\u7f16\u8f91|\u5ba1\u7a3f|\u6392\u7248)$|'
+    r'\u672c\u6587.*?\u7f16\u8f91|\u672c\u6587.*?\u6765\u6e90|\u8d23\u4efb\u7f16\u8f91|\u5ba1\u7a3f|\u6392\u7248|'
+    r'^\u9884\u8ba2\u70ed\u7ebf|^\u5fae\u4fe1\u53f7|^\u5fae\u4fe1\u53f7\u7801|'
+    r'^\u5173\u6ce8.*?\u516c\u4f17\u53f7|^\u5173\u6ce8.*?\u5fae\u4fe1)$|'
     r'^\u25b2.*$|'
     r'\u7559\u8a00\u5206\u4eab|\u540e\u53f0\u7559\u8a00|\u968f\u65f6\u95ee\u6211|\u7ed3\u4f34\u540c\u884c|'
     r'^\u9884\u8ba2$|^Booking$|'
+    r'^AD[\uff1a:]|^\u5e7f\u544a[\uff1a:]|'
+    r'^PS[\uff1a:]|^P\.S[\uff1a:.]|'
     r'^Sharing the spring moments|^Share your moments',
     re.I,
 )
@@ -180,6 +184,39 @@ def is_caption(text: str) -> bool:
     if len(text) < 3 or len(text) > 120:
         return False
     return bool(CAPTION_PATTERNS.search(text))
+
+
+def _cleanup_html(html: str) -> str:
+    """Post-process generated HTML to remove noise that survived block extraction."""
+    # Remove empty paragraphs (including those with only whitespace entities)
+    html = re.sub(r'<p>\s*</p>\n?', '', html)
+    html = re.sub(r'<p><strong>\s*</strong></p>\n?', '', html)
+    html = re.sub(r'<p><strong>\s*<br/?>\s*</strong></p>\n?', '', html)
+
+    # Remove WeChat link cards split across tags: [text\n](url)
+    html = re.sub(r'<p>\s*\[\s*[^<]*\s*</p>\n?', '', html)
+    html = re.sub(r'<p>\s*\].*?</p>\n?', '', html)
+
+    # Remove standalone links to mp.weixin.qq.com (WeChat article cards)
+    html = re.sub(
+        r'<p>\s*<a[^>]*href="https?://mp\.weixin\.qq\.com[^"]*"[^>]*>.*?</a>\s*</p>\n?',
+        '', html
+    )
+    html = re.sub(
+        r'<p>\s*https?://mp\.weixin\.qq\.com\S*\s*</p>\n?',
+        '', html
+    )
+
+    # Remove phone/WeChat contact info lines (promotional)
+    html = re.sub(
+        r'<p[^>]*>\s*(?:<strong>)?\s*(?:预订热线|热线|电话|微信号|微信)[：:]\s*\d[\d\s-]{6,}\s*(?:</strong>)?\s*</p>\n?',
+        '', html
+    )
+
+    # Collapse consecutive empty lines
+    html = re.sub(r'\n{3,}', '\n\n', html)
+
+    return html
 
 
 def is_ad_or_noise(elem) -> bool:
@@ -541,6 +578,7 @@ def process_article(
 
     # Build ZH body HTML
     zh_html = render_blocks(blocks, img_mapping)
+    zh_html = _cleanup_html(zh_html)
 
     # Try to extract EN translation from source
     en_html = None
@@ -553,7 +591,9 @@ def process_article(
             if img_mapping:
                 en_html = image_downloader.replace_image_urls(en_html, img_mapping)
 
-    if not en_html:
+    if en_html:
+        en_html = _cleanup_html(en_html)
+    else:
         # Use excerpt as placeholder, marked for translation
         excerpt_en = _get_val(meta.get('excerpt'), 'en', meta.get('excerptEn', ''))
         en_html = f'<p class="translation-needed"><em>English translation coming soon. {excerpt_en}</em></p>'
