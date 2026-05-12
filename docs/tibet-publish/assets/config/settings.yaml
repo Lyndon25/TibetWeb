@@ -1,0 +1,18 @@
+# Hardcoded git configuration for tibet-publish skill
+repository:
+  remote_url: "https://github.com/Lyndon25/TibetWeb.git"
+  branch: "claude-code-torch"
+
+build:
+  auto_push: true
+  validate: true
+  download_images: true
+  request_delay: 2.0
+
+directories:
+  workspace: "AddingArticleWorkSpace"
+
+defaults:
+  category: "travel-guide"
+  catLabel: "Travel Guide"
+  catLabelZh: "旅行指南"
