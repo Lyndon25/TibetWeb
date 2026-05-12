@@ -14,6 +14,7 @@ Usage:
 """
 
 import argparse
+import hashlib
 import os
 import re
 import shutil
@@ -128,15 +129,20 @@ def seed_repo(repo: Path):
 # ── Article fetch & save ──────────────────────────────────────────────
 
 def _gen_slug(title: str) -> str:
-    slug = re.sub(r'[^\w\s-]', '', title.lower().strip())
-    slug = re.sub(r'[\s_]+', '-', slug).strip('-')
-    return slug[:80].rstrip('-') or f'article-{datetime.now():%Y%m%d}'
+    """Generate an English-friendly slug: ASCII keywords + date + hash."""
+    ascii_words = re.findall(r'[a-zA-Z0-9]{2,}', title)
+    if ascii_words:
+        prefix = '-'.join(w.lower() for w in ascii_words[:5])
+    else:
+        prefix = 'tibet-article'
+    date_str = datetime.now().strftime('%Y%m%d')
+    hash_suffix = hashlib.md5(title.encode('utf-8')).hexdigest()[:4]
+    return f'{prefix}-{date_str}-{hash_suffix}'
 
 
 def _gen_fp(title: str) -> str:
-    fp = re.sub(r'[^\w\s一-鿿-]', '', title)
-    fp = re.sub(r'[\s]+', '', fp)
-    return fp[:120] or f'未命名文章{datetime.now():%Y%m%d}'
+    """File pattern now uses the slug directly for consistent naming."""
+    return _gen_slug(title)
 
 
 def fetch_article(url: str, repo: Path) -> dict | None:
@@ -220,6 +226,63 @@ def write_config(repo: Path, article: dict):
         _log('CONFIG', f'WARNING: {e}')
 
 
+def _update_article_index(repo: Path, article: dict):
+    """Insert new article into the hardcoded JS array in articles/index.html."""
+    index_path = repo / 'articles' / 'index.html'
+    if not index_path.exists():
+        _log('INDEX', 'articles/index.html not found, skip')
+        return
+
+    content = index_path.read_text(encoding='utf-8')
+
+    # Locate the articles array start: "var articles = ["
+    marker = 'var articles = ['
+    pos = content.find(marker)
+    if pos == -1:
+        _log('INDEX', 'articles array not found, skip')
+        return
+
+    # Build the new entry
+    title = article.get('title', '')
+    desc = article.get('description', '') or ''
+    cover = ''
+    if article.get('content_soup'):
+        og_img = article['content_soup'].find('meta', property='og:image')
+        if og_img:
+            cover = og_img.get('content', '')
+    if not cover:
+        imgs = article.get('content_soup') and article['content_soup'].find_all('img')
+        if imgs:
+            for img in imgs:
+                src = img.get('data-src') or img.get('src', '')
+                if src and src.startswith('http'):
+                    cover = src
+                    break
+
+    date_str = datetime.now().strftime('%b %d, %Y')
+    slug = article['slug']
+
+    entry = (
+        "{ cat:'travel-guide', catLabel:'Travel Guide', catLabelZh:'旅行指南', "
+        f"title:'{title}', titleZh:'{title}', "
+        f"excerpt:'{desc[:120]}', excerptZh:'{desc[:120]}', "
+        f"date:'{date_str}', time:'5 min read', "
+        f"url:'{slug}.html', img:'{cover}', featured:false }}"
+    )
+
+    # Insert new entry after "var articles = ["
+    insert_pos = pos + len(marker)
+    # Check if there are already entries
+    if content[insert_pos:insert_pos + 1].strip():
+        entry = entry + ',\n    '  # prepend with trailing comma for existing array
+    else:
+        entry = '\n    ' + entry + '\n  '
+
+    new_content = content[:insert_pos] + entry + content[insert_pos:]
+    index_path.write_text(new_content, encoding='utf-8')
+    _log('INDEX', f'Inserted article into index.html')
+
+
 # ── Build pipeline ────────────────────────────────────────────────────
 
 def run_build(repo: Path, slug: str) -> bool:
@@ -293,6 +356,9 @@ def run(url: str, repo_path: str | None = None, slug: str | None = None,
 
     write_config(repo, article)
     build_ok = run_build(repo, slug)
+
+    if build_ok:
+        _update_article_index(repo, article)
 
     if not skip_push:
         git_push(repo, slug)
