@@ -195,8 +195,6 @@ def write_config(repo: Path, article: dict):
         return
     entry = {
         'slug': slug,
-        'file_pattern': article['file_pattern'],
-        'has_en_translation': True,
         'category': 'travel-guide',
         'catLabel': 'Travel Guide',
         'catLabelZh': '旅行指南',
@@ -224,75 +222,35 @@ def write_config(repo: Path, article: dict):
 
 
 def _update_article_index(repo: Path, article: dict):
-    """Insert new article into the hardcoded JS array in articles/index.html."""
-    index_path = repo / 'articles' / 'index.html'
-    if not index_path.exists():
-        _log('INDEX', 'articles/index.html not found, skip')
+    """Regenerate articles/index.html JS array via generate_index.py."""
+    gen_index = repo / 'scripts' / 'generate_index.py'
+    if not gen_index.exists():
+        _log('INDEX', 'generate_index.py not found, skip')
         return
-
-    content = index_path.read_text(encoding='utf-8')
-
-    # Locate the articles array start: "var articles = ["
-    marker = 'var articles = ['
-    pos = content.find(marker)
-    if pos == -1:
-        _log('INDEX', 'articles array not found, skip')
-        return
-
-    # Build the new entry
-    title = article.get('title', '')
-    desc = article.get('description', '') or ''
-    cover = ''
-    if article.get('content_soup'):
-        og_img = article['content_soup'].find('meta', property='og:image')
-        if og_img:
-            cover = og_img.get('content', '')
-    if not cover:
-        imgs = article.get('content_soup') and article['content_soup'].find_all('img')
-        if imgs:
-            for img in imgs:
-                src = img.get('data-src') or img.get('src', '')
-                if src and src.startswith('http'):
-                    cover = src
-                    break
-
-    date_str = datetime.now().strftime('%b %d, %Y')
-    slug = article['slug']
-
-    entry = (
-        "{ cat:'travel-guide', catLabel:'Travel Guide', catLabelZh:'旅行指南', "
-        f"title:'{title}', titleZh:'{title}', "
-        f"excerpt:'{desc[:120]}', excerptZh:'{desc[:120]}', "
-        f"date:'{date_str}', time:'5 min read', "
-        f"url:'{slug}.html', img:'{cover}', featured:false }}"
-    )
-
-    # Insert new entry after "var articles = ["
-    insert_pos = pos + len(marker)
-    after_marker = content[insert_pos:insert_pos + 10].strip()
-    if after_marker:
-        # Array already has entries — prepend with comma
-        entry = '\n    ' + entry + ',\n    '
-    else:
-        # Empty array
-        entry = '\n    ' + entry + '\n  '
-
-    new_content = content[:insert_pos] + entry + content[insert_pos:]
-    index_path.write_text(new_content, encoding='utf-8')
-    _log('INDEX', f'Inserted article into index.html (slug={slug})')
+    try:
+        r = subprocess.run(
+            [sys.executable, str(gen_index)],
+            capture_output=True, text=True, timeout=60, cwd=str(repo)
+        )
+        if r.returncode != 0:
+            _log('INDEX', f'FAILED: {r.stderr[:200]}')
+        else:
+            _log('INDEX', 'OK')
+    except Exception as e:
+        _log('INDEX', f'error: {e}')
 
 
 # ── Build pipeline ────────────────────────────────────────────────────
 
 def run_build(repo: Path, slug: str) -> bool:
-    """Run convert → rebuild → sync → validate phases."""
+    """Run convert → index → validate phases."""
     build_py = repo / 'scripts' / 'build.py'
     if not build_py.exists():
         _log('BUILD', 'build.py not found, skipping')
         return True
 
     ok = True
-    for phase in ['convert', 'rebuild', 'sync', 'validate']:
+    for phase in ['convert', 'index', 'validate']:
         _log('BUILD', f'--{phase}...')
         try:
             r = subprocess.run(

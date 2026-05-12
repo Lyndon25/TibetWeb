@@ -3,7 +3,7 @@
   "name": "tibetride-website",
   "functions": {
     "api/contact.py": {
-      "maxDuration": 10
+      "maxDuration": 30
     }
   },
   "routes": [
@@ -22,6 +22,10 @@
     {
       "src": "/articles",
       "dest": "/articles/index.html"
+    },
+    {
+      "src": "/articles/([^/]+?)(?:/index)?",
+      "dest": "/articles/$1/index.html"
     },
     {
       "src": "/guides",

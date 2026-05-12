@@ -1,11 +1,14 @@
 # api/contact.py
 # Vercel Python Serverless Function
-# Feishu Bitable + Group Bot: stores inquiries + sends notifications
+# Stores inquiries to Supabase + Feishu Bitable, sends email replies + bot notifications
 
 import os
 import json
 import urllib.request
 from http.server import BaseHTTPRequestHandler
+
+from api.lib.supabase_client import create_inquiry
+from api.lib.email_service import send_auto_reply, send_new_inquiry_notification
 
 # ── Environment Variables ────────────────────────────────────────────────────
 FEISHU_APP_ID     = os.environ.get("FEISHU_APP_ID", "")
@@ -59,40 +62,63 @@ class handler(BaseHTTPRequestHandler):
             return
 
         errors = []
-        bitable_ok = False
-        bitable_record_id = None
+        supabase_id = None
+        feishu_ok = False
 
-        # 3. Write to Feishu Bitable
+        # 3. Write to Supabase (primary data store)
+        try:
+            supabase_id = create_inquiry(data)
+        except Exception as e:
+            errors.append(f"Supabase write failed: {e}")
+
+        # 4. Send auto-reply email to customer
+        try:
+            send_auto_reply(
+                to_email=data["email"],
+                name=data.get("name", ""),
+                locale=data.get("lang", "en"),
+            )
+        except Exception as e:
+            errors.append(f"Auto-reply email failed: {e}")
+
+        # 5. Send notification email to business
+        try:
+            send_new_inquiry_notification(data)
+        except Exception as e:
+            errors.append(f"Notify email failed: {e}")
+
+        # 6. Write to Feishu Bitable (admin view, redundancy)
         if FEISHU_APP_ID and FEISHU_APP_SECRET and FEISHU_APP_TOKEN and FEISHU_TABLE_ID:
             try:
                 token = _get_tenant_token()
-                bitable_record_id = _create_bitable_record(token, data)
-                bitable_ok = True
+                _create_bitable_record(token, data)
+                feishu_ok = True
             except Exception as e:
-                errors.append(f"Bitable write failed: {e}")
-        else:
-            errors.append("Feishu Bitable not configured")
+                errors.append(f"Feishu bitable failed: {e}")
 
-        # 4. Send Feishu group notification
+        # 7. Send Feishu group bot notification
         if FEISHU_WEBHOOK:
             try:
                 _send_feishu_bot(data)
             except Exception as e:
-                errors.append(f"Feishu bot notify failed: {e}")
-        else:
-            errors.append("Feishu bot webhook not configured")
+                errors.append(f"Feishu bot failed: {e}")
 
-        # 5. Response
-        if bitable_ok:
+        # 8. Response — Supabase is primary; Feishu is fallback
+        if supabase_id is not None:
             self._send_json(200, {
                 "success": True,
-                "record_id": bitable_record_id,
+                "id": supabase_id,
+                "warnings": errors if errors else None,
+            })
+        elif feishu_ok:
+            self._send_json(200, {
+                "success": True,
                 "warnings": errors if errors else None,
             })
         else:
             self._send_json(500, {
                 "success": False,
-                "error": "Bitable write failed",
+                "error": "All storage backends failed",
                 "details": errors,
             })
 

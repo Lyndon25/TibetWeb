@@ -61,16 +61,29 @@ def validate_html_file(path: str) -> list[str]:
     return errors
 
 
+def _find_article_paths(articles_dir: str) -> dict[str, str]:
+    """Find all article HTML files. Returns {slug: full_path}."""
+    results: dict[str, str] = {}
+    for entry in sorted(os.listdir(articles_dir)):
+        entry_path = os.path.join(articles_dir, entry)
+        # New directory structure: articles/{slug}/index.html
+        if os.path.isdir(entry_path):
+            idx = os.path.join(entry_path, 'index.html')
+            if os.path.exists(idx):
+                results[entry] = idx
+        # Legacy flat structure: articles/{slug}.html
+        elif entry.endswith('.html') and entry != 'index.html':
+            results[entry.replace('.html', '')] = entry_path
+    return results
+
+
 def validate_all_articles(articles_dir: str = 'articles') -> dict[str, list[str]]:
     """Validate all HTML files in articles_dir. Returns {filename: errors}."""
     results: dict[str, list[str]] = {}
-    for fn in sorted(os.listdir(articles_dir)):
-        if not fn.endswith('.html'):
-            continue
-        path = os.path.join(articles_dir, fn)
+    for slug, path in _find_article_paths(articles_dir).items():
         errs = validate_html_file(path)
         if errs:
-            results[fn] = errs
+            results[slug] = errs
     return results
 
 
@@ -168,13 +181,10 @@ def audit_file(path: str) -> list[str]:
 def audit_all_articles(articles_dir: str = 'articles') -> dict[str, list[str]]:
     """Audit all articles. Returns {filename: issues}."""
     results: dict[str, list[str]] = {}
-    for fn in sorted(os.listdir(articles_dir)):
-        if not fn.endswith('.html') or fn == 'index.html':
-            continue
-        path = os.path.join(articles_dir, fn)
+    for slug, path in _find_article_paths(articles_dir).items():
         issues = audit_file(path)
         if issues:
-            results[fn] = issues
+            results[slug] = issues
     return results
 
 
@@ -230,13 +240,10 @@ def check_distribution(path: str) -> Optional[str]:
 def check_all_distributions(articles_dir: str = 'articles') -> dict[str, str]:
     """Check all articles. Returns {filename: issue}."""
     results: dict[str, str] = {}
-    for fn in sorted(os.listdir(articles_dir)):
-        if not fn.endswith('.html') or fn == 'index.html':
-            continue
-        path = os.path.join(articles_dir, fn)
+    for slug, path in _find_article_paths(articles_dir).items():
         issue = check_distribution(path)
         if issue:
-            results[fn] = issue
+            results[slug] = issue
     return results
 
 

@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-Unified build entry point for TibetJourneyWebsite content pipeline.
+Unified build entry point for TibetRide content pipeline.
 
 Phases:
   1. convert   - Generate articles from WeChat source HTML
-  2. rebuild   - Extract EN translations from source files
-  3. sync      - Synchronize and distribute images across ZH/EN bodies
-  4. validate  - Run HTML + audit + distribution checks
+  2. index     - Regenerate articles listing page
+  3. validate  - Run HTML + audit + distribution checks
+
+EN translation is handled by AI agent via the skill, not this pipeline.
 
 Usage:
     python scripts/build.py --all
@@ -37,17 +38,13 @@ def _log(phase: str, message: str) -> None:
     timestamp = datetime.now().strftime('%H:%M:%S')
     line = f"[{timestamp}] [{phase}] {message}"
     print(line)
-    # Append to today's log file
     log_file = os.path.join(LOG_DIR, datetime.now().strftime('%Y%m%d') + '.log')
     with open(log_file, 'a', encoding='utf-8') as f:
         f.write(line + '\n')
 
 
 def _run_script(script_name: str, args: list[str] | None = None) -> tuple[bool, str]:
-    """
-    Run a Python script as a subprocess.
-    Returns (success, output_or_error).
-    """
+    """Run a Python script as a subprocess."""
     script_path = os.path.join(_SCRIPT_DIR, script_name)
     cmd = [sys.executable, script_path]
     if args:
@@ -55,13 +52,8 @@ def _run_script(script_name: str, args: list[str] | None = None) -> tuple[bool, 
 
     try:
         result = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            encoding='utf-8',
-            errors='replace',
-            timeout=300,
-            cwd=_SKILL_DIR,
+            cmd, capture_output=True, text=True, encoding='utf-8',
+            errors='replace', timeout=300, cwd=_SKILL_DIR,
         )
         if result.returncode != 0:
             return False, result.stderr or result.stdout
@@ -73,14 +65,13 @@ def _run_script(script_name: str, args: list[str] | None = None) -> tuple[bool, 
 
 
 def run_convert(slug: str | None = None, no_download: bool = False) -> bool:
-    """Run article conversion phase."""
+    """Run article generation from WeChat source."""
     _log('CONVERT', 'Starting article generation...')
     args = []
     if slug:
         args.extend(['--slug', slug])
     if no_download:
         args.append('--no-download')
-
     ok, output = _run_script('convert_articles_v2.py', args)
     if ok:
         _log('CONVERT', 'Completed successfully')
@@ -89,47 +80,23 @@ def run_convert(slug: str | None = None, no_download: bool = False) -> bool:
     return ok
 
 
-def run_rebuild(slug: str | None = None, strict: bool = False) -> bool:
-    """Run EN rebuild phase."""
-    _log('REBUILD', 'Starting EN content rebuild...')
-    args = []
-    if slug:
-        args.extend(['--slug', slug])
-    if strict:
-        args.append('--strict')
-
-    ok, output = _run_script('rebuild_en.py', args)
+def run_index() -> bool:
+    """Regenerate articles listing page."""
+    _log('INDEX', 'Regenerating articles index...')
+    ok, output = _run_script('generate_index.py')
     if ok:
-        _log('REBUILD', 'Completed successfully')
+        _log('INDEX', 'Completed successfully')
     else:
-        _log('REBUILD', f'FAILED: {output[:200]}')
-    return ok
-
-
-def run_sync(slug: str | None = None, no_fix_distribution: bool = False) -> bool:
-    """Run image sync phase."""
-    _log('SYNC', 'Starting image synchronization...')
-    args = []
-    if slug:
-        args.extend(['--slug', slug])
-    if no_fix_distribution:
-        args.append('--no-fix-distribution')
-
-    ok, output = _run_script('sync_images.py', args)
-    if ok:
-        _log('SYNC', 'Completed successfully')
-    else:
-        _log('SYNC', f'FAILED: {output[:200]}')
+        _log('INDEX', f'FAILED: {output[:200]}')
     return ok
 
 
 def run_validate(articles_dir: str) -> tuple[bool, dict]:
-    """Run all three validation layers. Returns (success, results_dict)."""
+    """Run all validation checks."""
     _log('VALIDATE', 'Starting validation...')
     results = {}
     ok = True
 
-    # Layer 1: HTML
     html_errors = validators.validate_all_articles(articles_dir)
     if html_errors:
         _log('VALIDATE', f"HTML validation failed: {len(html_errors)} files")
@@ -140,7 +107,6 @@ def run_validate(articles_dir: str) -> tuple[bool, dict]:
         _log('VALIDATE', '[PASS] HTML structure OK')
     results['html'] = html_errors
 
-    # Layer 2: Audit
     audit_issues = validators.audit_all_articles(articles_dir)
     if audit_issues:
         _log('VALIDATE', f"Audit found {len(audit_issues)} files with issues")
@@ -151,7 +117,6 @@ def run_validate(articles_dir: str) -> tuple[bool, dict]:
         _log('VALIDATE', '[PASS] Bilingual consistency OK')
     results['audit'] = audit_issues
 
-    # Layer 3: Distribution
     dist_issues = validators.check_all_distributions(articles_dir)
     if dist_issues:
         _log('VALIDATE', f"Image distribution issues in {len(dist_issues)} files")
@@ -166,19 +131,16 @@ def run_validate(articles_dir: str) -> tuple[bool, dict]:
 
 
 def main():
-    parser = argparse.ArgumentParser(description='TibetJourneyWebsite unified build')
-    parser.add_argument('--convert', action='store_true', help='Run article generation')
-    parser.add_argument('--rebuild', action='store_true', help='Run EN content rebuild')
-    parser.add_argument('--sync', action='store_true', help='Run image sync')
-    parser.add_argument('--validate', action='store_true', help='Run validation only')
+    parser = argparse.ArgumentParser(description='TibetRide unified build')
+    parser.add_argument('--convert', action='store_true', help='Generate articles from WeChat source')
+    parser.add_argument('--index', action='store_true', help='Regenerate articles listing page')
+    parser.add_argument('--validate', action='store_true', help='Run validation checks')
     parser.add_argument('--slug', type=str, help='Process only this slug')
-    parser.add_argument('--strict', action='store_true', help='Apply strict Chinese filter in rebuild')
-    parser.add_argument('--no-download', action='store_true', help='Skip image downloading in convert')
-    parser.add_argument('--no-fix-distribution', action='store_true', help='Skip distribution fix in sync')
-    parser.add_argument('--all', action='store_true', help='Run full pipeline (convert + rebuild + sync + validate)')
+    parser.add_argument('--no-download', action='store_true', help='Skip image downloading')
+    parser.add_argument('--all', action='store_true', help='Run full pipeline (convert + index + validate)')
     args = parser.parse_args()
 
-    if not any([args.convert, args.rebuild, args.sync, args.validate, args.all]):
+    if not any([args.convert, args.index, args.validate, args.all]):
         parser.print_help()
         sys.exit(1)
 
@@ -188,11 +150,8 @@ def main():
     if args.all or args.convert:
         ok &= run_convert(slug=args.slug, no_download=args.no_download)
 
-    if args.all or args.rebuild:
-        ok &= run_rebuild(slug=args.slug, strict=args.strict)
-
-    if args.all or args.sync:
-        ok &= run_sync(slug=args.slug, no_fix_distribution=args.no_fix_distribution)
+    if args.all or args.index:
+        ok &= run_index()
 
     if args.all or args.validate:
         validate_ok, _ = run_validate(articles_dir)

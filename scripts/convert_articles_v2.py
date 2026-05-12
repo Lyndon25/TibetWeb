@@ -25,7 +25,7 @@ if _SCRIPT_DIR not in sys.path:
 
 _SKILL_DIR = os.path.dirname(_SCRIPT_DIR)
 
-from lib import article_config, image_downloader, en_extractor, atomic_io
+from lib import article_config, image_downloader, atomic_io
 
 # ---------------------------------------------------------------------------
 # Jinja2 setup (optional dependency)
@@ -580,24 +580,14 @@ def process_article(
     zh_html = render_blocks(blocks, img_mapping)
     zh_html = _cleanup_html(zh_html)
 
-    # Try to extract EN translation from source
-    en_html = None
-    if meta.get('has_en_translation') and meta.get('file_pattern'):
-        src_dir = os.path.join(_SKILL_DIR, 'AddingArticleWorkSpace', '1')
-        en_html, source_type = en_extractor.extract_en(src_dir, meta['file_pattern'])
-        if en_html:
-            print(f"  [EN] Extracted from {source_type}")
-            # Replace image URLs in EN content too
-            if img_mapping:
-                en_html = image_downloader.replace_image_urls(en_html, img_mapping)
-
-    if en_html:
-        en_html = _cleanup_html(en_html)
-    else:
-        # Use excerpt as placeholder, marked for translation
-        excerpt_en = _get_val(meta.get('excerpt'), 'en', meta.get('excerptEn', ''))
-        en_html = f'<p class="translation-needed"><em>English translation coming soon. {excerpt_en}</em></p>'
-        print(f"  [EN] No translation found, marked as needs_translation")
+    # EN translation: always starts as placeholder, filled by AI agent via the skill
+    en_html = (
+        '<div class="no-translation">'
+        '<p>English version is being prepared. '
+        '<a href="../../contact.html">Request a translation →</a></p>'
+        '</div>'
+    )
+    print(f"  [EN] Placeholder set (AI translation via skill)")
 
     # Build navigation links
     nav_html = ''
@@ -647,7 +637,7 @@ def process_article(
         'body_en': en_html,
         'nav_html': nav_html,
         'related_html': related_html,
-        'contact_email': defaults.get('contact_email', 'info@tibetride.com'),
+        'contact_email': defaults.get('contact_email', 'torchlight@foxmail.com'),
         'year': defaults.get('year', '2026'),
     }
 

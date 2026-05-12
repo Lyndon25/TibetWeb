@@ -1,0 +1,24 @@
+# Pipeline settings — managed by tibet-publish skill
+build:
+  auto_push: true
+  validate: true
+  download_images: true
+  request_delay: 2.0
+
+directories:
+  workspace: AddingArticleWorkSpace
+
+repository:
+  remote: https://github.com/Lyndon25/TibetWeb.git
+  branch: claude-code-torch
+
+defaults:
+  category: travel-guide
+  catLabel: Travel Guide
+  catLabelZh: 旅行指南
+  site_name:
+    zh: TibetRide
+    en: TibetRide
+  site_tagline:
+    zh: 探索西藏
+    en: Explore Tibet
