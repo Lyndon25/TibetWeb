@@ -156,14 +156,15 @@ def _update_article_index(article, slug):
     )
 
     insert_pos = pos + len(marker)
-    if content[insert_pos:insert_pos + 1].strip():
-        entry = entry + ',\n    '
+    after_marker = content[insert_pos:insert_pos + 10].strip()
+    if after_marker:
+        entry = '\n    ' + entry + ',\n    '
     else:
         entry = '\n    ' + entry + '\n  '
 
     new_content = content[:insert_pos] + entry + content[insert_pos:]
     atomic_io.atomic_write(index_path, new_content)
-    _log('INDEX', f'Inserted article into index.html')
+    _log('INDEX', f'Inserted article into index.html (slug={slug})')
 
 
 def step_config(a, slug, fp, settings):

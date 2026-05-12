@@ -272,15 +272,17 @@ def _update_article_index(repo: Path, article: dict):
 
     # Insert new entry after "var articles = ["
     insert_pos = pos + len(marker)
-    # Check if there are already entries
-    if content[insert_pos:insert_pos + 1].strip():
-        entry = entry + ',\n    '  # prepend with trailing comma for existing array
+    after_marker = content[insert_pos:insert_pos + 10].strip()
+    if after_marker:
+        # Array already has entries — prepend with comma
+        entry = '\n    ' + entry + ',\n    '
     else:
+        # Empty array
         entry = '\n    ' + entry + '\n  '
 
     new_content = content[:insert_pos] + entry + content[insert_pos:]
     index_path.write_text(new_content, encoding='utf-8')
-    _log('INDEX', f'Inserted article into index.html')
+    _log('INDEX', f'Inserted article into index.html (slug={slug})')
 
 
 # ── Build pipeline ────────────────────────────────────────────────────
