@@ -6,12 +6,12 @@ description: >
   deploy it to their website. Also use when the user asks to "publish an article",
   "deploy a WeChat article", "add a new article to the website", or mentions the
   TibetRide or TibetWeb publishing workflow. Handles the full pipeline from fetch
-  through image download, HTML generation, bilingual template rendering, and git push.
+  through image download, AI English translation, HTML generation, and git push.
 ---
 
 # Tibet Publish Skill
 
-Publish WeChat Official Account articles to the TibetRide website with one command.
+Publish WeChat Official Account articles to the TibetRide website. All source articles are Chinese; English is generated via AI translation.
 
 ## Quick Start
 
@@ -19,53 +19,46 @@ Publish WeChat Official Account articles to the TibetRide website with one comma
 python scripts/pipeline.py --url "https://mp.weixin.qq.com/s/..."
 ```
 
-The pipeline: clones/updates the website repo, fetches the WeChat article, downloads images, generates a bilingual page matching the website's design, and git pushes.
-
-## Options
-
-```bash
-python scripts/pipeline.py --url "URL"                    # Full pipeline
-python scripts/pipeline.py --url "URL" --skip-push        # Skip git push
-python scripts/pipeline.py --url "URL" --slug my-article  # Custom slug
-python scripts/pipeline.py --url "URL" --repo-path /path  # Use existing local repo
-```
-
-## Hardcoded Git Configuration
-
-- **Remote**: `https://github.com/Lyndon25/TibetWeb.git`
-- **Branch**: `main`
-
-## Prerequisites
-
-```bash
-pip install requests beautifulsoup4 html2text pyyaml jinja2
-```
-
 ## Pipeline Phases
 
 | Phase | What happens |
 |---|---|
-| **FETCH** | Downloads WeChat article HTML, extracts metadata (title, author, cover), downloads images from WeChat CDN |
-| **SAVE** | Writes localized HTML + original source HTML to workspace (`AddingArticleWorkSpace/1/`) |
-| **BUILD** | `convert` (Jinja2 template rendering) -> `rebuild` (EN translation extraction) -> `sync` (image distribution) -> `validate` (HTML + bilingual audit) |
-| **GIT** | `git add .` -> `git commit` -> `git push origin main` |
+| **FETCH** | Downloads WeChat article HTML, extracts metadata, downloads images |
+| **SAVE** | Writes source to workspace `AddingArticleWorkSpace/1/` |
+| **BUILD** | `convert` generates Chinese article with EN placeholder |
+| **TRANSLATE** | **AI agent translates Chinese content to English** |
+| **INDEX** | Regenerates articles listing page via `generate_index.py` |
+| **VALIDATE** | HTML + bilingual + image distribution checks |
+| **GIT** | Commit and push to `claude-code-torch` |
 
-## Bundled Resources
+## AI Translation Step (REQUIRED)
 
-- `scripts/pipeline.py` -- Single entry point
-- `scripts/build.py` -- Build orchestrator
-- `scripts/convert_articles_v2.py` -- Article HTML generation
-- `scripts/rebuild_en.py` -- EN translation extraction
-- `scripts/sync_images.py` -- Image synchronization
-- `scripts/lib/` -- Shared modules (wechat_fetcher, git_manager, validators, etc.)
-- `assets/templates/article.html` -- Jinja2 template matching tibetride.com
-- `assets/css/main.css`, `assets/css/lang.css` -- Website stylesheets
-- `assets/js/lang.js`, `assets/js/main.js` -- Language switching
-- `assets/config/settings.yaml` -- Hardcoded config
+After the Chinese article HTML is generated:
 
-## Important
+1. Read the article at `articles/{slug}/index.html`
+2. Extract Chinese text from `<div class="lang-content" data-lang="zh">` in the article body
+3. Translate ALL text to natural English, preserving ALL HTML tags exactly
+4. Translate the title from the hero section
+5. Write English into `<div class="lang-content" data-lang="en">` sections
+6. Update the `<title>` tag
 
-- The pipeline pushes to `main` by default.
-- On first run the pipeline seeds the website repo with CSS, JS, templates, and scripts.
-- Images go to `images/articles/<slug>/` in the website repo.
-- Rich WeChat formatting (bold, italics, links, line breaks) is preserved.
+**Rules:** Preserve HTML structure. Only translate text between tags. Keep img tags unchanged. Make English natural.
+
+## Article Directory Structure
+
+Articles live in `articles/{slug}/index.html` with co-located images in `articles/{slug}/images/`.
+
+## Bilingual Pattern
+
+- Block content: `<div class="lang-content" data-lang="zh">` / `<div class="lang-content" data-lang="en">`
+- Inline text: `data-lang-zh` and `data-lang-en` attributes (swapped by `lang.js`)
+- CSS (`lang.css`) handles visibility via `html[lang]` attribute
+
+## Git Config
+- Remote: `https://github.com/Lyndon25/TibetWeb.git`
+- Branch: `claude-code-torch` (never push to main)
+
+## Prerequisites
+```bash
+pip install requests beautifulsoup4 html2text pyyaml jinja2
+```
