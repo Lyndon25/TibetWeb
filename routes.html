@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<nav class="nav nav--scrolled">
+<nav class="nav">
   <div class="nav__inner">
     <a href="index.html" class="nav__logo" style="color: var(--color-text);">
       <span class="nav__logo-icon">&#x1F3CD;</span> TibetRide
@@ -38,12 +38,14 @@
   </div>
 </nav>
 
-<header class="page-header">
-  <div class="container">
-    <div class="lang-content" data-lang="zh"><h1 class="page-header__title">骑行路线</h1></div>
-    <div class="lang-content" data-lang="en"><h1 class="page-header__title">Motorcycle Routes</h1></div>
-    <div class="lang-content" data-lang="zh"><p class="page-header__desc">从新手友好的国道到硬核越野挑战——精选青藏高原摩托车骑行路线</p></div>
-    <div class="lang-content" data-lang="en"><p class="page-header__desc">Curated motorcycle routes across the Tibetan Plateau &mdash; from beginner-friendly highways to hardcore off-road challenges</p></div>
+<header class="page-header" style="position: relative; overflow: hidden; background: #1c1917; color: #fff; padding: 0;">
+  <img src="images/hero/mountain-road.jpg" alt="Mountain road in Tibet" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.35;">
+  <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.6) 100%);"></div>
+  <div class="container" style="position: relative; z-index: 1; padding: 7rem 0 3rem;">
+    <div class="lang-content" data-lang="zh"><h1 class="page-header__title" style="color: #fff;">骑行路线</h1></div>
+    <div class="lang-content" data-lang="en"><h1 class="page-header__title" style="color: #fff;">Motorcycle Routes</h1></div>
+    <div class="lang-content" data-lang="zh"><p class="page-header__desc" style="color: rgba(255,255,255,0.85); max-width: 560px; margin: 0 auto;">从新手友好的国道到硬核越野挑战——精选青藏高原摩托车骑行路线</p></div>
+    <div class="lang-content" data-lang="en"><p class="page-header__desc" style="color: rgba(255,255,255,0.85); max-width: 560px; margin: 0 auto;">Curated motorcycle routes across the Tibetan Plateau &mdash; from beginner-friendly highways to hardcore off-road challenges</p></div>
   </div>
 </header>
 

@@ -4,14 +4,27 @@
   const toggle = document.querySelector('.nav__toggle');
   const links = document.querySelector('.nav__links');
   const navLinks = document.querySelectorAll('.nav__link');
+  const hero = document.querySelector('.hero, .page-hero, .tours-hero, .article-hero, .guides-hero, .guide-hero, .tour-hero');
 
-  // Sticky nav scroll effect
   let ticking = false;
   function updateNav() {
-    if (window.scrollY > 60) {
+    var scrollY = window.scrollY || window.pageYOffset;
+    // Scrolled past threshold -> show solid background
+    if (scrollY > 60) {
       nav.classList.add('nav--scrolled');
     } else {
       nav.classList.remove('nav--scrolled');
+    }
+    // Auto-detect hero visibility: if hero is still visible at the top,
+    // assume it's a photo hero and use light text
+    if (hero) {
+      var heroRect = hero.getBoundingClientRect();
+      var navHeight = nav.offsetHeight;
+      if (heroRect.bottom > navHeight + 10) {
+        nav.classList.add('nav--light-hero');
+      } else {
+        nav.classList.remove('nav--light-hero');
+      }
     }
     ticking = false;
   }

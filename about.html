@@ -17,63 +17,92 @@
       else{document.documentElement.setAttribute('lang','zh-CN');}
     })();
   </script>
+  <style>
+    /* Light-hero nav override: white text over photo */
+    .nav--light-hero .nav__logo,
+    .nav--light-hero .nav__link {
+      color: #fff;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .nav--light-hero .nav__toggle span {
+      background: #fff;
+    }
+    .nav--light-hero .nav__link:hover,
+    .nav--light-hero .nav__link--active {
+      color: #fff;
+    }
+    .nav--light-hero .nav__link--active::after {
+      background: #fff;
+    }
+  </style>
 </head>
 <body>
 
-<nav class="nav nav--scrolled">
+<!-- Navigation -->
+<nav class="nav nav--light-hero" id="mainNav">
   <div class="nav__inner">
-    <a href="index.html" class="nav__logo" style="color: var(--color-text);">
+    <a href="index.html" class="nav__logo">
       <span class="nav__logo-icon">&#x1F3CD;</span> TibetRide
     </a>
     <ul class="nav__links">
-      <li><a href="index.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="首页" data-lang-en="Home">Home</a></li>
-      <li><a href="tours/index.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="线路" data-lang-en="Tours">Tours</a></li>
-      <li><a href="articles/index.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="攻略" data-lang-en="Travel Guide">Travel Guide</a></li>
+      <li><a href="index.html" class="nav__link" data-lang-zh="首页" data-lang-en="Home">Home</a></li>
+      <li><a href="tours/index.html" class="nav__link" data-lang-zh="线路" data-lang-en="Tours">Tours</a></li>
+      <li><a href="articles/index.html" class="nav__link" data-lang-zh="攻略" data-lang-en="Travel Guide">Travel Guide</a></li>
       <li><a href="about.html" class="nav__link nav__link--active" data-lang-zh="关于" data-lang-en="About">About</a></li>
-      <li><a href="contact.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="联系" data-lang-en="Contact">Contact</a></li>
+      <li><a href="contact.html" class="nav__link" data-lang-zh="联系" data-lang-en="Contact">Contact</a></li>
     </ul>
     <button class="nav__toggle" aria-label="Toggle menu">
-      <span style="background: var(--color-text);"></span><span style="background: var(--color-text);"></span><span style="background: var(--color-text);"></span>
+      <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
-<header class="page-header">
-  <div class="container">
-    <div class="lang-content" data-lang="zh"><h1 class="page-header__title">关于 TibetRide</h1></div>
-    <div class="lang-content" data-lang="en"><h1 class="page-header__title">About TibetRide</h1></div>
-    <div class="lang-content" data-lang="zh"><p class="page-header__desc">本地专家，小团出行，让每一段西藏之旅都安心无忧</p></div>
-    <div class="lang-content" data-lang="en"><p class="page-header__desc">Local experts, small groups, worry-free journeys across Tibet</p></div>
+<!-- Full-screen Hero -->
+<section class="hero" style="min-height: 100vh;">
+  <img class="hero__bg" src="images/hero/yamdrok-lake.jpg" alt="Turquoise Yamdrok Lake surrounded by snow mountains" loading="eager">
+  <div class="hero__overlay" style="background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.35) 100%);"></div>
+  <div class="hero__content animate" style="padding-top: 4rem;">
+    <span class="hero__tag" data-lang-zh="自 2016 年" data-lang-en="Since 2016">Since 2016</span>
+    <div class="lang-content" data-lang="zh"><h1 class="hero__title">关于 TibetRide</h1></div>
+    <div class="lang-content" data-lang="en"><h1 class="hero__title">About TibetRide</h1></div>
+    <div class="lang-content" data-lang="zh"><p class="hero__subtitle">本地专家，小团出行，让每一段西藏之旅都安心无忧</p></div>
+    <div class="lang-content" data-lang="en"><p class="hero__subtitle">Local experts, small groups, worry-free journeys across Tibet</p></div>
   </div>
-</header>
+</section>
 
-<section class="section" style="padding-top: 2rem;">
+<!-- Main Content -->
+<section class="section" style="background: #fff; padding-top: 4rem; padding-bottom: 4rem;">
   <div class="container container--narrow">
-    <div class="article-body">
+    <div class="article-body" style="font-size: 1.05rem; line-height: 1.8; color: #44403c;">
 
       <h2 data-lang-zh="我们的故事" data-lang-en="Our Story">Our Story</h2>
       <p data-lang-zh="TibetRide 诞生于一个简单的信念：西藏不应该被走马观花式的大巴团定义。我们相信，真正的西藏之旅需要本地人的眼睛、足够的耐心，以及小团队才能拥有的灵活性。" data-lang-en="TibetRide was born from a simple belief: Tibet should not be defined by rushed bus tours. We believe that a true Tibet journey needs local eyes, enough patience, and the flexibility that only a small group can offer.">TibetRide was born from a simple belief: Tibet should not be defined by rushed bus tours. We believe that a true Tibet journey needs local eyes, enough patience, and the flexibility that only a small group can offer.</p>
       <p data-lang-zh="从2016年开始，我们带领来自世界各地的旅行者深入西藏的每一个角落——从拉萨老城的转经道，到珠峰大本营的星空，再到冈仁波齐的转山之路。我们不是旅行社，而是一群热爱家乡的西藏人，想把最真实的西藏展示给世界。" data-lang-en="Since 2016, we have led travelers from around the world into every corner of Tibet — from the prayer wheels of Lhasa's old town to the starry skies at Everest Base Camp, and the sacred kora around Mount Kailash. We are not a travel agency. We are Tibetans who love our home and want to show the real Tibet to the world.">Since 2016, we have led travelers from around the world into every corner of Tibet — from the prayer wheels of Lhasa's old town to the starry skies at Everest Base Camp, and the sacred kora around Mount Kailash. We are not a travel agency. We are Tibetans who love our home and want to show the real Tibet to the world.</p>
 
       <h2 data-lang-zh="为什么选择我们" data-lang-en="Why Travel With Us">Why Travel With Us</h2>
-      <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem;">
-        <li style="margin-bottom: 0.5rem;">
+      <ul style="list-style: none; padding-left: 0; margin-bottom: 1.5rem;">
+        <li style="margin-bottom: 1rem; padding-left: 1.75rem; position: relative;">
+          <span style="position: absolute; left: 0; color: #b91c1c; font-weight: 700;">&#10003;</span>
           <span class="lang-content lang-content--inline" data-lang="zh"><strong>土生土长的导游</strong> —— 我们的团队都是西藏本地人，熟知每一座寺庙的历史、每一条小路的风景</span>
           <span class="lang-content lang-content--inline" data-lang="en"><strong>Born-and-raised guides</strong> —— Our team are all native Tibetans who know the history of every monastery and the scenery of every backroad</span>
         </li>
-        <li style="margin-bottom: 0.5rem;">
+        <li style="margin-bottom: 1rem; padding-left: 1.75rem; position: relative;">
+          <span style="position: absolute; left: 0; color: #b91c1c; font-weight: 700;">&#10003;</span>
           <span class="lang-content lang-content--inline" data-lang="zh"><strong>小团保证体验</strong> —— 最多8人一团，不赶行程，随时停下来拍照或与当地人交流</span>
           <span class="lang-content lang-content--inline" data-lang="en"><strong>Small groups guaranteed</strong> —— Maximum 8 travelers, no rushing, stop anytime for photos or conversations with locals</span>
         </li>
-        <li style="margin-bottom: 0.5rem;">
+        <li style="margin-bottom: 1rem; padding-left: 1.75rem; position: relative;">
+          <span style="position: absolute; left: 0; color: #b91c1c; font-weight: 700;">&#10003;</span>
           <span class="lang-content lang-content--inline" data-lang="zh"><strong>全程代办证件</strong> —— 入藏函、边防证、军区通行证，所有繁琐手续我们一手包办</span>
           <span class="lang-content lang-content--inline" data-lang="en"><strong>All permits handled</strong> —— Tibet Travel Permit, Alien's Travel Permit, military area passes — we take care of all the paperwork</span>
         </li>
-        <li style="margin-bottom: 0.5rem;">
+        <li style="margin-bottom: 1rem; padding-left: 1.75rem; position: relative;">
+          <span style="position: absolute; left: 0; color: #b91c1c; font-weight: 700;">&#10003;</span>
           <span class="lang-content lang-content--inline" data-lang="zh"><strong>24/7 全程支持</strong> —— 从出发前咨询到旅途中突发状况，我们随时在线</span>
           <span class="lang-content lang-content--inline" data-lang="en"><strong>24/7 support</strong> —— From pre-departure questions to on-trip emergencies, we are always one message away</span>
         </li>
-        <li style="margin-bottom: 0.5rem;">
+        <li style="margin-bottom: 1rem; padding-left: 1.75rem; position: relative;">
+          <span style="position: absolute; left: 0; color: #b91c1c; font-weight: 700;">&#10003;</span>
           <span class="lang-content lang-content--inline" data-lang="zh"><strong>透明的价格</strong> —— 无隐藏费用，无强制购物，每一分钱都花在体验上</span>
           <span class="lang-content lang-content--inline" data-lang="en"><strong>Transparent pricing</strong> —— No hidden fees, no forced shopping. Every dollar goes into the experience</span>
         </li>
@@ -83,37 +112,14 @@
       <p data-lang-zh="我们精心策划了4条核心线路，覆盖从拉萨文化精华到珠峰大本营、再到冈仁波齐朝圣的完整西藏体验。每条线路都由我们的本地团队亲自踩点、反复优化。" data-lang-en="We have crafted 4 core itineraries covering everything from Lhasa's cultural highlights to Everest Base Camp and the Mount Kailash pilgrimage. Every route has been personally scouted and repeatedly refined by our local team.">We have crafted 4 core itineraries covering everything from Lhasa's cultural highlights to Everest Base Camp and the Mount Kailash pilgrimage. Every route has been personally scouted and repeatedly refined by our local team.</p>
       <p data-lang-zh="如果您有特殊的旅行需求——摄影团、家庭游、徒步深度探索——我们也提供完全定制的行程服务。" data-lang-en="If you have special travel needs — photography groups, family trips, deep trekking explorations — we also offer fully customized itineraries.">If you have special travel needs — photography groups, family trips, deep trekking explorations — we also offer fully customized itineraries.</p>
 
-      <!-- Contact Card -->
-      <div style="background: linear-gradient(135deg, #f7f5f2 0%, #fdfcfa 100%); border: 1px solid #e5e0d8; border-radius: 16px; padding: 2rem 1.5rem; margin: 2.5rem 0; text-align: center;">
-        <div style="font-size: 2rem; margin-bottom: 0.25rem;">&#x1F4E7;</div>
-        <h2 style="margin-bottom: 0.5rem;" data-lang-zh="联系我们" data-lang-en="Contact Us">Contact Us</h2>
+      <!-- Contact CTA -->
+      <div style="text-align: center; margin: 3.5rem 0 1rem;">
+        <h2 style="margin-bottom: 0.5rem; color: #1c1917; font-size: 1.75rem;" data-lang-zh="联系我们" data-lang-en="Contact Us">Contact Us</h2>
         <p style="color: #78716c; margin-bottom: 1.75rem; max-width: 480px; margin-left: auto; margin-right: auto;">
           <span class="lang-content lang-content--inline" data-lang="zh">有任何问题？我们随时为您解答</span>
           <span class="lang-content lang-content--inline" data-lang="en">Have questions? We are here to help</span>
         </p>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.875rem; max-width: 640px; margin: 0 auto 1.75rem;">
-          <a href="customize.html" style="display: flex; flex-direction: column; align-items: center; gap: 0.375rem; padding: 1rem; background: #fff; border: 1px solid #e5e0d8; border-radius: 12px; text-decoration: none; color: #1c1917; transition: transform 0.2s, box-shadow 0.2s;">
-            <span style="font-size: 1.75rem; line-height: 1;">&#x1F4DD;</span>
-            <span style="font-weight: 600; font-size: 0.95rem;" data-lang-zh="获取报价" data-lang-en="Get Quote">Get Quote</span>
-            <span style="font-size: 0.75rem; color: #a8a29e;" data-lang-zh="24小时回复" data-lang-en="Reply in 24h">Reply in 24h</span>
-          </a>
-          <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" style="display: flex; flex-direction: column; align-items: center; gap: 0.375rem; padding: 1rem; background: #fff; border: 1px solid #e5e0d8; border-radius: 12px; text-decoration: none; color: #1c1917; transition: transform 0.2s, box-shadow 0.2s;">
-            <span style="font-size: 1.75rem; line-height: 1;">&#x1F4AC;</span>
-            <span style="font-weight: 600; font-size: 0.95rem;">WhatsApp</span>
-            <span style="font-size: 0.75rem; color: #a8a29e;" data-lang-zh="直接聊天" data-lang-en="Chat directly">Chat directly</span>
-          </a>
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 0.375rem; padding: 1rem; background: #fff; border: 1px solid #e5e0d8; border-radius: 12px;">
-            <span style="font-size: 1.75rem; line-height: 1;">&#x1F4F1;</span>
-            <span style="font-weight: 600; font-size: 0.95rem;" data-lang-zh="微信" data-lang-en="WeChat">WeChat</span>
-            <span style="font-size: 0.75rem; color: #a8a29e; font-family: monospace;">13799412007</span>
-          </div>
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 0.375rem; padding: 1rem; background: #fff; border: 1px solid #e5e0d8; border-radius: 12px;">
-            <span style="font-size: 1.75rem; line-height: 1;">&#x1F4E7;</span>
-            <span style="font-weight: 600; font-size: 0.95rem;" data-lang-zh="邮箱" data-lang-en="Email">Email</span>
-            <span style="font-size: 0.75rem; color: #a8a29e;">hello@tibetride.com</span>
-          </div>
-        </div>
+        <a href="contact.html" class="btn btn--primary btn--lg" data-lang-zh="前往联系页面 &#8594;" data-lang-en="Go to Contact Page &#8594;">Go to Contact Page &rarr;</a>
       </div>
 
     </div>
@@ -158,5 +164,26 @@
 
 <script src="js/main.js"></script>
 <script src="js/lang.js"></script>
+<script>
+  // Nav color auto-switch based on hero visibility
+  (function() {
+    var nav = document.getElementById('mainNav');
+    var hero = document.querySelector('.hero, .page-hero, .tours-hero, .article-hero');
+    if (!nav || !hero) return;
+
+    function updateNav() {
+      var heroRect = hero.getBoundingClientRect();
+      var navHeight = nav.offsetHeight;
+      if (heroRect.bottom > navHeight + 10) {
+        nav.classList.add('nav--light-hero');
+      } else {
+        nav.classList.remove('nav--light-hero');
+      }
+    }
+
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+  })();
+</script>
 </body>
 </html>

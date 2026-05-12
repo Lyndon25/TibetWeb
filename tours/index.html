@@ -19,10 +19,40 @@
   </script>
   <style>
     .tours-hero {
-      background: linear-gradient(135deg, #1c1917 0%, #292524 50%, #44403c 100%);
+      position: relative;
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: #fff;
       text-align: center;
+      overflow: hidden;
+      background: #1c1917;
+      padding: 0;
+    }
+    .tours-hero__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+    }
+    .tours-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(0,0,0,0.5) 0%,
+        rgba(0,0,0,0.3) 40%,
+        rgba(0,0,0,0.6) 100%
+      );
+    }
+    .tours-hero__content {
+      position: relative;
+      z-index: 1;
       padding: 6rem 1.5rem 4rem;
+      max-width: 720px;
     }
     .tours-hero__title {
       font-size: clamp(2rem, 1.5rem + 3vw, 3rem);
@@ -106,29 +136,31 @@
 </head>
 <body>
 
-<nav class="nav nav--scrolled">
+<nav class="nav">
   <div class="nav__inner">
-    <a href="../index.html" class="nav__logo" style="color: var(--color-text);">
+    <a href="../index.html" class="nav__logo">
       <span class="nav__logo-icon">&#x1F3CD;</span> TibetRide
     </a>
     <ul class="nav__links">
-      <li><a href="../index.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="首页" data-lang-en="Home">Home</a></li>
+      <li><a href="../index.html" class="nav__link" data-lang-zh="首页" data-lang-en="Home">Home</a></li>
       <li><a href="index.html" class="nav__link nav__link--active" data-lang-zh="线路" data-lang-en="Tours">Tours</a></li>
-      <li><a href="../articles/index.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="攻略" data-lang-en="Travel Guide">Travel Guide</a></li>
-      <li><a href="../about.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="关于" data-lang-en="About">About</a></li>
-      <li><a href="../contact.html" class="nav__link" style="color: var(--color-text-muted);" data-lang-zh="联系" data-lang-en="Contact">Contact</a></li>
+      <li><a href="../guides/index.html" class="nav__link" data-lang-zh="攻略" data-lang-en="Travel Guide">Travel Guide</a></li>
+      <li><a href="../about.html" class="nav__link" data-lang-zh="关于" data-lang-en="About">About</a></li>
+      <li><a href="../contact.html" class="nav__link" data-lang-zh="联系" data-lang-en="Contact">Contact</a></li>
     </ul>
     <button class="nav__toggle" aria-label="Toggle menu">
-      <span style="background: var(--color-text);"></span>
-      <span style="background: var(--color-text);"></span>
-      <span style="background: var(--color-text);"></span>
+      <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
 <header class="tours-hero">
-  <h1 class="tours-hero__title" data-lang-zh="精选西藏线路" data-lang-en="Curated Tibet Tours">Curated Tibet Tours</h1>
-  <p class="tours-hero__desc" data-lang-zh="小团出行，本地专家带队，全程代办入藏函。" data-lang-en="Small groups, local expert guides, all permits handled.">Small groups, local expert guides, all permits handled.</p>
+  <img class="tours-hero__bg" src="../images/hero/everest.jpg" alt="Mount Everest at sunrise">
+  <div class="tours-hero__overlay"></div>
+  <div class="tours-hero__content">
+    <h1 class="tours-hero__title" data-lang-zh="精选西藏线路" data-lang-en="Curated Tibet Tours">Curated Tibet Tours</h1>
+    <p class="tours-hero__desc" data-lang-zh="小团出行，本地专家带队，全程代办入藏函。" data-lang-en="Small groups, local expert guides, all permits handled.">Small groups, local expert guides, all permits handled.</p>
+  </div>
 </header>
 
 <main class="tours-grid">
@@ -221,7 +253,7 @@
         <div class="footer__heading" data-lang-zh="探索" data-lang-en="Explore">Explore</div>
         <ul class="footer__links">
           <li><a href="index.html">Tours</a></li>
-          <li><a href="../articles/index.html">Travel Guide</a></li>
+          <li><a href="../guides/index.html">Travel Guide</a></li>
           <li><a href="../articles/index.html">Stories</a></li>
         </ul>
       </div>
