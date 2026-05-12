@@ -419,15 +419,15 @@
     <!-- Sticky Filter -->
     <div class="filter-bar" id="filterBar">
       <div class="filter-bar__inner">
-        <button class="filter-bar__item filter-bar__item--active" data-filter="all"><span data-lang-zh="全部" data-lang-en="All">All</span><span class="filter-bar__badge">24</span></button>
-        <button class="filter-bar__item" data-filter="travel-guide"><span data-lang-zh="旅行指南" data-lang-en="Travel Guide">Travel Guide</span><span class="filter-bar__badge">7</span></button>
-        <button class="filter-bar__item" data-filter="culture"><span data-lang-zh="文化" data-lang-en="Culture">Culture</span><span class="filter-bar__badge">2</span></button>
-        <button class="filter-bar__item" data-filter="photography"><span data-lang-zh="摄影" data-lang-en="Photography">Photography</span><span class="filter-bar__badge">3</span></button>
-        <button class="filter-bar__item" data-filter="travelogue"><span data-lang-zh="游记" data-lang-en="Travelogues">Travelogues</span><span class="filter-bar__badge">5</span></button>
-        <button class="filter-bar__item" data-filter="routes"><span data-lang-zh="路线" data-lang-en="Routes">Routes</span><span class="filter-bar__badge">4</span></button>
-        <button class="filter-bar__item" data-filter="gear"><span data-lang-zh="装备" data-lang-en="Gear">Gear</span><span class="filter-bar__badge">1</span></button>
-        <button class="filter-bar__item" data-filter="health"><span data-lang-zh="健康与安全" data-lang-en="Health & Safety">Health & Safety</span><span class="filter-bar__badge">2</span></button>
-        <button class="filter-bar__item" data-filter="reflection"><span data-lang-zh="随笔" data-lang-en="Reflection">Reflection</span><span class="filter-bar__badge">1</span></button>
+        <button class="filter-bar__item filter-bar__item--active" data-filter="all"><span data-lang-zh="全部" data-lang-en="All">All</span><span class="filter-bar__badge"></span></button>
+        <button class="filter-bar__item" data-filter="travel-guide"><span data-lang-zh="旅行指南" data-lang-en="Travel Guide">Travel Guide</span><span class="filter-bar__badge"></span></button>
+        <button class="filter-bar__item" data-filter="culture"><span data-lang-zh="文化" data-lang-en="Culture">Culture</span><span class="filter-bar__badge"></span></button>
+        <button class="filter-bar__item" data-filter="photography"><span data-lang-zh="摄影" data-lang-en="Photography">Photography</span><span class="filter-bar__badge"></span></button>
+        <button class="filter-bar__item" data-filter="travelogue"><span data-lang-zh="游记" data-lang-en="Travelogues">Travelogues</span><span class="filter-bar__badge"></span></button>
+        <button class="filter-bar__item" data-filter="routes"><span data-lang-zh="路线" data-lang-en="Routes">Routes</span><span class="filter-bar__badge"></span></button>
+        <button class="filter-bar__item" data-filter="gear"><span data-lang-zh="装备" data-lang-en="Gear">Gear</span><span class="filter-bar__badge"></span></button>
+        <button class="filter-bar__item" data-filter="health"><span data-lang-zh="健康与安全" data-lang-en="Health & Safety">Health & Safety</span><span class="filter-bar__badge"></span></button>
+        <button class="filter-bar__item" data-filter="reflection"><span data-lang-zh="随笔" data-lang-en="Reflection">Reflection</span><span class="filter-bar__badge"></span></button>
       </div>
     </div>
 
@@ -539,6 +539,17 @@
   var empty = document.getElementById('emptyState');
   var items = document.querySelectorAll('.filter-bar__item');
 
+  function updateBadges() {
+    var total = articles.length;
+    var counts = {};
+    articles.forEach(function(a) { counts[a.cat] = (counts[a.cat] || 0) + 1; });
+    items.forEach(function(btn) {
+      var f = btn.getAttribute('data-filter');
+      var badge = btn.querySelector('.filter-bar__badge');
+      if (badge) badge.textContent = f === 'all' ? total : (counts[f] || 0);
+    });
+  }
+
   function card(a) {
     return '<article class="post animate">' +
       '<a href="' + a.url + '" class="post__thumb">' +
@@ -603,6 +614,7 @@
     render();
   });
 
+  updateBadges();
   render();
 })();
 </script>
