@@ -130,45 +130,6 @@ h3 { font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.75rem); }
   box-shadow: var(--shadow-sm);
 }
 
-/* Light hero variant: white text over photo hero */
-.nav--light-hero .nav__logo {
-  color: #fff;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-}
-.nav--light-hero .nav__link {
-  color: rgba(255,255,255,0.9);
-  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-}
-.nav--light-hero .nav__link:hover,
-.nav--light-hero .nav__link--active {
-  color: #fff;
-}
-.nav--light-hero .nav__link--active::after {
-  background: #fff;
-}
-.nav--light-hero .nav__toggle span {
-  background: #fff;
-}
-/* When scrolled over light-hero, switch back to dark text */
-.nav--light-hero.nav--scrolled .nav__logo {
-  color: var(--color-text);
-  text-shadow: none;
-}
-.nav--light-hero.nav--scrolled .nav__link {
-  color: var(--color-text-muted);
-  text-shadow: none;
-}
-.nav--light-hero.nav--scrolled .nav__link:hover,
-.nav--light-hero.nav--scrolled .nav__link--active {
-  color: var(--color-primary);
-}
-.nav--light-hero.nav--scrolled .nav__link--active::after {
-  background: var(--color-primary);
-}
-.nav--light-hero.nav--scrolled .nav__toggle span {
-  background: var(--color-text);
-}
-
 .nav__inner {
   max-width: var(--max-width);
   margin: 0 auto;

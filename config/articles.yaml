@@ -35,6 +35,24 @@ articles:
     zh: 川藏线G318进藏 — 拉萨及周边 成都 → 康定 → 理塘 → 巴塘 → 芒康 → 八宿 → 然乌 → 波密 → 林芝 → 拉萨
     en: 川藏线G318进藏 — 拉萨及周边 成都 → 康定 → 理塘 → 巴塘 → 芒康 → 八宿 → 然乌 → 波密 → 林芝 → 拉萨
   related: []
+- slug: tibet-article-71db03
+  file_pattern: tibet-article-71db03
+  has_en_translation: true
+  category: travel-guide
+  catLabel: Travel Guide
+  catLabelZh: 旅行指南
+  date: '2026-05-12'
+  time: 5 min read
+  author:
+    zh: 摩旅在线
+    en: 摩旅在线
+  title:
+    zh: 摩旅招募 | 让我们偶遇在金秋的西藏
+    en: 摩旅招募 | 让我们偶遇在金秋的西藏
+  excerpt:
+    zh: 如果恰好您也摩旅西藏，有一技之长，让我们在路上偶遇，做些力所能及的事情。
+    en: 如果恰好您也摩旅西藏，有一技之长，让我们在路上偶遇，做些力所能及的事情。
+  related: []
 defaults:
   site_name:
     zh: TibetRide
