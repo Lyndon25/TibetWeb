@@ -35,24 +35,6 @@ articles:
     zh: 川藏线G318进藏 — 拉萨及周边 成都 → 康定 → 理塘 → 巴塘 → 芒康 → 八宿 → 然乌 → 波密 → 林芝 → 拉萨
     en: 川藏线G318进藏 — 拉萨及周边 成都 → 康定 → 理塘 → 巴塘 → 芒康 → 八宿 → 然乌 → 波密 → 林芝 → 拉萨
   related: []
-- slug: 圆梦西藏g318川藏南线-g317川藏北线-g109青藏线-朝圣自驾20日游
-  file_pattern: 圆梦西藏G318川藏南线G317川藏北线G109青藏线朝圣自驾20日游
-  has_en_translation: true
-  category: travel-guide
-  catLabel: Travel Guide
-  catLabelZh: 旅行指南
-  date: '2026-05-12'
-  time: 5 min read
-  author:
-    zh: 爱游自驾俱乐部
-    en: 爱游自驾俱乐部
-  title:
-    zh: 【圆梦西藏】G318川藏南线 | G317川藏北线 | G109青藏线 | 朝圣自驾20日游
-    en: 【圆梦西藏】G318川藏南线 | G317川藏北线 | G109青藏线 | 朝圣自驾20日游
-  excerpt:
-    zh: 4人定制随时出发，一次体验三条进藏线路， 多元体验自驾20日游
-    en: 4人定制随时出发，一次体验三条进藏线路， 多元体验自驾20日游
-  related: []
 defaults:
   site_name:
     zh: TibetRide

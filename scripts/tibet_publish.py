@@ -51,15 +51,12 @@ def _load_settings():
         return d
 
 def _gen_slug(title):
-    """Generate an English-friendly slug: ASCII keywords + date + hash."""
+    """Generate a short English-friendly slug from ASCII keywords, matching existing article naming."""
     ascii_words = re.findall(r'[a-zA-Z0-9]{2,}', title)
     if ascii_words:
-        prefix = '-'.join(w.lower() for w in ascii_words[:5])
-    else:
-        prefix = 'tibet-article'
-    date_str = datetime.now().strftime('%Y%m%d')
-    hash_suffix = hashlib.md5(title.encode('utf-8')).hexdigest()[:4]
-    return f'{prefix}-{date_str}-{hash_suffix}'
+        return '-'.join(w.lower() for w in ascii_words[:6])
+    # Fallback for titles with no ASCII content
+    return 'tibet-article-' + hashlib.md5(title.encode('utf-8')).hexdigest()[:6]
 
 def _gen_fp(title):
     """File pattern now uses the slug directly for consistent naming."""

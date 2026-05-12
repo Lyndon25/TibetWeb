@@ -6,7 +6,7 @@ Takes a WeChat article URL and deploys to the TibetJourneyWebsite.
 
 Hardcoded:
   - Git remote: https://github.com/Lyndon25/TibetWeb.git
-  - Git branch: claude-code-torch
+  - Git branch: main
 
 Usage:
     python pipeline.py --url "https://mp.weixin.qq.com/s/..."
@@ -26,7 +26,7 @@ from pathlib import Path
 
 # ── Hardcoded git config ──────────────────────────────────────────────
 GIT_REMOTE_URL = "https://github.com/Lyndon25/TibetWeb.git"
-GIT_BRANCH = "claude-code-torch"
+GIT_BRANCH = "main"
 
 _SCRIPT_DIR = Path(__file__).resolve().parent
 _SKILL_DIR = _SCRIPT_DIR.parent
@@ -129,15 +129,12 @@ def seed_repo(repo: Path):
 # ── Article fetch & save ──────────────────────────────────────────────
 
 def _gen_slug(title: str) -> str:
-    """Generate an English-friendly slug: ASCII keywords + date + hash."""
+    """Generate a short English-friendly slug from ASCII keywords, matching existing article naming."""
     ascii_words = re.findall(r'[a-zA-Z0-9]{2,}', title)
     if ascii_words:
-        prefix = '-'.join(w.lower() for w in ascii_words[:5])
-    else:
-        prefix = 'tibet-article'
-    date_str = datetime.now().strftime('%Y%m%d')
-    hash_suffix = hashlib.md5(title.encode('utf-8')).hexdigest()[:4]
-    return f'{prefix}-{date_str}-{hash_suffix}'
+        return '-'.join(w.lower() for w in ascii_words[:6])
+    # Fallback for titles with no ASCII content
+    return 'tibet-article-' + hashlib.md5(title.encode('utf-8')).hexdigest()[:6]
 
 
 def _gen_fp(title: str) -> str:
