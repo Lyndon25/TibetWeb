@@ -14,7 +14,7 @@ TibetWorkflow 一键发布管道 - 从微信链接到 Git Push
     python scripts/tibet_publish.py --url <URL> --slug my-article
     python scripts/tibet_publish.py --url <URL> --skip-push
 """
-import os, sys, re, argparse, subprocess
+import hashlib, os, sys, re, argparse, subprocess
 from datetime import datetime
 from typing import Optional
 
@@ -51,14 +51,19 @@ def _load_settings():
         return d
 
 def _gen_slug(title):
-    slug = re.sub(r'[^\w\s-]', '', title.lower().strip())
-    slug = re.sub(r'[\s_]+', '-', slug).strip('-')
-    return slug[:80].rstrip('-') or f'article-{datetime.now():%Y%m%d}'
+    """Generate an English-friendly slug: ASCII keywords + date + hash."""
+    ascii_words = re.findall(r'[a-zA-Z0-9]{2,}', title)
+    if ascii_words:
+        prefix = '-'.join(w.lower() for w in ascii_words[:5])
+    else:
+        prefix = 'tibet-article'
+    date_str = datetime.now().strftime('%Y%m%d')
+    hash_suffix = hashlib.md5(title.encode('utf-8')).hexdigest()[:4]
+    return f'{prefix}-{date_str}-{hash_suffix}'
 
 def _gen_fp(title):
-    fp = re.sub(r'[^\w\s\u4e00-\u9fff-]', '', title)
-    fp = re.sub(r'[\s]+', '', fp)
-    return fp[:120] or f'未命名文章{datetime.now():%Y%m%d}'
+    """File pattern now uses the slug directly for consistent naming."""
+    return _gen_slug(title)
 
 def step_fetch(url, settings):
     _log('FETCH', f'Fetching: {url[:80]}...')
@@ -107,6 +112,59 @@ def step_save(a, fp, settings):
     except Exception as e:
         _log('SAVE', f'MD FAILED: {e}'); return False
     return True
+
+def _update_article_index(article, slug):
+    """Insert new article into the hardcoded JS array in articles/index.html."""
+    index_path = os.path.join(_SKILL_DIR, 'articles', 'index.html')
+    if not os.path.exists(index_path):
+        _log('INDEX', 'articles/index.html not found, skip')
+        return
+
+    with open(index_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+
+    marker = 'var articles = ['
+    pos = content.find(marker)
+    if pos == -1:
+        _log('INDEX', 'articles array not found, skip')
+        return
+
+    title = article.get('title', '')
+    desc = article.get('description', '') or ''
+    cover = ''
+    if article.get('content_soup'):
+        og_img = article['content_soup'].find('meta', property='og:image')
+        if og_img:
+            cover = og_img.get('content', '')
+    if not cover:
+        imgs = article.get('content_soup') and article['content_soup'].find_all('img')
+        if imgs:
+            for img in imgs:
+                src = img.get('data-src') or img.get('src', '')
+                if src and src.startswith('http'):
+                    cover = src
+                    break
+
+    date_str = datetime.now().strftime('%b %d, %Y')
+
+    entry = (
+        "{ cat:'travel-guide', catLabel:'Travel Guide', catLabelZh:'旅行指南', "
+        f"title:'{title}', titleZh:'{title}', "
+        f"excerpt:'{desc[:120]}', excerptZh:'{desc[:120]}', "
+        f"date:'{date_str}', time:'5 min read', "
+        f"url:'{slug}.html', img:'{cover}', featured:false }}"
+    )
+
+    insert_pos = pos + len(marker)
+    if content[insert_pos:insert_pos + 1].strip():
+        entry = entry + ',\n    '
+    else:
+        entry = '\n    ' + entry + '\n  '
+
+    new_content = content[:insert_pos] + entry + content[insert_pos:]
+    atomic_io.atomic_write(index_path, new_content)
+    _log('INDEX', f'Inserted article into index.html')
+
 
 def step_config(a, slug, fp, settings):
     cp = os.path.join(_SKILL_DIR, 'config', 'articles.yaml')
@@ -176,6 +234,8 @@ def run_pipeline(url, slug=None, skip_push=False):
     fp = _gen_fp(a.get('title',''))
     _log('PIPELINE', f'Slug={slug} FP={fp}')
     ok = step_save(a, fp, s); step_config(a, slug, fp, s); step_build(slug, s)
+    if ok:
+        _update_article_index(a, slug)
     if not skip_push:
         step_git(slug, s)
     print(f'\n完成! 文章: {a.get("title","")}  标识: {slug}')
