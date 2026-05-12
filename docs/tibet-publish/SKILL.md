@@ -33,8 +33,7 @@ python scripts/pipeline.py --url "URL" --repo-path /path  # Use existing local r
 ## Hardcoded Git Configuration
 
 - **Remote**: `https://github.com/Lyndon25/TibetWeb.git`
-- **Branch**: `claude-code-torch`
-- These are in `scripts/pipeline.py` -- never push to `main`.
+- **Branch**: `main`
 
 ## Prerequisites
 
@@ -49,7 +48,7 @@ pip install requests beautifulsoup4 html2text pyyaml jinja2
 | **FETCH** | Downloads WeChat article HTML, extracts metadata (title, author, cover), downloads images from WeChat CDN |
 | **SAVE** | Writes localized HTML + original source HTML to workspace (`AddingArticleWorkSpace/1/`) |
 | **BUILD** | `convert` (Jinja2 template rendering) -> `rebuild` (EN translation extraction) -> `sync` (image distribution) -> `validate` (HTML + bilingual audit) |
-| **GIT** | `git add .` -> `git commit` -> `git push origin claude-code-torch` |
+| **GIT** | `git add .` -> `git commit` -> `git push origin main` |
 
 ## Bundled Resources
 
@@ -66,7 +65,7 @@ pip install requests beautifulsoup4 html2text pyyaml jinja2
 
 ## Important
 
-- Never push to `main`. The pipeline hardcodes `claude-code-torch` as the target branch.
+- The pipeline pushes to `main` by default.
 - On first run the pipeline seeds the website repo with CSS, JS, templates, and scripts.
 - Images go to `images/articles/<slug>/` in the website repo.
 - Rich WeChat formatting (bold, italics, links, line breaks) is preserved.
