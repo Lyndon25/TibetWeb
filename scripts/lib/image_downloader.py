@@ -140,7 +140,7 @@ def download_article_images(
     if images_base is None:
         images_base = DEFAULT_IMAGES_BASE
 
-    article_img_dir = os.path.join(images_base, slug)
+    article_img_dir = os.path.join(images_base, slug, 'images')
     os.makedirs(article_img_dir, exist_ok=True)
 
     mapping: dict[str, str] = {}
