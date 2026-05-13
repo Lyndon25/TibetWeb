@@ -18,8 +18,8 @@ from typing import Optional
 _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 _SKILL_DIR = os.path.dirname(os.path.dirname(_SCRIPT_DIR))
 
-# Default image output relative to articles/ -> ../images/articles/<slug>/
-DEFAULT_IMAGES_BASE = os.path.join(_SKILL_DIR, 'images', 'articles')
+# Default image output co-located with article: articles/<slug>/images/
+DEFAULT_IMAGES_BASE = os.path.join(_SKILL_DIR, 'articles')
 
 # URL patterns that indicate WeChat CDN
 WECHAT_DOMAINS = {
@@ -152,8 +152,8 @@ def download_article_images(
         ext = _guess_extension(url)
         filename = _generate_filename(url, i, ext)
         dest_path = os.path.join(article_img_dir, filename)
-        # Relative path from articles/<slug>.html -> ../images/articles/<slug>/filename
-        rel_path = f"../images/articles/{slug}/{filename}"
+        # Relative path from articles/<slug>/index.html -> images/filename (co-located)
+        rel_path = f"images/{filename}"
 
         if skip_existing and os.path.exists(dest_path) and os.path.getsize(dest_path) > 100:
             mapping[url] = rel_path

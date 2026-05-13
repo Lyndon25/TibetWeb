@@ -461,7 +461,7 @@ def build_related_html(article: dict, all_articles: list[dict]) -> str:
 
 def _find_article_cover(slug: str) -> str:
     """Find cover image for an article by checking its HTML file."""
-    article_path = os.path.join(_SKILL_DIR, 'articles', f'{slug}.html')
+    article_path = os.path.join(_SKILL_DIR, 'articles', f'{slug}/index.html')
     if os.path.exists(article_path):
         try:
             with open(article_path, 'r', encoding='utf-8') as f:
@@ -645,7 +645,7 @@ def process_article(
     final_html = render_template(template_data)
 
     # Write output
-    out_path = os.path.join(_SKILL_DIR, 'articles', f"{slug}.html")
+    out_path = os.path.join(_SKILL_DIR, 'articles', slug, 'index.html')
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     atomic_io.atomic_write(out_path, final_html)
 
@@ -678,17 +678,22 @@ def main():
     for meta in all_articles:
         if args.slug and meta['slug'] != args.slug:
             continue
-        if not meta.get('file_pattern'):
-            continue
+        fp = meta.get('file_pattern') or meta['slug']
         matched = None
         for f in files:
-            if meta['file_pattern'] in f:
+            if fp in f:
                 matched = f
                 break
+        if not matched:
+            # Try matching by slug
+            for f in files:
+                if meta['slug'] in f:
+                    matched = f
+                    break
         if matched:
             to_process.append((os.path.join(src_dir, matched), meta))
         else:
-            print(f"WARNING: No source file found for: {meta['file_pattern']}")
+            print(f"WARNING: No source file found for: {meta['slug']}")
 
     to_process.sort(key=lambda x: x[1].get('date', ''))
 

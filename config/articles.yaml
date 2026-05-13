@@ -49,6 +49,22 @@ articles:
     zh: 如果恰好您也摩旅西藏，有一技之长，让我们在路上偶遇，做些力所能及的事情。
     en: 如果恰好您也摩旅西藏，有一技之长，让我们在路上偶遇，做些力所能及的事情。
   related: []
+- slug: motorcycle-spirit-female-riders-lhasa
+  category: travelogue
+  catLabel: Travelogue
+  catLabelZh: 游记
+  date: '2026-05-13'
+  time: 5 min read
+  author:
+    zh: 陆地冲浪
+    en: 陆地冲浪
+  title:
+    zh: 骑士精神｜骑着摩托去拉萨，她们真的特别帅
+    en: 'Biker Spirit: Riding Motorcycles to Lhasa'
+  excerpt:
+    zh: 西藏的太阳笑得灿烂，陆地冲浪带给我最大的感动和幸福感。
+    en: 'Just pack up and go — female riders take on the journey to Tibet on motorcycles, chasing freedom on the open road.'
+  related: []
 defaults:
   site_name:
     zh: TibetRide
