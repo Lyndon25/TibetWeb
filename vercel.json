@@ -24,7 +24,7 @@
       "dest": "/articles/index.html"
     },
     {
-      "src": "/articles/([^/]+?)(?:/index)?",
+      "src": "/articles/([^/]+?)(?:\\.html)?(?:/.*)?$",
       "dest": "/articles/$1/index.html"
     },
     {
