@@ -10,7 +10,7 @@ directories:
 
 repository:
   remote: https://github.com/Lyndon25/TibetWeb.git
-  branch: claude-code-torch
+  branch: main
 
 defaults:
   category: travel-guide
