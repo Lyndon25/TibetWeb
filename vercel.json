@@ -20,6 +20,10 @@
       "dest": "/tours/index.html"
     },
     {
+      "src": "/videos",
+      "dest": "/videos/index.html"
+    },
+    {
       "src": "/articles",
       "dest": "/articles/index.html"
     },

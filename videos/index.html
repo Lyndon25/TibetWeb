@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-lang-zh="视频 - TibetRide" data-lang-en="Videos | TibetRide">Videos | TibetRide</title>
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/lang.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+<script>
+  (function(){
+    var k='site-lang',l=localStorage.getItem(k);
+    if(l==='en'){document.documentElement.setAttribute('lang','en');}
+    else{document.documentElement.setAttribute('lang','zh-CN');}
+  })();
+</script>
+<style>
+  .page-hero {
+    position: relative;
+    height: 50vh;
+    min-height: 360px;
+    max-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #1c1917;
+    overflow: hidden;
+  }
+  .page-hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.45;
+  }
+  .page-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 45%, rgba(0,0,0,0.7) 100%);
+  }
+  .page-hero__content {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    padding: 2rem;
+  }
+  .page-hero__tag {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    padding: 0.35rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1.25rem;
+  }
+  .page-hero__title {
+    font-size: clamp(2rem, 1.5rem + 3vw, 3.8rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  .page-hero__desc {
+    font-size: clamp(1rem, 0.9rem + 0.3vw, 1.15rem);
+    color: rgba(255,255,255,0.8);
+    line-height: 1.65;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .video-section {
+    padding: 4rem 0;
+  }
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 2.5rem;
+  }
+  @media (max-width: 480px) {
+    .video-grid { grid-template-columns: 1fr; }
+  }
+
+  .video-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+  }
+  .video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .video-embed {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    background: #000;
+  }
+  .video-embed iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  .video-card__body {
+    padding: 1.5rem;
+  }
+  .video-card__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+  }
+  .video-card__desc {
+    font-family: var(--font-serif);
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  .empty {
+    text-align: center;
+    padding: 5rem 2rem;
+  }
+  .empty__text {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    font-family: var(--font-serif);
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="../index.html" class="nav__logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1.75rem;height:1.75rem;"><path d="M9 17a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM19 17a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/><path d="M13 17V6a2 2 0 0 0-2-2H5l5.5 7H13z"/><path d="M13 17h3.5L22 10h-5"/></svg>
+      <span class="nav__logo-text">TibetRide</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="../index.html" class="nav__link" data-lang-zh="首页" data-lang-en="Home">Home</a></li>
+      <li><a href="../tours/index.html" class="nav__link" data-lang-zh="线路" data-lang-en="Tours">Tours</a></li>
+      <li><a href="../articles/index.html" class="nav__link" data-lang-zh="攻略" data-lang-en="Travel Guide">Travel Guide</a></li>
+      <li><a href="index.html" class="nav__link nav__link--active" data-lang-zh="视频" data-lang-en="Videos">Videos</a></li>
+      <li><a href="../about.html" class="nav__link" data-lang-zh="关于" data-lang-en="About">About</a></li>
+      <li><a href="../contact.html" class="nav__link" data-lang-zh="联系" data-lang-en="Contact">Contact</a></li>
+    </ul>
+    <button class="nav__toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <img class="page-hero__bg" src="../images/hero/articles-hero.jpg" alt="Tibetan landscape" loading="eager">
+  <div class="page-hero__overlay"></div>
+  <div class="page-hero__content">
+    <span class="page-hero__tag" data-lang-zh="影像" data-lang-en="Watch">影像</span>
+    <div class="lang-content" data-lang="zh"><h1 class="page-hero__title">路上的风景</h1></div>
+    <div class="lang-content" data-lang="en"><h1 class="page-hero__title">Scenes from the Road</h1></div>
+    <div class="lang-content" data-lang="zh"><p class="page-hero__desc">从青藏高原到川藏线，用镜头记录车轮上的西藏 —— 骑行视频、纪录片与风光短片。</p></div>
+    <div class="lang-content" data-lang="en"><p class="page-hero__desc">From the Qinghai-Tibet Plateau to the Sichuan-Tibet Highway — ride videos, documentaries, and landscape shorts captured on two wheels.</p></div>
+  </div>
+</header>
+
+<main class="video-section">
+  <div class="container">
+    <div class="video-grid" id="videoGrid"></div>
+    <div class="empty" id="emptyState" style="display:none;">
+      <p class="empty__text" data-lang-zh="暂无视频，敬请期待。" data-lang-en="No videos yet. Stay tuned.">No videos yet. Stay tuned.</p>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <h3 class="footer__title">TibetRide</h3>
+        <p class="footer__text" data-lang-zh="探索西藏，与本地专家同行。" data-lang-en="Explore Tibet with local experts.">探索西藏，与本地专家同行。</p>
+      </div>
+      <div>
+        <h4 class="footer__title" data-lang-zh="探索" data-lang-en="Explore">探索</h4>
+        <ul class="footer__links">
+          <li><a href="../tours/index.html" data-lang-zh="线路" data-lang-en="Tours">Tours</a></li>
+          <li><a href="../articles/index.html" data-lang-zh="攻略" data-lang-en="Travel Guide">Travel Guide</a></li>
+          <li><a href="index.html" data-lang-zh="视频" data-lang-en="Videos">Videos</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer__title" data-lang-zh="关于" data-lang-en="About">关于</h4>
+        <ul class="footer__links">
+          <li><a href="../about.html" data-lang-zh="关于我们" data-lang-en="About Us">关于我们</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer__title" data-lang-zh="联系" data-lang-en="Contact">联系</h4>
+        <ul class="footer__links">
+          <li><a href="mailto:torchlight@foxmail.com">torchlight@foxmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 TibetRide.com. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/lang.js"></script>
+<script src="../js/main.js"></script>
+<script>
+(function() {
+  var videos = [
+    {
+      id: 'AqYZwE4m52E',
+      titleZh: '骑着摩托去拉萨',
+      titleEn: 'Riding a Motorcycle to Lhasa',
+      descZh: '穿越青藏高原的摩托车之旅，记录沿途壮美风光与骑士精神。',
+      descEn: 'A motorcycle journey across the Tibetan Plateau, capturing breathtaking landscapes and the spirit of the ride.'
+    }
+  ];
+
+  var grid = document.getElementById('videoGrid');
+  var empty = document.getElementById('emptyState');
+
+  function card(v) {
+    var title = (localStorage.getItem('site-lang') || 'zh') === 'en' ? v.titleEn : v.titleZh;
+    var desc = (localStorage.getItem('site-lang') || 'zh') === 'en' ? v.descEn : v.descZh;
+    return '<article class="video-card">' +
+      '<div class="video-embed">' +
+        '<iframe src="https://www.youtube.com/embed/' + v.id + '" ' +
+          'title="' + title + '" ' +
+          'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ' +
+          'allowfullscreen loading="lazy">' +
+        '</iframe>' +
+      '</div>' +
+      '<div class="video-card__body">' +
+        '<h3 class="video-card__title">' + title + '</h3>' +
+        '<p class="video-card__desc">' + desc + '</p>' +
+      '</div>' +
+    '</article>';
+  }
+
+  function render() {
+    if (!videos.length) {
+      grid.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+    grid.innerHTML = videos.map(card).join('');
+  }
+
+  window.addEventListener('langchange', render);
+  render();
+})();
+</script>
+</body>
+</html>
