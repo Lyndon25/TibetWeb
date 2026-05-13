@@ -105,9 +105,13 @@ def extract_from_html(html, slug):
     # Featured (check if featured: true near the slug in the old JS)
     meta['featured'] = False
 
-    # Cover image
-    cover_m = re.search(r'<img[^>]+src="([^"]+)"', html[body_start:body_start + 5000] if body_start > 0 else html)
-    meta['cover'] = cover_m.group(1) if cover_m else ''
+    # Cover image — prefer hero-image over first body image
+    hero_m = re.search(r"--hero-image:\s*url\('([^']+)'\)", html)
+    if hero_m:
+        meta['cover'] = hero_m.group(1)
+    else:
+        cover_m = re.search(r'<img[^>]+src="([^"]+)"', html[body_start:body_start + 5000] if body_start > 0 else html)
+        meta['cover'] = cover_m.group(1) if cover_m else ''
 
     return meta
 
@@ -141,15 +145,25 @@ def merge_config(scan_results, config_articles):
 
 
 def get_article_cover(slug):
-    """Get cover image from article HTML."""
+    """Get cover image from article HTML — prefers hero-image, falls back to first body JPEG."""
     idx_path = os.path.join(ARTICLES_DIR, slug, 'index.html')
     if not os.path.exists(idx_path):
         return ''
     with open(idx_path, 'r', encoding='utf-8') as f:
         html = f.read()
+    # First, try to get the hero-image CSS cover (what the article actually uses as banner)
+    hero_m = re.search(r"--hero-image:\s*url\('([^']+)'\)", html)
+    if hero_m:
+        return hero_m.group(1)
+    # Fallback: first JPEG in the article body
     body_start = html.find('article-body')
     if body_start < 0:
         body_start = 0
+    for m in re.finditer(r'<img[^>]+src="([^"]+)"', html[body_start:]):
+        src = m.group(1)
+        if 'jpeg' in src.lower() or 'jpg' in src.lower() or 'wx_fmt=jpeg' in src:
+            return src
+    # Last resort: first image regardless of type
     img_m = re.search(r'<img[^>]+src="([^"]+)"', html[body_start:])
     return img_m.group(1) if img_m else ''
 
