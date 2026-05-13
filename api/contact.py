@@ -62,14 +62,13 @@ class handler(BaseHTTPRequestHandler):
             return
 
         errors = []
-        supabase_id = None
-        feishu_ok = False
+        notifications = []
 
         # 3. Write to Supabase (primary data store)
         try:
             supabase_id = create_inquiry(data)
         except Exception as e:
-            errors.append(f"Supabase write failed: {e}")
+            errors.append(f"Supabase: {e}")
 
         # 4. Send auto-reply email to customer
         try:
@@ -78,47 +77,43 @@ class handler(BaseHTTPRequestHandler):
                 name=data.get("name", ""),
                 locale=data.get("lang", "en"),
             )
+            notifications.append("auto-reply sent")
         except Exception as e:
-            errors.append(f"Auto-reply email failed: {e}")
+            errors.append(f"Auto-reply email: {e}")
 
         # 5. Send notification email to business
         try:
             send_new_inquiry_notification(data)
+            notifications.append("owner notified")
         except Exception as e:
-            errors.append(f"Notify email failed: {e}")
+            errors.append(f"Notify email: {e}")
 
         # 6. Write to Feishu Bitable (admin view, redundancy)
         if FEISHU_APP_ID and FEISHU_APP_SECRET and FEISHU_APP_TOKEN and FEISHU_TABLE_ID:
             try:
                 token = _get_tenant_token()
                 _create_bitable_record(token, data)
-                feishu_ok = True
             except Exception as e:
-                errors.append(f"Feishu bitable failed: {e}")
+                errors.append(f"Feishu bitable: {e}")
 
         # 7. Send Feishu group bot notification
         if FEISHU_WEBHOOK:
             try:
                 _send_feishu_bot(data)
             except Exception as e:
-                errors.append(f"Feishu bot failed: {e}")
+                errors.append(f"Feishu bot: {e}")
 
-        # 8. Response — Supabase is primary; Feishu is fallback
-        if supabase_id is not None:
+        # 8. Response — email is the critical path
+        if notifications:
             self._send_json(200, {
                 "success": True,
-                "id": supabase_id,
-                "warnings": errors if errors else None,
-            })
-        elif feishu_ok:
-            self._send_json(200, {
-                "success": True,
+                "notifications": notifications,
                 "warnings": errors if errors else None,
             })
         else:
             self._send_json(500, {
                 "success": False,
-                "error": "All storage backends failed",
+                "error": "Failed to send email notifications",
                 "details": errors,
             })
 
