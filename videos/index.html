@@ -277,21 +277,36 @@
   var grid = document.getElementById('videoGrid');
   var empty = document.getElementById('emptyState');
 
-  function youtubeThumbUrl(id) {
-    return 'https://img.youtube.com/vi/' + id + '/maxresdefault.jpg';
+  function thumbFor(v) {
+    if (v.thumb) return v.thumb;
+    return 'https://img.youtube.com/vi/' + v.id + '/maxresdefault.jpg';
   }
 
   function posterHTML(v) {
     return '<div class="video-poster" data-video-id="' + v.id + '">' +
-      '<img class="video-poster__img" src="' + youtubeThumbUrl(v.id) + '" ' +
+      '<img class="video-poster__img" src="' + thumbFor(v) + '" ' +
         'alt="Video thumbnail" loading="lazy" ' +
-        'onerror="var s=this.src;this.onerror=null;' +
-        'this.src=s.replace(/maxresdefault/,\'hqdefault\')">' +
+        'onerror="window._videoImgErr(this)">' +
       '<div class="video-poster__play">' +
         '<svg viewBox="0 0 68 48"><path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="red"/><path d="M 45,24 27,14 27,34" fill="white"/></svg>' +
       '</div>' +
     '</div>';
   }
+
+  // Global thumbnail error handler: try hqdefault, then SVG fallback
+  window._videoImgErr = function(img) {
+    if (img.dataset.tried) { img.classList.add('is-fallback'); return; }
+    img.dataset.tried = '1';
+    if (img.src.indexOf('maxresdefault') > -1) {
+      img.src = img.src.replace(/maxresdefault/, 'hqdefault');
+      return;
+    }
+    if (img.src.indexOf('hqdefault') > -1) {
+      img.src = img.src.replace(/hqdefault/, 'sddefault');
+      return;
+    }
+    img.classList.add('is-fallback');
+  };
 
   function iframeHTML(v, title) {
     return '<iframe src="https://www.youtube.com/embed/' + v.id + '?autoplay=1" ' +
