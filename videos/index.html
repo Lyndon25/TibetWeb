@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="../css/lang.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://img.youtube.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
 <script>
   (function(){
@@ -105,7 +106,7 @@
     position: relative;
     padding-bottom: 56.25%;
     height: 0;
-    background: #000;
+    background: #1a1a2e;
   }
   .video-embed iframe {
     position: absolute;
@@ -113,6 +114,38 @@
     width: 100%;
     height: 100%;
     border: none;
+  }
+  .video-poster {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .video-poster__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  .video-poster:hover .video-poster__img {
+    transform: scale(1.03);
+    filter: brightness(0.7);
+  }
+  .video-poster__play {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px; height: 48px;
+    z-index: 2;
+    pointer-events: none;
+    transition: transform 0.2s ease;
+  }
+  .video-poster:hover .video-poster__play {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  .video-poster__play svg {
+    width: 100%; height: 100%;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
   }
   .video-card__body {
     padding: 1.5rem;
@@ -226,6 +259,13 @@
 (function() {
   var videos = [
     {
+      id: '5_SnFckpq_4',
+      titleZh: '摩旅西藏，我们骑着本田400x奔赴西藏，新疆8000公里！一路美景！丰富人文。',
+      titleEn: 'Tibet Motorcycle Journey: 8,000km Across Tibet & Xinjiang on Honda 400X',
+      descZh: '从西藏到新疆，8000公里摩旅壮游。本田CB400X双骑，穿越雪山、草原、戈壁，记录沿途壮美风光与深厚人文。',
+      descEn: 'An epic 8,000km motorcycle journey from Tibet to Xinjiang on Honda CB400X. Snow mountains, grasslands, and the Gobi — breathtaking landscapes and rich culture along the way.'
+    },
+    {
       id: 'AqYZwE4m52E',
       titleZh: '骑着摩托去拉萨',
       titleEn: 'Riding a Motorcycle to Lhasa',
@@ -237,16 +277,37 @@
   var grid = document.getElementById('videoGrid');
   var empty = document.getElementById('emptyState');
 
+  function youtubeThumbUrl(id) {
+    return 'https://img.youtube.com/vi/' + id + '/maxresdefault.jpg';
+  }
+
+  function posterHTML(v) {
+    return '<div class="video-poster" data-video-id="' + v.id + '">' +
+      '<img class="video-poster__img" src="' + youtubeThumbUrl(v.id) + '" ' +
+        'alt="Video thumbnail" loading="lazy" ' +
+        'onerror="var s=this.src;this.onerror=null;' +
+        'this.src=s.replace(/maxresdefault/,\'hqdefault\')">' +
+      '<div class="video-poster__play">' +
+        '<svg viewBox="0 0 68 48"><path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="red"/><path d="M 45,24 27,14 27,34" fill="white"/></svg>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function iframeHTML(v, title) {
+    return '<iframe src="https://www.youtube.com/embed/' + v.id + '?autoplay=1" ' +
+      'title="' + title + '" ' +
+      'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ' +
+      'allowfullscreen>' +
+      '</iframe>';
+  }
+
   function card(v) {
-    var title = (localStorage.getItem('site-lang') || 'zh') === 'en' ? v.titleEn : v.titleZh;
-    var desc = (localStorage.getItem('site-lang') || 'zh') === 'en' ? v.descEn : v.descZh;
+    var lang = localStorage.getItem('site-lang') || 'zh';
+    var title = lang === 'en' ? v.titleEn : v.titleZh;
+    var desc = lang === 'en' ? v.descEn : v.descZh;
     return '<article class="video-card">' +
       '<div class="video-embed">' +
-        '<iframe src="https://www.youtube.com/embed/' + v.id + '" ' +
-          'title="' + title + '" ' +
-          'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ' +
-          'allowfullscreen loading="lazy">' +
-        '</iframe>' +
+        posterHTML(v) +
       '</div>' +
       '<div class="video-card__body">' +
         '<h3 class="video-card__title">' + title + '</h3>' +
@@ -264,6 +325,19 @@
     empty.style.display = 'none';
     grid.innerHTML = videos.map(card).join('');
   }
+
+  // Delegate: click poster → replace with iframe
+  grid.addEventListener('click', function(e) {
+    var poster = e.target.closest('.video-poster');
+    if (!poster) return;
+    var videoId = poster.getAttribute('data-video-id');
+    var v = videos.filter(function(item) { return item.id === videoId; })[0];
+    if (!v) return;
+    var lang = localStorage.getItem('site-lang') || 'zh';
+    var title = lang === 'en' ? v.titleEn : v.titleZh;
+    poster.insertAdjacentHTML('afterend', iframeHTML(v, title));
+    poster.remove();
+  });
 
   window.addEventListener('langchange', render);
   render();
