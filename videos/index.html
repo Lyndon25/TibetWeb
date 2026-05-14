@@ -260,7 +260,7 @@
   var videos = [
     {
       id: '5_SnFckpq_4',
-      thumb: '../images/videos/5_SnFckpq_4.jpg',
+      thumb: 'https://i.ytimg.com/vi/5_SnFckpq_4/hqdefault.jpg',
       titleZh: '摩旅西藏，我们骑着本田400x奔赴西藏，新疆8000公里！一路美景！丰富人文。',
       titleEn: 'Tibet Motorcycle Journey: 8,000km Across Tibet & Xinjiang on Honda 400X',
       descZh: '从西藏到新疆，8000公里摩旅壮游。本田CB400X双骑，穿越雪山、草原、戈壁，记录沿途壮美风光与深厚人文。',
@@ -268,7 +268,7 @@
     },
     {
       id: 'AqYZwE4m52E',
-      thumb: '../images/videos/AqYZwE4m52E.jpg',
+      thumb: 'https://i.ytimg.com/vi/AqYZwE4m52E/hqdefault.jpg',
       titleZh: '骑着摩托去拉萨',
       titleEn: 'Riding a Motorcycle to Lhasa',
       descZh: '穿越青藏高原的摩托车之旅，记录沿途壮美风光与骑士精神。',
@@ -279,13 +279,23 @@
   var grid = document.getElementById('videoGrid');
   var empty = document.getElementById('emptyState');
 
+  function thumbFallbacks(id) {
+    return [
+      'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg',
+      'https://img.youtube.com/vi/' + id + '/hqdefault.jpg',
+      'https://i.ytimg.com/vi/' + id + '/sddefault.jpg',
+      'https://img.youtube.com/vi/' + id + '/sddefault.jpg',
+      'https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg'
+    ];
+  }
+
   function thumbFor(v) {
     if (v.thumb) return v.thumb;
-    return 'https://img.youtube.com/vi/' + v.id + '/maxresdefault.jpg';
+    return thumbFallbacks(v.id)[0];
   }
 
   function posterHTML(v) {
-    return '<div class="video-poster" data-video-id="' + v.id + '">' +
+    return '<div class="video-poster" data-video-id="' + v.id + '" data-fallbacks="' + thumbFallbacks(v.id).join(',') + '">' +
       '<img class="video-poster__img" src="' + thumbFor(v) + '" ' +
         'alt="Video thumbnail" loading="lazy" ' +
         'onerror="window._videoImgErr(this)">' +
@@ -295,16 +305,14 @@
     '</div>';
   }
 
-  // Global thumbnail error handler: try hqdefault, then SVG fallback
   window._videoImgErr = function(img) {
-    if (img.dataset.tried) { img.classList.add('is-fallback'); return; }
-    img.dataset.tried = '1';
-    if (img.src.indexOf('maxresdefault') > -1) {
-      img.src = img.src.replace(/maxresdefault/, 'hqdefault');
-      return;
-    }
-    if (img.src.indexOf('hqdefault') > -1) {
-      img.src = img.src.replace(/hqdefault/, 'sddefault');
+    var poster = img.closest('.video-poster');
+    var fallbacks = poster ? (poster.getAttribute('data-fallbacks') || '').split(',') : [];
+    var idx = parseInt(img.dataset.fbIdx || '-1', 10);
+    idx++;
+    if (idx < fallbacks.length) {
+      img.dataset.fbIdx = idx;
+      img.src = fallbacks[idx];
       return;
     }
     img.classList.add('is-fallback');

@@ -63,7 +63,25 @@ articles:
     en: 'Biker Spirit: Riding Motorcycles to Lhasa'
   excerpt:
     zh: 西藏的太阳笑得灿烂，陆地冲浪带给我最大的感动和幸福感。
-    en: 'Just pack up and go — female riders take on the journey to Tibet on motorcycles, chasing freedom on the open road.'
+    en: Just pack up and go — female riders take on the journey to Tibet on motorcycles, chasing freedom on the open road.
+  related: []
+- slug: cb400x
+  file_pattern: cb400x
+  has_en_translation: true
+  category: travel-guide
+  catLabel: Travel Guide
+  catLabelZh: 旅行指南
+  date: '2026-05-14'
+  time: 5 min read
+  author:
+    zh: 摩旅在线
+    en: 摩旅在线
+  title:
+    zh: CB400X骑行在藏北高原的失落之湖——当惹雍措
+    en: CB400X骑行在藏北高原的失落之湖——当惹雍措
+  excerpt:
+    zh: 不走寻常路，风光在险峰。
+    en: 不走寻常路，风光在险峰。
   related: []
 defaults:
   site_name:

@@ -65,30 +65,50 @@ def _get_session() -> requests.Session:
 
 
 def _download_single_image(img_url: str, save_path: Path, session: requests.Session = None) -> bool:
-    """下载单张图片到指定路径"""
+    """下载单张图片，尝试多种策略绕过微信防盗链：
+       1. 无 Referer（微信防盗链基于 Referer 检测）
+       2. 微信 Referer（部分 CDN 节点需要）
+    """
     try:
         if not img_url or not img_url.startswith(('http://', 'https://')):
             return False
-        
+
         if session is None:
             session = _get_session()
-        
-        # 微信图片可能需要特殊处理
-        headers = session.headers.copy()
-        headers.update({
-            'Referer': 'https://mp.weixin.qq.com/',
-            'Accept': 'image/webp,image/apng,image/*,*/*;q=0.8',
-        })
-        
-        response = session.get(img_url, headers=headers, timeout=30, stream=True)
-        if response.status_code == 200:
-            with open(save_path, 'wb') as f:
-                response.raw.decode_content = True
-                shutil.copyfileobj(response.raw, f)
-            return True
+
+        strategies = [
+            # 策略1: 无 Referer — 绕过微信防盗链
+            {'Accept': 'image/webp,image/apng,image/*,*/*;q=0.8'},
+            # 策略2: 微信 Referer — 回退方案
+            {
+                'Referer': 'https://mp.weixin.qq.com/',
+                'Accept': 'image/webp,image/apng,image/*,*/*;q=0.8',
+            },
+        ]
+
+        for headers in strategies:
+            try:
+                resp_headers = session.headers.copy()
+                resp_headers.update(headers)
+                response = session.get(img_url, headers=resp_headers, timeout=30, stream=True)
+                if response.status_code == 200:
+                    # 检查是否被防盗链（微信返回很小的占位图）
+                    content_length = response.headers.get('Content-Length')
+                    if content_length and int(content_length) < 500:
+                        continue  # 可能是防盗链占位图，尝试下一个策略
+                    # 读取少量字节判断
+                    first_chunk = response.raw.read(512)
+                    if len(first_chunk) < 500 and not content_length:
+                        continue
+                    with open(save_path, 'wb') as f:
+                        f.write(first_chunk)
+                        shutil.copyfileobj(response.raw, f)
+                    return True
+            except Exception:
+                continue
     except Exception as e:
         _log(f"图片下载失败: {img_url[:50]}..., 错误: {e}", "WARN")
-    
+
     return False
 
 

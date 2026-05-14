@@ -18,8 +18,8 @@ from typing import Optional
 _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 _SKILL_DIR = os.path.dirname(os.path.dirname(_SCRIPT_DIR))
 
-# Default image output co-located with article: articles/<slug>/images/
-DEFAULT_IMAGES_BASE = os.path.join(_SKILL_DIR, 'articles')
+# Default image output relative to articles/ -> ../images/articles/<slug>/
+DEFAULT_IMAGES_BASE = os.path.join(_SKILL_DIR, 'images', 'articles')
 
 # URL patterns that indicate WeChat CDN
 WECHAT_DOMAINS = {
@@ -85,36 +85,54 @@ def _generate_filename(url: str, index: int, ext: str) -> str:
 
 def _download_single(url: str, dest_path: str, timeout: int = 30) -> tuple[bool, Optional[str]]:
     """
-    Download a single image.
+    Download a single image. Tries multiple strategies to bypass hotlink protection:
+      1. No Referer (WeChat hotlink check is Referer-based)
+      2. WeChat Referer (some CDN nodes require it)
     Returns: (success, error_message)
     """
-    headers = {
-        'User-Agent': (
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
-            'AppleWebKit/537.36 (KHTML, like Gecko) '
-            'Chrome/120.0.0.0 Safari/537.36'
-        ),
-        'Referer': 'https://mp.weixin.qq.com/',
-    }
-    try:
-        req = urllib.request.Request(url, headers=headers)
-        # Bypass system proxy for image downloads
-        proxy_handler = urllib.request.ProxyHandler({})
-        opener = urllib.request.build_opener(proxy_handler)
-        with opener.open(req, timeout=timeout) as resp:
-            content_type = resp.headers.get('Content-Type', '')
-            data = resp.read()
-            if len(data) < 100:
-                return False, f"Too small ({len(data)} bytes)"
-            with open(dest_path, 'wb') as f:
-                f.write(data)
-        return True, None
-    except urllib.error.HTTPError as e:
-        return False, f"HTTP {e.code}"
-    except urllib.error.URLError as e:
-        return False, f"URL error: {e.reason}"
-    except Exception as e:
-        return False, str(e)
+    strategies = [
+        # Strategy 1: No Referer — bypasses WeChat hotlink protection
+        {
+            'User-Agent': (
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                'AppleWebKit/537.36 (KHTML, like Gecko) '
+                'Chrome/120.0.0.0 Safari/537.36'
+            ),
+        },
+        # Strategy 2: WeChat Referer — fallback for CDN nodes that require it
+        {
+            'User-Agent': (
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                'AppleWebKit/537.36 (KHTML, like Gecko) '
+                'Chrome/120.0.0.0 Safari/537.36'
+            ),
+            'Referer': 'https://mp.weixin.qq.com/',
+        },
+    ]
+
+    last_error = None
+    for strategy in strategies:
+        try:
+            req = urllib.request.Request(url, headers=strategy)
+            proxy_handler = urllib.request.ProxyHandler({})
+            opener = urllib.request.build_opener(proxy_handler)
+            with opener.open(req, timeout=timeout) as resp:
+                data = resp.read()
+                # Check for hotlink placeholder (WeChat returns a small placeholder image)
+                if len(data) < 500:
+                    last_error = f"Possible hotlink placeholder ({len(data)} bytes)"
+                    continue
+                with open(dest_path, 'wb') as f:
+                    f.write(data)
+            return True, None
+        except urllib.error.HTTPError as e:
+            last_error = f"HTTP {e.code}"
+        except urllib.error.URLError as e:
+            last_error = f"URL error: {e.reason}"
+        except Exception as e:
+            last_error = str(e)
+
+    return False, last_error
 
 
 def download_article_images(
@@ -140,7 +158,7 @@ def download_article_images(
     if images_base is None:
         images_base = DEFAULT_IMAGES_BASE
 
-    article_img_dir = os.path.join(images_base, slug, 'images')
+    article_img_dir = os.path.join(images_base, slug)
     os.makedirs(article_img_dir, exist_ok=True)
 
     mapping: dict[str, str] = {}
@@ -152,8 +170,8 @@ def download_article_images(
         ext = _guess_extension(url)
         filename = _generate_filename(url, i, ext)
         dest_path = os.path.join(article_img_dir, filename)
-        # Relative path from articles/<slug>/index.html -> images/filename (co-located)
-        rel_path = f"images/{filename}"
+        # Relative path from articles/<slug>.html -> ../images/articles/<slug>/filename
+        rel_path = f"../images/articles/{slug}/{filename}"
 
         if skip_existing and os.path.exists(dest_path) and os.path.getsize(dest_path) > 100:
             mapping[url] = rel_path

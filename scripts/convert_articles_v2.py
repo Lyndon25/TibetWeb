@@ -25,7 +25,7 @@ if _SCRIPT_DIR not in sys.path:
 
 _SKILL_DIR = os.path.dirname(_SCRIPT_DIR)
 
-from lib import article_config, image_downloader, atomic_io
+from lib import article_config, image_downloader, en_extractor, atomic_io
 
 # ---------------------------------------------------------------------------
 # Jinja2 setup (optional dependency)
@@ -461,7 +461,7 @@ def build_related_html(article: dict, all_articles: list[dict]) -> str:
 
 def _find_article_cover(slug: str) -> str:
     """Find cover image for an article by checking its HTML file."""
-    article_path = os.path.join(_SKILL_DIR, 'articles', f'{slug}/index.html')
+    article_path = os.path.join(_SKILL_DIR, 'articles', f'{slug}.html')
     if os.path.exists(article_path):
         try:
             with open(article_path, 'r', encoding='utf-8') as f:
@@ -553,41 +553,67 @@ def process_article(
     soup = BeautifulSoup(html, 'html.parser')
 
     # Extract cover image
-    cover = ''
+    cover_url = ''
     og_img = soup.find('meta', property='og:image')
     if og_img:
-        cover = og_img.get('content', '')
+        cover_url = og_img.get('content', '')
 
     # Extract content blocks
     blocks = extract_blocks(soup)
     blocks = merge_paragraphs(blocks)
 
     # Use first image as cover if no og:image
-    if not cover:
+    if not cover_url:
         for btype, content in blocks:
             if btype == 'img':
-                cover = content
+                cover_url = content
                 break
 
-    # Download images and get mapping
+    # Remove cover image from body blocks if it's the first image (hero already shows it)
+    if cover_url:
+        for i, (btype, content) in enumerate(blocks):
+            if btype == 'img' and content == cover_url:
+                blocks.pop(i)
+                break
+
+    # Download images (body + cover) in one batch
     img_mapping = None
     if download_images:
-        image_urls = [content for btype, content in blocks if btype == 'img']
-        if image_urls:
-            img_mapping = image_downloader.download_article_images(slug, image_urls)
+        # Collect all image URLs, putting cover first for consistent indexing
+        body_urls = [content for btype, content in blocks if btype == 'img']
+        all_urls = []
+        if cover_url:
+            all_urls.append(cover_url)
+        for u in body_urls:
+            if u != cover_url:
+                all_urls.append(u)
+        if all_urls:
+            img_mapping = image_downloader.download_article_images(slug, all_urls)
+
+    cover = img_mapping.get(cover_url, cover_url) if img_mapping else cover_url
 
     # Build ZH body HTML
     zh_html = render_blocks(blocks, img_mapping)
     zh_html = _cleanup_html(zh_html)
 
-    # EN translation: always starts as placeholder, filled by AI agent via the skill
-    en_html = (
-        '<div class="no-translation">'
-        '<p>English version is being prepared. '
-        '<a href="../../contact.html">Request a translation →</a></p>'
-        '</div>'
-    )
-    print(f"  [EN] Placeholder set (AI translation via skill)")
+    # Try to extract EN translation from source
+    en_html = None
+    if meta.get('has_en_translation') and meta.get('file_pattern'):
+        src_dir = os.path.join(_SKILL_DIR, 'AddingArticleWorkSpace', '1')
+        en_html, source_type = en_extractor.extract_en(src_dir, meta['file_pattern'])
+        if en_html:
+            print(f"  [EN] Extracted from {source_type}")
+            # Replace image URLs in EN content too
+            if img_mapping:
+                en_html = image_downloader.replace_image_urls(en_html, img_mapping)
+
+    if en_html:
+        en_html = _cleanup_html(en_html)
+    else:
+        # Use excerpt as placeholder, marked for translation
+        excerpt_en = _get_val(meta.get('excerpt'), 'en', meta.get('excerptEn', ''))
+        en_html = f'<p class="translation-needed"><em>English translation coming soon. {excerpt_en}</em></p>'
+        print(f"  [EN] No translation found, marked as needs_translation")
 
     # Build navigation links
     nav_html = ''
@@ -637,7 +663,7 @@ def process_article(
         'body_en': en_html,
         'nav_html': nav_html,
         'related_html': related_html,
-        'contact_email': defaults.get('contact_email', 'torchlight@foxmail.com'),
+        'contact_email': defaults.get('contact_email', 'info@tibetride.com'),
         'year': defaults.get('year', '2026'),
     }
 
@@ -645,7 +671,7 @@ def process_article(
     final_html = render_template(template_data)
 
     # Write output
-    out_path = os.path.join(_SKILL_DIR, 'articles', slug, 'index.html')
+    out_path = os.path.join(_SKILL_DIR, 'articles', f"{slug}.html")
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     atomic_io.atomic_write(out_path, final_html)
 
@@ -678,22 +704,17 @@ def main():
     for meta in all_articles:
         if args.slug and meta['slug'] != args.slug:
             continue
-        fp = meta.get('file_pattern') or meta['slug']
+        if not meta.get('file_pattern'):
+            continue
         matched = None
         for f in files:
-            if fp in f:
+            if meta['file_pattern'] in f:
                 matched = f
                 break
-        if not matched:
-            # Try matching by slug
-            for f in files:
-                if meta['slug'] in f:
-                    matched = f
-                    break
         if matched:
             to_process.append((os.path.join(src_dir, matched), meta))
         else:
-            print(f"WARNING: No source file found for: {meta['slug']}")
+            print(f"WARNING: No source file found for: {meta['file_pattern']}")
 
     to_process.sort(key=lambda x: x[1].get('date', ''))
 
