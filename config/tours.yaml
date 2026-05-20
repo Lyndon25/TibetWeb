@@ -134,8 +134,8 @@ tours:
     difficultyZh: "轻松"
     bestSeason: "May - Oct"
     bestSeasonZh: "5月-10月"
-    coverImage: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&q=80"
-    coverImageAlt: "Yamdrok Lake turquoise waters"
+    coverImage: "../images/hero/R.jpg"
+    coverImageAlt: "Tibet landscape"
     highlights:
       - text: "Sacred Yamdrok Lake panorama"
         textZh: "圣湖羊卓雍错全景"
@@ -271,7 +271,7 @@ tours:
     difficultyZh: "中等"
     bestSeason: "Apr - Oct"
     bestSeasonZh: "4月-10月"
-    coverImage: "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?w=1200&q=80"
+    coverImage: "../images/hero/everest.jpg"
     coverImageAlt: "Mount Everest at sunrise from Tibet side"
     highlights:
       - text: "Stand at Everest Base Camp (5,200m)"
@@ -430,7 +430,7 @@ tours:
     difficultyZh: "挑战"
     bestSeason: "May - Sep"
     bestSeasonZh: "5月-9月"
-    coverImage: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80"
+    coverImage: "../images/hero/mount-kailash.jpg"
     coverImageAlt: "Mount Kailash sacred peak in Western Tibet"
     highlights:
       - text: "3-day Mount Kailash kora trek"
