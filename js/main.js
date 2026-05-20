@@ -48,7 +48,8 @@
   const currentPath = window.location.pathname;
   navLinks.forEach(function (link) {
     const href = link.getAttribute('href');
-    if (href === currentPath || (href !== '/' && currentPath.startsWith(href.replace('index.html', '')))) {
+    const basePath = href.replace('index.html', '');
+    if (href === currentPath || (basePath && basePath !== '/' && currentPath.startsWith(basePath))) {
       link.classList.add('nav__link--active');
     }
   });
