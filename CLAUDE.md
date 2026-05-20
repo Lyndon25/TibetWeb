@@ -106,4 +106,29 @@ Clean URL rewrites including directory-based articles: `/articles/{slug}` and `/
 - Articles live in `articles/{slug}/index.html` with images co-located in `articles/{slug}/images/`.
 - `AddingArticleWorkSpace/` is gitignored; staging area for fetched WeChat articles.
 - No external Python dependencies in production (stdlib only in `api/contact.py`). Scripts may use `bs4`, `html2text`, `yaml` locally.
-- The `tibet-publish.skill` zip in the project root bundles the full publish pipeline for use with Claude Code skills.
+
+## Tour Image Consistency (Anti-Drift)
+
+Tour page images are defined in **four separate places**. Changing one without the others causes drift:
+
+1. `config/tours.yaml` → `coverImage` / `coverImageAlt`
+2. `tours/index.html` → card thumbnail `<img>`
+3. `tours/{slug}.html` → hero `<img class="tour-hero__bg">`
+4. `tours/{slug}.html` → JSON-LD `<script>` `image` field
+
+**Rule**: when swapping a tour image, update all four locations to the same local path. Do not mix Unsplash external URLs with local files — external URLs may break or change without warning.
+
+## Git Workflow Notes
+
+**Pushing**
+- Default branch is `main`. Push directly to `main` for this project.
+- Always `git status` before committing to avoid staging unintended files.
+- If Feishu credentials or webhook URLs appear in any file, **do not commit them** — they must stay in Vercel env vars only.
+
+**Pulling**
+- Remote may receive force-pushes. If `git pull` shows "forced update" or merge conflicts:
+  1. `git stash` or note your local changes
+  2. `git fetch origin`
+  3. Decide: merge, rebase, or `git reset --hard origin/main` to match remote exactly
+  4. If you need to preserve specific files (e.g. images), back them up before reset, then restore afterward
+- After a hard reset, review `git status` for any untracked or modified files you intended to keep.
