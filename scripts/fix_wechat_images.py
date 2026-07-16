@@ -4,7 +4,10 @@ from PIL import Image
 import io
 
 root = r'C:\Users\86137\Desktop\WorkSpace\tibetride\TibetWeb'
-wechat_pattern = re.compile(r'(https?://[^\"\s]*(?:mmbiz|mmecoa)\.qpic\.cn[^\"\s]*)')
+wechat_pattern = re.compile(
+    r'https?://[^\"\s\']*(?:mmbiz|mmecoa)\.(?:qpic|qlogo)\.cn[^\"\s\']*'
+    r'|https?://[^\"\s\']*(?:wx\.qlogo|res\.wx\.qq)\.(?:cn|com)[^\"\s\']*'
+)
 total_downloaded = 0
 total_skipped = 0
 total_failed = 0
