@@ -21,6 +21,9 @@
   },
   "routes": [
     {
+      "handle": "filesystem"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/$1"
     },
@@ -41,7 +44,7 @@
       "dest": "/articles/index.html"
     },
     {
-      "src": "/articles/([^/]+?)(?:\\.html)?(?:/.*)?$",
+      "src": "/articles/([^/]+?)(?:\\.html)?(?:/)?$",
       "dest": "/articles/$1/index.html"
     },
     {
