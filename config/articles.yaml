@@ -83,6 +83,24 @@ articles:
     zh: 不走寻常路，风光在险峰。
     en: 不走寻常路，风光在险峰。
   related: []
+- slug: tibet-article-610c98
+  file_pattern: tibet-article-610c98
+  has_en_translation: true
+  category: travel-guide
+  catLabel: Travel Guide
+  catLabelZh: 旅行指南
+  date: '2026-07-16'
+  time: 5 min read
+  author:
+    zh: 西藏昌都文旅
+    en: 西藏昌都文旅
+  title:
+    zh: 西藏旅游线路推荐线路清单
+    en: 西藏旅游线路推荐线路清单
+  excerpt:
+    zh: 你是否向往西藏的雪山湖泊内心也燃烧着一份炽热的家国情怀？是否渴望抵达祖国的边境线亲身体会”家是玉麦，国是中国”的深沉誓言？
+    en: 你是否向往西藏的雪山湖泊内心也燃烧着一份炽热的家国情怀？是否渴望抵达祖国的边境线亲身体会”家是玉麦，国是中国”的深沉誓言？
+  related: []
 defaults:
   site_name:
     zh: TibetRide
