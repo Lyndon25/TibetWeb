@@ -1,1 +1,1 @@
-cb400x.html: skipped (no EN translation available)
+tibet-article-610c98.html: skipped (no EN translation available)
