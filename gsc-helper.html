@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSC 索引提交助手 | TibetRide</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f1f5f9; color: #1e293b;
+    padding: 2rem;
+    max-width: 800px; margin: 0 auto;
+  }
+  h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .note {
+    background: #fef3c7; border: 1px solid #d97706; border-radius: 8px;
+    padding: 1rem; margin-bottom: 2rem; font-size: 0.9rem; line-height: 1.6;
+  }
+  .step { margin-bottom: 2rem; }
+  .step h2 {
+    font-size: 1.1rem; background: #1e293b; color: #fff;
+    padding: 0.6rem 1rem; border-radius: 8px 8px 0 0;
+  }
+  .step ol { background: #fff; border-radius: 0 0 8px 8px; padding: 1.25rem 1.25rem 1.25rem 2.5rem; }
+  .step li { margin-bottom: 1rem; line-height: 1.6; }
+  .step li:last-child { margin-bottom: 0; }
+  a.btn {
+    display: inline-block; background: #b91c1c; color: #fff;
+    padding: 0.6rem 1.5rem; border-radius: 6px; text-decoration: none;
+    font-weight: 600; font-size: 0.9rem; margin: 0.3rem 0.3rem 0.3rem 0;
+  }
+  a.btn:hover { background: #991b1b; }
+  a.btn--outline {
+    background: transparent; color: #b91c1c;
+    border: 2px solid #b91c1c;
+  }
+  a.btn--outline:hover { background: #fef2f2; }
+  .done { color: #16a34a; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<h1>TibetRide — GSC 索引提交助手</h1>
+
+<div class="note">
+  <strong>前提条件</strong><br>
+  1. 浏览器已登录 Google 账号<br>
+  2. 该账号拥有 tibetride.com 的 GSC 管理权限<br>
+  <br>
+  如果打开后提示"无权限"或"未验证"，说明需要先配置 GSC 验证，请告诉我。
+</div>
+
+<div class="step">
+  <h2>第1步：提交 Sitemap</h2>
+  <ol>
+    <li>点击下方按钮打开 Sitemap 提交页</li>
+    <li>在 "Add a new sitemap" 输入框中输入 <code>sitemap.xml</code></li>
+    <li>点击 <strong>SUBMIT</strong></li>
+  </ol>
+  <a class="btn" href="https://search.google.com/search-console/sitemaps?resource_id=sc-domain:tibetride.com" target="_blank">打开 Sitemap 提交页</a>
+</div>
+
+<div class="step">
+  <h2>第2步：逐个提交 URL 索引请求</h2>
+  <ol>
+    <li>点击下方每个按钮，在新标签页打开</li>
+    <li>等待 Google 分析 URL（出现绿色勾号 &#10003;）</li>
+    <li>点击 <strong>"REQUEST INDEXING"</strong> 按钮</li>
+    <li>看到"已请求编入索引"后关闭标签页，继续下一个</li>
+  </ol>
+  <a class="btn" href="https://search.google.com/search-console/inspect?resource_id=sc-domain:tibetride.com&id=https://www.tibetride.com/" target="_blank">URL 1/5 — 首页</a>
+  <a class="btn" href="https://search.google.com/search-console/inspect?resource_id=sc-domain:tibetride.com&id=https://www.tibetride.com/articles/tibet-trip-cost-2026" target="_blank">URL 2/5 — 费用文章</a>
+  <a class="btn" href="https://search.google.com/search-console/inspect?resource_id=sc-domain:tibetride.com&id=https://www.tibetride.com/articles/is-tibet-safe-2026" target="_blank">URL 3/5 — 安全文章</a>
+  <a class="btn" href="https://search.google.com/search-console/inspect?resource_id=sc-domain:tibetride.com&id=https://www.tibetride.com/articles/best-time-to-visit-tibet-2026" target="_blank">URL 4/5 — 最佳时间文章</a>
+  <a class="btn" href="https://search.google.com/search-console/inspect?resource_id=sc-domain:tibetride.com&id=https://www.tibetride.com/articles/plan-first-tibet-trip-2026" target="_blank">URL 5/5 — 行前规划文章</a>
+</div>
+
+<div class="step" style="background:#f0fdf4; border-radius:8px; padding:1.5rem;">
+  <h2 style="background:#16a34a;">完成了吗？</h2>
+  <p style="margin-top:0.75rem;">全部提交后，新页面通常 <strong>1-2 天</strong>内被 Google 收录。</p>
+  <p style="margin-top:0.5rem;">如果任何页面报错（如"未验证网站"），请截图告诉我，我用其他方式帮你提交。</p>
+</div>
+
+</body>
+</html>

@@ -49,6 +49,18 @@
       "dest": "/guides/index.html"
     },
     {
+      "src": "/guides/([^/]+)$",
+      "dest": "/guides/$1.html"
+    },
+    {
+      "src": "/routes",
+      "dest": "/routes.html"
+    },
+    {
+      "src": "/customize",
+      "dest": "/customize.html"
+    },
+    {
       "src": "/about",
       "dest": "/about.html"
     },
@@ -72,6 +84,10 @@
         {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains"
         }
       ]
     },
