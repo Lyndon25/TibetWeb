@@ -1,0 +1,120 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://tibetride.com/#org",
+      "name": "TibetRide",
+      "url": "https://tibetride.com",
+      "logo": "https://tibetride.com/images/logo.png",
+      "description": "Small group Tibet tours with local experts. All permits handled. Lhasa, Everest, Kailash and more.",
+      "foundingDate": "2016",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "telephone": "+8613799412007",
+        "availableLanguage": ["Chinese", "English"],
+        "hoursAvailable": "Mo-Su 09:00-21:00"
+      },
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=100074488841995",
+        "https://youtube.com/@motorcycle2023"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "CN",
+        "addressRegion": "Tibet"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://tibetride.com/#website",
+      "url": "https://tibetride.com",
+      "name": "TibetRide",
+      "inLanguage": ["zh-CN", "en"],
+      "publisher": { "@id": "https://tibetride.com/#org" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://tibetride.com/articles?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "TravelAgency",
+      "@id": "https://tibetride.com/#agency",
+      "name": "TibetRide",
+      "url": "https://tibetride.com",
+      "description": "Small group Tibet tours with local Tibetan guides. All permits included.",
+      "currenciesAccepted": "USD, CNY",
+      "areaServed": {
+        "@type": "Place",
+        "name": "Tibet Autonomous Region, China"
+      },
+      "makesOffer": [
+        {
+          "@type": "TouristTrip",
+          "name": "5 Days Lhasa Essence Tour",
+          "url": "https://tibetride.com/tours/lhasa-5-days",
+          "description": "Potala Palace, Jokhang Temple, Barkhor Street — the perfect gentle introduction to Tibet's spiritual heart.",
+          "offers": {
+            "@type": "Offer",
+            "price": "598",
+            "priceCurrency": "USD",
+            "url": "https://tibetride.com/customize"
+          }
+        },
+        {
+          "@type": "TouristTrip",
+          "name": "7 Days Lhasa to Shigatse Discovery",
+          "url": "https://tibetride.com/tours/lhasa-shigatse-7-days",
+          "description": "Turquoise Yamdrok Lake, historic Gyantse, majestic Tashilhunpo — a deep dive into Tibet's cultural corridor.",
+          "offers": {
+            "@type": "Offer",
+            "price": "823",
+            "priceCurrency": "USD",
+            "url": "https://tibetride.com/customize"
+          }
+        },
+        {
+          "@type": "TouristTrip",
+          "name": "9 Days Everest Base Camp Tour",
+          "url": "https://tibetride.com/tours/everest-9-days",
+          "description": "Stand at the foot of the world's highest peak and witness the sunrise that has captivated explorers for generations.",
+          "offers": {
+            "@type": "Offer",
+            "price": "1034",
+            "priceCurrency": "USD",
+            "url": "https://tibetride.com/customize"
+          }
+        },
+        {
+          "@type": "TouristTrip",
+          "name": "12 Days Mount Kailash Pilgrimage",
+          "url": "https://tibetride.com/tours/kailash-12-days",
+          "description": "Trek the 52km Kailash kora, bathe in Lake Manasarovar, explore the lost Guge Kingdom.",
+          "offers": {
+            "@type": "Offer",
+            "price": "1499",
+            "priceCurrency": "USD",
+            "url": "https://tibetride.com/customize"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://tibetride.com/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://tibetride.com/"
+        }
+      ]
+    }
+  ]
+}

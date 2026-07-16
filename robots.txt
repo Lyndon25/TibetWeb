@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# AI search bots — allow citation
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+# Training corpus crawlers — block
+User-agent: CCBot
+Disallow: /
+
+Sitemap: https://tibetride.com/sitemap.xml

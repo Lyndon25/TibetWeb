@@ -41,7 +41,7 @@
     },
     {
       "src": "/contact",
-      "dest": "/customize.html"
+      "dest": "/contact.html"
     }
   ],
   "headers": [

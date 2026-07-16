@@ -1,0 +1,42 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I book a Tibet tour with TibetRide?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Reach us via WhatsApp, WeChat, email, or the custom trip form. Tell us your travel dates, group size, and preferences, and we'll recommend the best itinerary within 24 hours."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I get the Tibet Travel Permit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We handle the Tibet Travel Permit for you. Just provide clear scans of your passport and Chinese visa, and we'll take care of everything before departure."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How far in advance should I book a Tibet tour?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We recommend booking at least 2-4 weeks in advance. For peak season (May-October), 1-2 months ahead is ideal to allow enough time for permits and hotel reservations."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I customize my Tibet itinerary?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely! All itineraries can be adjusted based on your interests, timeframe, and budget. Whether photography, trekking, or deep cultural exploration, we tailor it for you."
+          }
+        }
+      ]
+    }
+  ]
+}
