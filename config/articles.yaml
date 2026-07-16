@@ -1,4 +1,36 @@
 articles:
+- slug: best-time-to-visit-tibet-2026
+  category: travel-guide
+  catLabel: Travel Guide
+  catLabelZh: 旅行指南
+  date: '2026-07-16'
+  time: 8 min read
+  author:
+    zh: TibetRide Team
+    en: TibetRide Team
+  title:
+    zh: 西藏最佳旅游时间2026：逐月天气与节日全指南
+    en: Best Time to Visit Tibet 2026: Month-by-Month Weather & Festival Guide
+  excerpt:
+    zh: 2026年每个月去西藏的体验完全不同——天气、费用、节日、景色逐月详解。找到最适合你出行的西藏旅行月份。
+    en: Every month in Tibet offers a completely different experience — weather, costs, festivals, and scenery broken down month by month. Find your ideal travel window.
+  related: [tibet-trip-cost-2026, is-tibet-safe-2026, plan-first-tibet-trip-2026, altitude-sickness-tips]
+- slug: plan-first-tibet-trip-2026
+  category: travel-guide
+  catLabel: Travel Guide
+  catLabelZh: 旅行指南
+  date: '2026-07-16'
+  time: 9 min read
+  author:
+    zh: TibetRide Team
+    en: TibetRide Team
+  title:
+    zh: 第一次去西藏？2026年完整行前规划指南
+    en: How to Plan Your First Tibet Trip 2026: A Step-by-Step Guide
+  excerpt:
+    zh: 从入藏函到打包清单，7步完成第一次西藏旅行的全部准备。本地旅行社10年经验浓缩的行前指南。
+    en: From permits to packing list — 7 concrete steps to plan your first Tibet trip. A decade of local expertise distilled into one pre-trip checklist.
+  related: [tibet-trip-cost-2026, is-tibet-safe-2026, best-time-to-visit-tibet-2026, altitude-sickness-tips, tibet-52-tips-avoid-pitfalls]
 - slug: tibet-trip-cost-2026
   category: travel-guide
   catLabel: Travel Guide
