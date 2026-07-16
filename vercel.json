@@ -1,6 +1,19 @@
 {
   "version": 2,
   "name": "tibetride-website",
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "tibetride.com"
+        }
+      ],
+      "destination": "https://www.tibetride.com/$1",
+      "permanent": true
+    }
+  ],
   "functions": {
     "api/contact.py": {
       "maxDuration": 30
