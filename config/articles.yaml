@@ -165,6 +165,22 @@ articles:
     zh: 你是否向往西藏的雪山湖泊内心也燃烧着一份炽热的家国情怀？是否渴望抵达祖国的边境线亲身体会”家是玉麦，国是中国”的深沉誓言？
     en: 你是否向往西藏的雪山湖泊内心也燃烧着一份炽热的家国情怀？是否渴望抵达祖国的边境线亲身体会”家是玉麦，国是中国”的深沉誓言？
   related: []
+- slug: tibet-travel-permit-guide
+  category: travel-guide
+  catLabel: Travel Guide
+  catLabelZh: 旅行指南
+  date: '2026-07-26'
+  time: 6 min read
+  author:
+    zh: TibetRide Team
+    en: TibetRide Team
+  title:
+    zh: 入藏函办理全指南：外国人进藏必备攻略
+    en: Tibet Travel Permit Guide: Everything Foreign Visitors Must Know
+  excerpt:
+    zh: 入藏函是指非中国公民进入西藏旅游必须持有的官方批准文件。本文详细介绍什么是入藏函、哪些人需要办理、办理流程、所需材料及常见签证类型。
+    en: The Tibet Travel Permit is a mandatory official document for non-Chinese citizens to enter Tibet. This guide covers who needs it, how to apply, required documents, and visa types.
+  related: [plan-first-tibet-trip-2026, tibet-trip-cost-2026, is-tibet-safe-2026, best-time-to-visit-tibet-2026]
 defaults:
   site_name:
     zh: TibetRide
