@@ -1,4 +1,20 @@
 articles:
+- slug: tibet-motorcycle-tour-guide
+  category: travel-guide
+  catLabel: Travel Guide
+  catLabelZh: 旅行指南
+  date: '2026-07-28'
+  time: 9 min read
+  author:
+    zh: TibetRide Team
+    en: TibetRide Team
+  title:
+    zh: 西藏摩托车旅行终极指南2026：在世界屋脊驰骋
+    en: 'Tibet Motorcycle Tour: The Ultimate Adventure Guide for Foreign Riders'
+  excerpt:
+    zh: 探索西藏摩托车旅行的终极体验。了解最佳路线、入藏许可、高原适应、安全保障、费用预算，以及穿越青藏高原的最佳骑行季节。
+    en: Discover the ultimate Tibet motorcycle tour experience. Learn about routes, permits, altitude, safety, costs, and the best time to ride across the Tibetan Plateau.
+  related: [is-tibet-safe-2026, tibet-trip-cost-2026, plan-first-tibet-trip-2026, best-time-to-visit-tibet-2026, altitude-sickness-tips, motorcycle-tibet-gear-guide]
 - slug: best-time-to-visit-tibet-2026
   category: travel-guide
   catLabel: Travel Guide
