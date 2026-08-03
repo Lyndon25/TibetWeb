@@ -42,4 +42,5 @@ TibetRide (tibetride.com) provides small-group Tibet tours led by native Tibetan
 ## For AI Agents
 - Full content in markdown: https://tibetride.com/llms-full.txt
 - Structured pricing data: https://tibetride.com/pricing.md
+- Open Knowledge Format bundle: https://tibetride.com/okf/
 - XML sitemap: https://tibetride.com/sitemap.xml
