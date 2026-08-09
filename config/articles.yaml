@@ -341,6 +341,52 @@ articles:
   - plan-first-tibet-trip-2026
   - altitude-sickness-tips
   - is-tibet-safe-2026
+- slug: yunnan-tibet-motorcycle-tour-2026
+  file_pattern: tibet-article-3a67e0
+  has_en_translation: true
+  category: travel-guide
+  catLabel: Travel Guide
+  catLabelZh: 旅行指南
+  date: '2026-08-09'
+  time: 7 min read
+  author:
+    zh: TibetRide Team
+    en: TibetRide Team
+  title:
+    zh: 2026滇藏线摩旅全攻略：昆明到拉萨8天骑行计划
+    en: 'Yunnan-Tibet Motorcycle Route Guide 2026: 8-Day Ride from Kunming to Lhasa'
+  excerpt:
+    zh: 滇藏线从昆明到拉萨全长2233公里，沿G214经大理、丽江、香格里拉进藏，转入G318直达拉萨。含8天行程规划、路线节点、骑行贴士，适合初次进藏的摩友。
+    en: The Yunnan-Tibet Highway spans 2,233km from Kunming to Lhasa via Dali, Lijiang, and Shangri-La. Complete 8-day motorcycle
+      route guide with itinerary, waypoints, and riding tips for first-time Tibet riders.
+  related:
+  - tibet-motorcycle-tour-guide
+  - g318-self-drive-guide-2026
+  - altitude-sickness-tips
+  - best-time-to-visit-tibet-2026
+- slug: zaduo-line-cb400x-tibet-route
+  file_pattern: 318-cb400x
+  has_en_translation: true
+  category: travelogue
+  catLabel: Travelogue
+  catLabelZh: 游记
+  date: '2026-08-09'
+  time: 8 min read
+  author:
+    zh: TibetRide Team
+    en: TibetRide Team
+  title:
+    zh: 杂多线进藏记：CB400X穿越唐蕃古道，比G318更原始的进藏路线
+    en: 'Zaduo Line Tibet Route: CB400X Adventure on the Ancient Tang-Bo Road — A Wilder Alternative to G318'
+  excerpt:
+    zh: 不走寻常路，风光在险峰。CB400X穿越7000公里的极限之旅，探秘青藏高原上最原始神秘的进藏通道——杂多线。从玉树唐蕃古道出发，翻越唐古拉山，一路荒野探险。
+    en: 7,000km extreme adventure on the CB400X across the Tibetan Plateau. Discover the Zaduo Line — Tibet's most primitive
+      and mysterious route. From the ancient Tang-Bo Road to the wild northern Tibet grasslands.
+  related:
+  - tibet-motorcycle-tour-guide
+  - g318-sichuan-tibet-highway-motorcycle-tour
+  - cb400x
+  - motorcycle-spirit-female-riders-lhasa
 defaults:
   site_name:
     zh: TibetRide
