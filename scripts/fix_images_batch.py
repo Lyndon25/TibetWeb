@@ -28,7 +28,7 @@ WECHAT_CDN = re.compile(
     re.I,
 )
 
-NO_REFERRER_META = '<meta name="referrer" content="strict-origin-when-cross-origin">'
+NO_REFERRER_META = '<meta name="referrer" content="no-referrer">'
 
 
 def _log(msg: str):

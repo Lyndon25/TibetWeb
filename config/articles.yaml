@@ -387,6 +387,24 @@ articles:
   - g318-sichuan-tibet-highway-motorcycle-tour
   - cb400x
   - motorcycle-spirit-female-riders-lhasa
+- slug: g317-10
+  file_pattern: g317-10
+  has_en_translation: true
+  category: travel-guide
+  catLabel: Travel Guide
+  catLabelZh: 旅行指南
+  date: '2026-08-10'
+  time: 5 min read
+  author:
+    zh: 纯游plan
+    en: 纯游plan
+  title:
+    zh: 川藏北线G317 10天保姆级攻略｜逐日到点、两票抢死、避坑到位，照着走就行（建议收藏）
+    en: 川藏北线G317 10天保姆级攻略｜逐日到点、两票抢死、避坑到位，照着走就行（建议收藏）
+  excerpt:
+    zh: 写在最前面：朋友圈里的川藏线，十条有九条是 G318。但老司机都知道：G318 看风景，G317 看人文。
+    en: 写在最前面：朋友圈里的川藏线，十条有九条是 G318。但老司机都知道：G318 看风景，G317 看人文。
+  related: []
 defaults:
   site_name:
     zh: TibetRide

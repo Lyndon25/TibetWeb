@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ title.zh }} | {{ title.en }}</title>
 <link rel="stylesheet" href="../css/main.css">
@@ -17,16 +17,6 @@
     else{document.documentElement.setAttribute('lang','zh-CN');}
   })();
 </script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3FM3SN8GG6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-3FM3SN8GG6');
-</script>
-
 </head>
 <body>
 <nav class="nav nav--scrolled">
@@ -58,9 +48,6 @@
 <span class="article-hero__category">{{ catLabel }}</span>
 <span class="article-hero__date">{{ date }}</span>
 <span class="article-hero__author">{{ author.zh }}</span>
-</div>
-<div class="article-hero__updated" style="margin-top:0.5rem; font-size:0.85rem; opacity:0.75;">
-<span data-lang-zh="最后更新：" data-lang-en="Last updated: ">最后更新：</span><span>{{ date }}</span>
 </div>
 <div class="lang-content" data-lang="zh"><h1 class="article-hero__title">{{ title.zh }}</h1></div>
 <div class="lang-content" data-lang="en"><h1 class="article-hero__title">{{ title.en }}</h1></div>
