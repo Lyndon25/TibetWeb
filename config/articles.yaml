@@ -440,6 +440,24 @@ articles:
     zh: 天下没有远方，人间都是故乡。
     en: 天下没有远方，人间都是故乡。
   related: []
+- slug: tibet-article-57ee27
+  file_pattern: tibet-article-57ee27
+  has_en_translation: true
+  category: travel-guide
+  catLabel: Travel Guide
+  catLabelZh: 旅行指南
+  date: '2026-08-12'
+  time: 5 min read
+  author:
+    zh: 三士道
+    en: 三士道
+  title:
+    zh: 藏族民俗礼仪禁忌及藏传佛教基本常识（值得收藏）
+    en: 藏族民俗礼仪禁忌及藏传佛教基本常识（值得收藏）
+  excerpt:
+    zh: 去西藏旅游或者朝圣是很多人的梦想，去之前了解一些
+    en: 去西藏旅游或者朝圣是很多人的梦想，去之前了解一些
+  related: []
 defaults:
   site_name:
     zh: TibetRide
